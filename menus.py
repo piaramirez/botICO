@@ -77,28 +77,6 @@ class MenuSystem:
         """  
 
     @staticmethod
-    def mensaje_horarios():
-        return """
-╔══════════════════════════════════════════════════════════════════╗
-║                      🕒 HORARIOS - FES ARAGÓN                    ║
-╠══════════════════════════════════════════════════════════════════╣
-║  📅 CONSULTA DE HORARIOS:                                        ║
-║     https://www.fes-aragon.unam.mx/horarios                      ║
-║                                                                  ║
-║  🔄 CAMBIO DE HORARIO:                                           ║
-║     • Servicios Escolares                                        ║
-║     • Formato con tutor                                          ║
-║     • Primeras 2 semanas del semestre                            ║
-║                                                                  ║
-║  📚 EXÁMENES EXTRAORDINARIOS:                                    ║
-║     • Convocatoria: Julio y enero                                ║
-║     • Costo: $250 MXN por materia                                ║
-║                                                                  ║
-║  📧 escolares@fes-aragon.unam.mx                                 ║
-╚══════════════════════════════════════════════════════════════════╝
-        """
-    
-    @staticmethod
     def mensaje_contactos():
         return """
 ╔══════════════════════════════════════════════════════════════════╗
@@ -144,7 +122,7 @@ class MenuSystem:
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 📄 TRÁMITES ESCOLARES - ICO                      ║
-╠══════════════════════════════════════════════════════════════════╣
+╠══════════════════════════════════════════════════════════════════╗
 ║  📄 CONSTANCIAS: Servicios Escolares                             ║
 ║  🎓 CERTIFICADO: Control Escolar                                 ║
 ║  📜 TITULACIÓN: Tesis o reporte profesional                      ║
@@ -350,7 +328,6 @@ La convocatoria para tramitar la suspensión temporal de estudios se publica al 
 • BAJA DEL SEMESTRE / DEFINITIVA: La Temporal Reglamentaria se solicita en ventanilla al inicio del bloque. La Definitiva es la renuncia total a tu lugar e implica la devolución de papeles originales previa entrega de firmas de no adeudo.
         """
 
-    # ========== COMPONENTES: EXTENSIÓN UNIVERSITARIA (DEPORTES) ==========
     @staticmethod
     def faq_deportes_presentacion_texto():
         return """
@@ -400,7 +377,7 @@ Para la práctica de cualquier disciplina o uso del gimnasio de pesas es obligat
     @staticmethod
     def faq_deportes_instalaciones_texto():
         return """
-🏛️ INFRAESTRUCTURA Y CONTACTO DE COORDINACIÓN DEPORTIVA
+🏛️ INFRAESTRUCTURA E CONTACTO DE COORDINACIÓN DEPORTIVA
 
 La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 • 1 Gimnasio multidisciplinario (Salón 1, Salón 2 y área de pesas).
@@ -408,14 +385,13 @@ La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 • 6 Canchas externas, 1 de voleibol playa, 2 de fútbol rápido, 1 de fútbol 7.
 • 1 Pista de atletismo, 1 Campo de béisbol, 1 Campo de fútbol asociación y 1 Campo anexo.
 
-📞 DATOS DE CONTACTO Y ATENCIÓN:
-• Responsable: Carlos Octavio Cruz Valencia | Teléfono: 55 5623 0222 (Ext. 31035)
+📞 DATOS DE CONTACTO E ATENCIÓN:
+• Responsible: Carlos Octavio Cruz Valencia | Teléfono: 55 5623 0222 (Ext. 31035)
 • Horarios: Lunes a viernes de 8:00 a 20:00 h | Sábados de 9:00 a 14:00 h.
 • Correo Oficial: deportivas.contacto@aragon.unam.mx
 • Actividades Externas Adultos: Entrenamiento funcional, pesas, taekwondo y karate do ($390.00 MXN mensuales). Validar cupo previo por correo.
         """
 
-    # ========== COMPONENTES: INTERCAMBIO ACADÉMICO Y MOVILIDAD ==========
     @staticmethod
     def faq_intercambio_alumnos_texto():
         return """
@@ -443,7 +419,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 • INTERCAMBIO EN LA LICENCIATURA (ALUMNOS DE OTRAS UNIVERSIDADES):
   Estudiantes de otras instituciones de educación superior nacionales o extranjeras pueden realizar un intercambio académico en nuestra Facultad si su escuela tiene convenio vigente con la UNAM. Esto contempla la exención total del pago de inscripción y colegiaturas. Las solicitudes las gestiona de entrada la DGECI.
 
-• ESTANCIAS DE INVESTIGACIÓN:
+• ESTANCIAS DE INVESTIRACIÓN:
   Es posible realizar estancias de investigación especializada colaborando directamente con el personal académico de las distintas licenciaturas de la Facultad.
 
 • COOPERACIÓN E INTERNACIONALIZACIÓN IN SITU:
@@ -465,4 +441,65 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 • Correo para Alumnos/Académicos Visitantes o Convenios Universitarios:
   intercambioacademico@aragon.unam.mx
   *(A través de este medio se coordinan reuniones de colaboración y gestiones de movilidad de personal docente nacional o extranjero).*
+        """
+
+    @staticmethod
+    def faq_calificaciones_texto():
+        return """
+📊 CONSULTA DE CALIFICACIONES E HISTORIAL ACADÉMICO (SIAE)
+
+Para revisar tus notas parciales, actas finales asentadas, promedio general acumulado o tu avance de créditos oficiales en la UNAM, debes ingresar al portal de la Dirección General de Administración Escolar (DGAE).
+
+💻 ACCESO AL SISTEMA:
+• Plataforma Oficial: Sistema de Internet de la Administración Escolar (SIAE).
+• Datos de Ingreso: Número de cuenta UNAM y tu contraseña personal del sistema.
+• Contenido: Historial académico, desglose de calificaciones por ciclo lectivo, estatus de regularidad y comprobante de créditos.
+        """
+
+    # ========== COMPONENTES DE HORARIOS ACTUALIZADOS (TABLAS OFICIALES DE CÓMPUTO) ==========
+    @staticmethod
+    def faq_horarios_detallado_texto():
+        return """
+🕒 1. CONSULTA DE HORARIOS DE CLASES ORDINARIOS
+
+Para revisar las asignaturas activas del semestre en curso, los salones asignados y los docentes titulares de Ingeniería en Computación:
+
+📋 INSTRUCCIONES DE BÚSQUEDA:
+1️⃣ SELECCIONAR SEMESTRE: Indica en el combo si es semestre par o impar (Nota: el dígito 9 indica Sistema Universidad Abierta SUAyED).
+2️⃣ INGRESAR GRUPO (Formado por 4 números):
+    • El segundo dígito representa el semestre a consultar.
+    • El tercer dígito representa el turno (0 en adelante para turno matutino, y 5 en adelante para el turno vespertino).
+    • Los últimos dígitos representan el grupo específico de la carrera.
+3️⃣ SELECCIONAR CARRERA: Elige Ingeniería en Computación en la lista desplegable y presiona ENVIAR.
+
+👉 El reporte final te mostrará la distribución exacta por materia, hora, salón asignado y el nombre del docente a cargo.
+        """
+
+    @staticmethod
+    def faq_horarios_extraordinarios_texto():
+        return """
+📝 2. CONSULTA DE EXÁMENES EXTRAORDINARIOS
+
+Módulo dedicado a revisar las fechas, horarios y sinodales asignados para la evaluación por oposición extraordinaria.
+
+📋 INSTRUCCIONES DE USO:
+• Selecciona el semestre a consultar en el combo correspondiente.
+• Selecciona la vuelta de examen que deseas revisar (1ra. o 2da. vuelta de acuerdo a los plazos marcados en el calendario escolar).
+• Elige tu carrera (Ingeniería en Computación) y dale clic a ENVIAR.
+• Adicionalmente, el portal te permite realizar un filtrado dinámico directo por materia para localizar el aula exacta de aplicación de forma rápida.
+        """
+
+    @staticmethod
+    def faq_horarios_finales_texto():
+        return """
+📜 3. CONSULTA DE EXÁMENES FINALES (ORDINARIOS)
+
+Consulta el calendario de aplicaciones para las evaluaciones de fin de curso regular ordinario.
+
+📋 INSTRUCCIONES DE USO:
+• Selecciona el periodo semestral vigente en la lista desplegable (ej. 2026-2).
+• Ingresa el grupo completo a consultar, el cual se encuentra formado estrictamente por 4 números.
+• Selecciona la carrera de Ingeniería en Computación en el combo y presiona ENVIAR.
+
+👉 Te mostrará las fechas límite, horarios y especificaciones oficiales para asentar las calificaciones de tus vueltas regulares en actas.
         """
