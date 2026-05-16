@@ -1,6 +1,6 @@
-# config.py - Configuración del sistema
+# config.py - Configuración global del sistema
 
-# Paleta de colores UNAM
+# Colores institucionales UNAM
 AZUL_UNAM = "#003366"
 AZUL_UNAM_CLARO = "#0a2f5a"
 AZUL_UNAM_MEDIO = "#1a4a7a"
@@ -24,3 +24,9 @@ COLORS = {
 
 NOMBRE_APP = "BotICO"
 INSTITUCION = "FES Aragón - Ingeniería en Computación"
+
+# Umbral para matching difuso (si usas thefuzz después)
+SIMILARITY_THRESHOLD = 70
+
+# Archivo de log
+LOG_FILE = "conversaciones.log"
