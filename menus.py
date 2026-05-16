@@ -1,4 +1,4 @@
-# menus.py - Sistema de menús y botones
+# menus.py - Sistema de menús y botones para BotICO
 
 class MenuSystem:
     
@@ -50,17 +50,10 @@ class MenuSystem:
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📅 FECHAS DE INSCRIPCIÓN - ICO                ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  🗓️ SEMESTRE 2025-2:                                            ║
-║     • Registro en línea: 10 - 25 de enero                        ║
-║     • Pago de cuotas: 10 - 28 de enero                           ║
-║     • Inicio de clases: Primera semana de febrero                ║
-║                                                                  ║
-║  🗓️ PRÓXIMA CONVOCATORIA 2026-1:                                ║
-║     • Convocatoria: Septiembre - octubre                         ║
-║     • Registro: noviembre - diciembre                            ║
-║     • Examen de admisión: enero                                  ║
-║                                                                  ║
-║  👉 Usa los botones interactivos del chat para ver tu proceso.   ║
+║  🗓️ SEMESTRE 2026-2:                                             ║
+║     • Registro en línea: 20 - 25 de enero                        ║
+║     • Inicio de clases: 3 de febrero 2026                        ║
+║     • Altas y bajas: 4, 5 y 6 de febrero 2026                    ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
@@ -82,29 +75,7 @@ class MenuSystem:
 ║  👉 Selecciona tu modalidad en los botones que aparecen abajo.   ║
 ╚══════════════════════════════════════════════════════════════════╝
         """  
-    @staticmethod
-    def mensaje_preguntas_nuevo_ingreso():
-        return """
-╔══════════════════════════════════════════════════════════════════╗
-║              ❓ PREGUNTAS FRECUENTES - NUEVO INGRESO             ║
-╠══════════════════════════════════════════════════════════════════╣
-║  💰 ¿CUÁNTO CUESTA?                                              ║
-║     $0.50 centavos (pago mínimo $100 MXN)                        ║
-║                                                                  ║
-║  📄 ¿QUÉ DOCUMENTOS NECESITO?                                    ║
-║     Acta, CURP, certificado, comprobante, 4 fotos, certificado   ║
-║                                                                  ║
-║  📝 ¿CÓMO ME INSCRIBO?                                           ║
-║     1. Registro en línea                                         ║
-║     2. Pago en caja o transferencia                              ║
-║     3. Subir documentos                                          ║
-║     4. Esperar validación                                        ║
-║     5. Seleccionar horario                                       ║
-║                                                                  ║
-║  🔗 https://www.fes-aragon.unam.mx/nuevo-ingreso                 ║
-╚══════════════════════════════════════════════════════════════════╝
-        """
-    
+
     @staticmethod
     def mensaje_horarios():
         return """
@@ -216,34 +187,168 @@ class MenuSystem:
         """
 
     @staticmethod
-    def mensaje_inscripciones_nuevo():
-        return """
-╔══════════════════════════════════════════════════════════════════╗
-║                    📋 INSCRIPCIÓN - NUEVO INGRESO                ║
-╠══════════════════════════════════════════════════════════════════╣
-║  💰 COSTO: $0.50 centavos (mínimo $100 MXN)                      ║
-║                                                                  ║
-║  📄 DOCUMENTOS NECESARIOS:                                       ║
-║     • Acta de nacimiento (original y copia)                      ║
-║     • CURP (original y copia)                                    ║
-║     • Certificado de bachillerato                                ║
-║     • Comprobante de domicilio reciente                          ║
-║     • 4 fotografías tamaño infantil (blanco y negro)             ║
-║     • Certificado médico (formato FES Aragón)                    ║
-║                                                                  ║
-║  📝 PASOS PARA INSCRIBIRTE:                                      ║
-║     1. Registro en línea en la DGAE                              ║
-║     2. Pago de cuotas en caja o transferencia                    ║
-║     3. Subir documentos escaneados                               ║
-║     4. Esperar validación (3-5 días)                             ║
-║     5. Seleccionar horario en línea                              ║
-║     6. Descargar comprobante                                     ║
-║     7. Recoger credencial en Control Escolar                     ║
-║                                                                  ║
-║  🔗 https://www.fes-aragon.unam.mx/inscripciones                 ║
-║  📧 ingreso@fes-aragon.unam.mx                                   ║
-╚══════════════════════════════════════════════════════════════════╝
-    """    
-    @staticmethod
     def mensaje_no_entendido():
         return "❓ No entendí tu pregunta. Puedes escribir 'menú' para ver las opciones disponibles o reformular tu duda."
+
+    # ========== COMPONENTES DE PREGUNTAS FRECUENTES (CATÁLOGO EXPANDIDO) ==========
+    @staticmethod
+    def faq_reinscripcion_texto():
+        return """
+🔄 PROCESO DE REINSCRIPCIÓN SEMESTRAL
+
+Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFES.
+
+💳 1. PAGO DE CUOTA ANUAL (Cajas del plantel o Banco):
+   • SCOTIABANK  | Convenio: 0010215800-03751
+   • SANTANDER   | Convenio: 65501522119 | CLABE: 014180655015221193
+   • BBVA        | Cuenta: 0011035708  | CLABE: 012914002013009620
+   * Nota: Es obligatorio poner tu NÚMERO DE CUENTA como referencia del depósito.
+
+📚 2. VALIDACIÓN:
+   Verifica no tener adeudos en biblioteca, Fundación UNAM o laboratorios.
+
+💻 3. REGISTRO:
+   Carga tu comprobante en TRAMIFES, consulta tu cita del sorteo e ingresa en tu fecha y hora señalada a la página de Inscripciones FES Aragón para armar tu horario y guardar tu comprobante.
+        """
+
+    @staticmethod
+    def faq_constancias_texto():
+        return """
+📄 GUÍA DE TRÁMITE DE CONSTANCIAS Y TIRAS
+
+• REPOSICIÓN DE TIRA DE MATERIAS (Comprobante de Inscripción):
+  - 1er Ingreso: Solicítala en tu ventanilla de Servicios Escolares con tu identificación oficial vigente. Se expide en el momento.
+  - Alumnos Regulares: Entra al portal de Servicios Escolares > Alumnos > Trámites Escolares. Elige 'Comprobantes de Reinscripción' y dale clic al icono de la impresora.
+
+• CONSTANCIA DE ESTUDIOS (Indica turno, materias y periodo lectivo):
+  - Requisitos: Identificación vigente, Comprobante de inscripción y recibo de pago (cuota voluntaria). Presenta documentos en ventanilla y recoge al 3er día hábil.
+
+• CONSTANCIA DE CRÉDITOS (Muestra promedio general y avance de créditos):
+  - Requisitos: ID oficial, Historial Académico reciente, recibo de pago y comprobante de inscripción. Lista al 3er día hábil en ventanilla.
+
+• CONSTANCIA DE HISTORIAL ACADÉMICO (Sello y firma oficial):
+  - Requisitos: Historial de internet, ID oficial y recibo de pago (negro cuota voluntaria / color $20 pesos). Lista al 3er día hábil.
+        """
+
+    @staticmethod
+    def faq_credencial_texto():
+        return """
+🪪 TRÁMITES DE CREDENCIAL UNAM Y RESELLO
+
+• SOLICITUD DE NUEVA CREDENCIAL / REPOSICIÓN:
+  1. Ingresa los días LUNES y MARTES vía Internet a la página de Servicios Escolares con tu cuenta y contraseña.
+  2. Selecciona la opción 'Trámite de credencial' y sigue las instrucciones.
+  3. Recoge la credencial al siguiente jueves o viernes en Servicios Escolares.
+
+• RESELLO ANUAL DE CREDENCIAL:
+  - Se realiza anualmente a partir del primer lunes concluyendo los movimientos de Altas, Bajas y Cambios de horario.
+  - Preséntate en tu ventanilla correspondiente mostrando tu credencial física y tu comprobante de inscripción del semestre actual.
+        """
+
+    @staticmethod
+    def faq_certificados_texto():
+        return """
+📜 CERTIFICADOS PARCIALES Y CARTA PASANTE
+
+• CERTIFICADO PARCIAL DE ESTUDIOS (Avance de créditos para egresados):
+  - Requisitos: Solicitud de constancia (en ventanilla de egresados), ID oficial, Historial SIAE impreso (máx. 1 semana de antigüedad) y 2 fotos óvalo-credencial (B/N o color con retoque, traje formal, orejas descubiertas).
+  - Costo: 1er certificado cuota voluntaria. A partir del 2do cuesta $100.00 MXN en la DGAE (Metro C.U.).
+  - Entrega: Dos semanas después en ventanilla de egresados.
+
+• CARTA PASANTE (Sirve para ejercer la carrera de forma oficial por 1 año):
+  - Requisitos: Tener mínimo el 70% de créditos, promedio mínimo de 7.00, no deber materias de 1° a 6° semestre, pago de cuota voluntaria y formato de Carta Responsiva firmado por un responsable titulado (con copia de su cédula).
+  - Trámite: Entrega documentos en ventanilla. Al 3er día hábil recógela, recaba la firma en la DGAE de C.U. y continúa en la Dirección General de Profesiones de la SEP.
+        """
+
+    @staticmethod
+    def tram_extraordinarios_texto():
+        return """
+📝 REGISTRO DE EXÁMENES EXTRAORDINARIOS
+
+Este proceso se realiza 2 veces por semestre en las fechas establecidas en el Calendario Escolar, con el fin de presentar la oposición para aprobar materias que no se hayan logrado en periodo ordinario.
+
+📋 REQUISITOS Y PASOS:
+• Registrar las asignaturas vía Internet en la plataforma oficial.
+• El sistema se habilita a partir de las 10:00:00 hrs del primer día y cierra hasta las 23:59 hrs del último día marcado en la convocatoria.
+• Recuerda realizar el pago correspondiente por materia en las cajas o banco autorizado.
+        """
+
+    @staticmethod
+    def tram_suspension_texto():
+        return """
+🛑 SUSPENSIÓN TEMPORAL DE ESTUDIOS
+
+La convocatoria para tramitar la suspensión temporal de estudios se publica al inicio de cada semestre.
+
+📋 REQUISITOS Y PASOS:
+• Los alumnos podrán solicitar este periodo de gracia por un semestre o un año lectivo máximo.
+• El trámite se realiza directamente en las ventanillas del Departamento de Servicios Escolares dentro de las fechas establecidas en la convocatoria de inicio de ciclo.
+        """
+
+    @staticmethod
+    def tram_rectificacion_texto():
+        return """
+🔄 RECTIFICACIÓN Y REVALIDACIÓN DE CALIFICACIONES
+
+• RECTIFICACIÓN DE CALIFICACIONES:
+  - Para solicitar el cambio de calificación en una materia en el sistema escolar es necesario estar dentro de los 60 días posteriores a la realización del examen.
+  - El alumno debe contactar al profesor para que este realice la aclaración en el sistema. Posteriormente, verifica el cambio en tu Historia Académica.
+
+• REVALIDACIÓN DE MATERIAS:
+  - En caso de movilidad académica, presenta en tu Jefatura de Carrera el comprobante original de la calificación aprobatoria a revalidar.
+  - Para materias optativas se entrega el Formato F306 (en Servicios Escolares). Verifica la actualización en tu Historia Académica en un lapso de 15 días.
+        """
+
+    @staticmethod
+    def tram_cambio_turno_texto():
+        return """
+🔀 CAMBIOS DE TURNO Y CARRERA SIMULTÁNEA
+
+• CAMBIO DE TURNO (PRIMER INGRESO): Acreditar estar inscrito en el semestre actual. Consultar la convocatoria 'Cambio de turno primer ingreso' y registrar la solicitud. Si es afirmativa, presentarse al grupo asignado.
+• CAMBIO DE TURNO (REINGRESO): Requisito tener derecho a inscripción en el semestre. Solicitar el cambio con base en la convocatoria de reingreso y reincorporarse al turno asignado si se aprueba.
+• CARRERA SIMULTÁNEA: Los alumnos que desean cursar otra carrera paralelamente deberán consultar las bases del Manual del alumno y tramitarlo en Servicios Escolares en periodos aprobados por DGAE.
+        """
+
+    @staticmethod
+    def tram_permutas_texto():
+        return """
+🤝 TRÁMITE DE PERMUTAS (CAMBIO DE PLANTEL O CARRERA)
+
+Este trámite permite solicitar el intercambio de adscripción entre dos alumnos de la misma carrera o plantel, o el cambio interno.
+
+📋 REQUISITOS Y PASOS:
+• Ambos alumnos deben ser regulares y estar formalmente inscritos en el semestre lectivo vigente.
+• Consultar la convocatoria de 'Permutas' que publica la DGAE al término del ciclo escolar.
+• Registrar la solicitud en los tiempos establecidos y entregar los historiales académicos en la ventanilla de Servicios Escolares para su validación técnica.
+        """
+
+    @staticmethod
+    def tram_seguro_texto():
+        return """
+🏥 SEGURO FACULTATIVO (IMSS)
+
+Como alumno de la UNAM, tienes derecho al servicio médico gratuito del IMSS durante tu permanencia en la carrera.
+
+📋 REQUISITOS Y PASOS:
+• Obtén tu Número de Seguridad Social (NSS) en la página oficial del IMSS Digital.
+• Ingresa al sistema de Servicios Escolares de la FES Aragón y registra tu NSS en el apartado de 'Seguro Médico'.
+• Descarga tu comprobante de vigencia de derechos para validar que la UNAM ya te dio de alta como estudiante activo.
+        """
+
+    @staticmethod
+    def tram_baja_materias_texto():
+        return """
+📉 BAJA DE ASIGNATURAS (ORDINARIA Y EXTEMPORÁNEA)
+
+• BAJA ORDINARIA: Se realiza dentro de los plazos establecidos en el Calendario Escolar (primeras semanas del semestre). El trámite se procesa directamente en línea a través del sistema TramiFES.
+• BAJA EXTEMPORÁNEA: Fuera del periodo ordinario, únicamente procede por causas de fuerza mayor justificables (salud, trabajo, etc.). Debes entregar carta exposición de motivos dirigida a tu Jefatura de Carrera.
+        """
+
+    @staticmethod
+    def tram_baja_semestre_texto():
+        return """
+❌ BAJA DEL SEMESTRE (TEMPORAL REGLAMENTARIA O DEFINITIVA)
+
+• BAJA TEMPORAL REGLAMENTARIA: Se solicita durante las primeras semanas del bloque lectivo directamente en ventanilla. No afecta tu historial si cumples los plazos del artículo 22 del Reglamento General de Inscripciones.
+• BAJA DEFINITIVA: Renuncia formal a tu lugar en la carrera. Implica la devolución de tus documentos originales (Acta, Certificado de Bachillerato) previa entrega de tu credencial y firmas de no adeudo en laboratorios ni biblioteca.
+        """
