@@ -144,7 +144,7 @@ class MenuSystem:
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 📄 TRÁMITES ESCOLARES - ICO                      ║
-╠══════════════════════════════════════════════════════════════════╗
+╠══════════════════════════════════════════════════════════════════╣
 ║  📄 CONSTANCIAS: Servicios Escolares                             ║
 ║  🎓 CERTIFICADO: Control Escolar                                 ║
 ║  📜 TITULACIÓN: Tesis o reporte profesional                      ║
@@ -167,7 +167,7 @@ class MenuSystem:
 ║  🗣️ IDIOMAS (CLE): Cursos de Inglés, Francés, Alemán, Italiano    ║
 ║  🤖 ROBÓTICA Y PROGRAMACIÓN: Arduino, Python, Desarrollo web     ║
 ║                                                                  ║
-║  👉 Escribe 'Deportes' para ver el desglose de la Coordinación.  ║
+║  👉 Escribe 'Deportes' o 'Intercambio' para ver los desgloses.   ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
@@ -326,9 +326,7 @@ La convocatoria para tramitar la suspensión temporal de estudios se publica al 
 📜 EXPEDICIÓN DE CERTIFICADOS Y CARTA PASANTE
 
 • CERTIFICADO DE ESTUDIOS (Oficial FES Aragón, describe materias, notas y periodos):
-  - Costo: 1er certificado aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 
-
-días hábiles. Requisitos: Historial con datos de contacto y fotos tamaño óvalo credencial oficiales.
+  - Costo: 1er certificado de aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 días hábiles. Requisitos: Historia Académica con datos de contacto en la primera hoja y fotos tamaño óvalo credencial.
 
 • CARTA PASANTE (Sirve para ejercer la carrera de forma oficial por 1 año):
   - Se puede tramitar dentro de los 11 meses posteriores al acreditar el 100% de créditos. Requisitos: Promedio mín 7.00, recibo cuota voluntaria, Historial SIAE y Carta Responsiva firmado por un responsable titulado (con copia de cédula). Recógela en ventanilla, recaba firma de DGAE en C.U. y continúa en la SEP.
@@ -352,36 +350,29 @@ días hábiles. Requisitos: Historial con datos de contacto y fotos tamaño óva
 • BAJA DEL SEMESTRE / DEFINITIVA: La Temporal Reglamentaria se solicita en ventanilla al inicio del bloque. La Definitiva es la renuncia total a tu lugar e implica la devolución de papeles originales previa entrega de firmas de no adeudo.
         """
 
-    # ========== COMPONENTES: EXTENSIÓN UNIVERSITARIA (DEPORTES ACTUALIZADO) ==========
+    # ========== COMPONENTES: EXTENSIÓN UNIVERSITARIA (DEPORTES) ==========
     @staticmethod
     def faq_deportes_presentacion_texto():
         return """
 ⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS Y RECREATIVAS
 
-El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos competitivos/formativos en tres ejes fundamentales:
-1️⃣ Cultura física, activación y recreación.
-2️⃣ Deporte competitivo.
-3️⃣ Escuela del Deporte (infantil y juvenil).
+El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos en tres ejes fundamentales: Cultura física, deporte competitivo y la Escuela del Deporte.
 
 📍 LUGARES DE ENTRENAMIENTO OFICIALES POR DISCIPLINA:
-• Ajedrez: Lobby del teatro José Vasconcelos
-• Atletismo: Pista de atletismo
+• Ajedrez: Lobby del teatro José Vasconcelos | Atletismo: Pista de atletismo
 • Bádminton, Basquetbol, Tenis de mesa, Voleibol sala: Gimnasio de parquet
-• Beisbol: Campo de beisbol
-• Futbol 7: Cancha de futbol 7
-• Futbol asociación: Campo de futbol
-• Futbol rápido: Cancha de futbol rápido
+• Beisbol: Campo de beisbol | Futbol 7: Cancha de futbol 7
+• Futbol asociación: Campo de futbol | Futbol rápido: Cancha de futbol rápido
 • Gimnasia, Porras y animación: Gimnasio multidisciplinario, salón 1
 • Gimnasio de pesas, Karate do: Gimnasio de pesas y salones
 • Lima Lama, Luchas asociadas: Gimnasio multidisciplinario, salón 2
-• Montañismo: Áreas deportivas generales
-• Rugby, Tocho bandera: Campo anexo
+• Montañismo: Áreas deportivas generales | Rugby, Tocho bandera: Campo anexo
 • Taekwondo: Gimnasio multidisciplinario
 
 🎮 PROGRAMAS ESPECIALES DISPONIBLES:
-• Diverpuma: Concepto lúdico-recreativo para integración de grupos (Agendar cita en Coordinación).
-• Deporteca y Ludoteca: Préstamo de material deportivo/lúdico de lunes a viernes de 8:00 a 19:00 h en la Coordinación.
-• Espacio Puma: Activación física predeportiva para relajación y compañerismo.
+• Diverpuma: Dinámicas lúdicas de integración grupal (Previa solicitud en Coordinación).
+• Deporteca y Ludoteca: Préstamo de material lúdico y deportivo (Lun-Vie de 8:00 a 19:00 h).
+• Espacio Puma: Actividades lúdicas y predeportivas de relajación y compañerismo.
         """
 
     @staticmethod
@@ -389,23 +380,21 @@ El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos com
         return """
 💰 REQUISITOS, COSTOS E INSCRIPCIÓN DEPORTIVA
 
-Para la práctica de cualquier disciplina o el uso del gimnasio de pesas es obligatorio inscribirse en línea. Las convocatorias semestrales se publican en el Facebook oficial de 'Extensión Universitaria FES Aragón'.
+Para la práctica de cualquier disciplina o uso del gimnasio de pesas es obligatorio inscribirse en línea en la plataforma de Extensión Universitaria semestralmente.
 
-📋 REQUISITOS INDISPENSABLES:
-1. Credencial UNAM o INE vigente.
-2. Tira de materias o comprobante de inscripción del semestre actual.
-3. Certificado médico original (No mayor a 3 meses de antigüedad).
-4. Comprobante de seguro médico activo (IMSS, ISSSTE, etc.).
-5. Comprobante de pago original de cajas.
+📋 REQUISITOS:
+1. Credencial UNAM o INE vigente | 2. Tira de materias o comprobante de inscripción.
+3. Certificado médico original (máx. 3 meses) | 4. Comprobante de seguro médico activo (IMSS, ISSSTE).
+5. Comprobante de pago original de cajas de la FES Aragón.
 
-💳 COSTOS DE APORTACIÓN SEMESTRAL:
+💳 COSTOS DE APORTACIÓN SEMESTRAL (PAGOS EN CAJAS DE EXTENSIÓN UNIVERSITARIA):
 • Comunidad Universitaria Vigente: $115.00 MXN.
 • Exalumnos: $600.00 MXN.
-* Nota: Los pagos se realizan físicamente en las cajas de la FES Aragón ubicadas en el edificio de la Unidad de Extensión Universitaria (Entrada de Bosques de Aragón). Horarios: Lun-Vie 10:00 a 13:00 h y 16:00 a 19:00 h.
+* Horarios de caja: Lunes a viernes de 10:00 a 13:00 h y de 16:00 a 19:00 h.
 
 👶 ESCUELA DEL DEPORTE (MENORES DE 6 A 17 AÑOS / COMUNIDAD EXTERNA):
 • Disciplinas: Ajedrez (en línea), Básquetbol, Béisbol, Fútbol, Gimnasia, Taekwondo, Tochito y Voleibol. 
-• Inscripciones: Martes y jueves de 10:00 a 13:00 h y 16:00 a 20:00 h. WhatsApp: 55 5474 4687 | Correo: deportivas.escueladeldeporte@aragon.unam.mx
+• Inscripciones: Martes y jueves de 10:00 a 13:00 h y de 16:00 a 20:00 h. WhatsApp: 55 5474 4687.
         """
 
     @staticmethod
@@ -416,15 +405,64 @@ Para la práctica de cualquier disciplina o el uso del gimnasio de pesas es obli
 La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 • 1 Gimnasio multidisciplinario (Salón 1, Salón 2 y área de pesas).
 • 1 Gimnasio de duela (parquet) junto con vestidores, regaderas y sanitarios.
-• 1 Gimnasio y barras de calistenia al aire libre.
-• 6 Canchas multidisciplinarias externas (Básquet, Voleibol, Fútbol).
-• 1 Cancha de voleibol de playa, 2 de fútbol rápido, 1 de fútbol 7.
+• 6 Canchas externas, 1 de voleibol playa, 2 de fútbol rápido, 1 de fútbol 7.
 • 1 Pista de atletismo, 1 Campo de béisbol, 1 Campo de fútbol asociación y 1 Campo anexo.
 
 📞 DATOS DE CONTACTO Y ATENCIÓN:
-• Responsable: Carlos Octavio Cruz Valencia
+• Responsable: Carlos Octavio Cruz Valencia | Teléfono: 55 5623 0222 (Ext. 31035)
 • Horarios: Lunes a viernes de 8:00 a 20:00 h | Sábados de 9:00 a 14:00 h.
-• Teléfono: 55 5623 0222 (Extensión 31035)
 • Correo Oficial: deportivas.contacto@aragon.unam.mx
-• Actividades Externas Adultos: Entrenamiento funcional, pesas, taekwondo y karate do. Costo: $390.00 MXN mensuales (validar cupo previo por correo).
+• Actividades Externas Adultos: Entrenamiento funcional, pesas, taekwondo y karate do ($390.00 MXN mensuales). Validar cupo previo por correo.
+        """
+
+    # ========== COMPONENTES: INTERCAMBIO ACADÉMICO Y MOVILIDAD ==========
+    @staticmethod
+    def faq_intercambio_alumnos_texto():
+        return """
+✈️ PROGRAMAS DE MOVILIDAD PARA ALUMNOS INSCRITOS (FES ARAGÓN)
+
+El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Planta Baja) gestiona programas semestrales y de corta duración con universidades nacionales e internacionales vía la DGECI, CRAI o redes de colaboración (Erasmus+, CONAHEC, Fundación Carolina, etc.).
+
+📋 REQUISITOS GENERALES OBLIGATORIOS:
+1️⃣ Ser estudiante regular.
+2️⃣ Contar con al menos el 44 % de créditos al momento de la postulación.
+3️⃣ Contar con promedio mínimo general de 8.5.
+4️⃣ Idioma (No hispanohablantes): Mínimo 80 puntos en TOEFL iBT o 6.5 en IELTS para inglés, y nivel B2 para el resto de los idiomas.
+
+📝 MODALIDADES DISPONIBLES:
+• Movilidad semestral tradicional ordinaria (Nacional o Internacional).
+• Estancias cortas: Iniciación a la investigación (Becas UNAM-DGECI) o el programa "PITAAE" (Apoyo a la Titulación por Actividades Académicas en el Extranjero).
+• Colaboraciones virtuales oficiales: Cursos COIL y Clases Espejo (Emiten constancia digital oficial).
+        """
+
+    @staticmethod
+    def faq_intercambio_externos_texto():
+        return """
+🏛️ ESTUDIA EN LA FES ARAGÓN (ESTUDIANTES EXTERNOS / PRIMER INGRESO)
+
+• INTERCAMBIO EN LA LICENCIATURA (ALUMNOS DE OTRAS UNIVERSIDADES):
+  Estudiantes de otras instituciones de educación superior nacionales o extranjeras pueden realizar un intercambio académico en nuestra Facultad si su escuela tiene convenio vigente con la UNAM. Esto contempla la exención total del pago de inscripción y colegiaturas. Las solicitudes las gestiona de entrada la DGECI.
+
+• ESTANCIAS DE INVESTIGACIÓN:
+  Es posible realizar estancias de investigación especializada colaborando directamente con el personal académico de las distintas licenciaturas de la Facultad.
+
+• COOPERACIÓN E INTERNACIONALIZACIÓN IN SITU:
+  Toda la comunidad (incluyendo primer ingreso) puede participar en congresos internacionales, semanas académicas, Master Classes, Hackathones académicos y representaciones en concursos internacionales.
+        """
+
+    @staticmethod
+    def faq_intercambio_contacto_texto():
+        return """
+📞 HORARIOS, UBICACIÓN Y CONTACTO DE INTERCAMBIO ACADÉMICO
+
+• UBICACIÓN FÍSICA DE LA OFICINA:
+  Visítanos en la oficina de Intercambio Académico ubicada dentro del CISE, en la planta baja del edificio A1.
+• HORARIO DE ATENCIÓN EN VENTANILLA:
+  Lunes a viernes de 9:00 a 13:30 horas y de 16:00 a 20:00 horas.
+  * Nota: Se recomienda visitar semanalmente las redes oficiales, ya que las convocatorias no tienen fechas fijas de publicación.
+
+📧 DATOS DE CONTACTO:
+• Correo para Alumnos/Académicos Visitantes o Convenios Universitarios:
+  intercambioacademico@aragon.unam.mx
+  *(A través de este medio se coordinan reuniones de colaboración y gestiones de movilidad de personal docente nacional o extranjero).*
         """

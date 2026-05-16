@@ -97,47 +97,50 @@ class BotICO:
             return
 
         # ========== INTERCEPTACIÓN GLOBAL COMPLETA POR TEXTO LIBRE ==========
-        if any(p in texto_limpio for p in ["cuando me inscribo", "fecha de inscripcion", "cuando me toca", "pago cuota", "ordinario"]):
+        if any(p in texto_limpio for p in ["cuando me inscribo", "fecha de inscripcion", "cuando me toca", "pago cuota", "ordinario", "reinscripcion", "reinscribirme", "scotiabank", "santander", "bbva", "ficha", "deposito", "adeudo", "biblioteca", "fundacion"]):
             self.action_faq_reinscripcion()
             return
-        if any(p in texto_limpio for p in ["altas y bajas", "sorteo", "cambiar materia", "trami", "tramifes", "mi cita", "que dia me toca"]):
+        if any(p in texto_limpio for p in ["altas y bajas", "sorteo", "cambiar materia", "trami", "tramifes", "mi cita", "que dia me toca", "mover materia", "permutar grupo"]):
             self.mostrar_detalles_altas_bajas()
             return
-        if any(p in texto_limpio for p in ["constancia", "estudios", "creditos", "historial", "tira", "boleta", "kardex", "materias aprobadas"]):
+        if any(p in texto_limpio for p in ["constancia", "estudios", "creditos", "historial", "tira", "boleta", "kardex", "materias aprobadas", "porcentaje", "promedio general", "sellada", "firmada"]):
             self.action_faq_constancias()
             return
-        if any(p in texto_limpio for p in ["credencial", "resello", "reposicion", "crede", "perdi mi credencial"]):
+        if any(p in texto_limpio for p in ["credencial", "resello", "reposicion", "crede", "perdi mi credencial", "tarjeta unam", "plastico", "sello anual"]):
             self.action_faq_credencial()
             return
-        if any(p in texto_limpio for p in ["extraordinario", "extra", "extras", "reprobe", "pasar materia"]):
+        if any(p in texto_limpio for p in ["extraordinario", "extra", "extras", "reprobe", "pasar materia", "oposicion", "pagar extra"]):
             self.action_tram_extraordinarios()
             return
-        if any(p in texto_limpio for p in ["suspension", "baja temporal", "gracia", "dejar de estudiar", "pausar"]):
+        if any(p in texto_limpio for p in ["suspension", "baja temporal", "gracia", "dejar de estudiar", "pausar", "periodo de gracia", "congelar un año"]):
             self.action_tram_suspension()
             return
-        if any(p in texto_limpio for p in ["rectificacion", "aclaracion calificacion", "cambio calificacion", "revalidacion", "movilidad", "intercambio", "f306"]):
+        if any(p in texto_limpio for p in ["rectificacion", "aclaracion calificacion", "cambio calificacion", "revalidacion", "movilidad", "intercambio", "f306", "revalidar", "clase espejo", "coil"]):
             self.action_tram_rectificacion()
             return
-        if any(p in texto_limpio for p in ["cambio interno", "cambio de carrera", "cambio de sistema", "cambio modalidad", "8.5", "suayed", "siae", "dgae"]):
+        if any(p in texto_limpio for p in ["cambio interno", "cambio de carrera", "cambio de sistema", "cambio modalidad", "8.5", "suayed", "siae", "dgae", "modalidad abierta", "modalidad distancia"]):
             self.action_tram_cambio_carrera_sistema()
             return
-        if any(p in texto_limpio for p in ["años posteriores", "acreditacion", "incorporado", "revalidación", "vengo de incorporada"]):
+        if any(p in texto_limpio for p in ["años posteriores", "acreditacion", "incorporado", "revalidación", "vengo de incorporada", "externa", "licenciatura externa"]):
             self.action_tram_anos_posteriores()
             return
-        if any(p in texto_limpio for p in ["egresado", "egresados", "certificado de estudios", "carta pasante", "titulacion", "titularme", "pasante"]):
+        if any(p in texto_limpio for p in ["egresado", "egresados", "certificado de estudios", "carta pasante", "titulacion", "titularme", "pasante", "dgp", "sep", "sigerel", "exalumnos"]):
             self.action_faq_egresados_menu()
             return
         if any(p in texto_limpio for p in ["permuta", "permutas", "cambio de plantel", "cambio de fec"]):
             self.action_tram_permutas_imss_menu()
             return
-        if any(p in texto_limpio for p in ["imss", "seguro", "facultativo", "medico", "médico", "clinica"]):
+        if any(p in texto_limpio for p in ["imss", "seguro", "facultativo", "medico", "médico", "clinica", "alta imss", "seguridad social", "nss"]):
             self.action_tram_permutas_imss_menu()
             return
-        if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas", "baja semestre", "baja definitiva", "baja total", "renunciar carrera"]):
+        if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas", "baja semestre", "baja definitiva", "baja total", "renunciar carrera", "extemporanea"]):
             self.action_tram_bajas_menu()
             return
-        if any(p in texto_limpio for p in ["deporte", "deportes", "futbol", "basquet", "gimnasio", "pesas", "siefc", "instalaciones", "carlos octavio"]):
+        if any(p in texto_limpio for p in ["deporte", "deportes", "futbol", "basquet", "gimnasio", "pesas", "siefc", "instalaciones", "carlos octavio", "ajedrez", "karate", "taekwondo", "ludoteca", "diverpuma", "95 pesos", "390", "115"]):
             self.action_faq_deportes_menu()
+            return
+        if any(p in texto_limpio for p in ["intercambio", "movilidad", "dgeci", "crai", "coil", "clase espejo", "pittaae", "toefl", "ielts", "extranjero", "beca internacional", "44%"]):
+            self.action_faq_intercambio_menu()
             return
 
         # ========== FILTRADO POR ESTADO EXPERTO (NUEVO VS REGULAR) ==========
@@ -159,6 +162,7 @@ class BotICO:
                 self.process_mensaje_directo(categoria, mensaje)
 
     def evaluar_categoria(self, comando):
+        """Diccionario semántico con mapeo avanzado de intenciones estudiantiles"""
         texto = limpiar_texto(comando)
         comandos_directos = ["inscripciones_nuevo", "co4nvocatoria", "preguntas_nuevo", "preguntas", 
                              "horarios", "contactos", "contacto", "inscripciones", "tramites", "actividades", "calendario"]
@@ -170,12 +174,12 @@ class BotICO:
             return comando
             
         palabras_clave = {
-            "convocatoria": ["convocatoria", "ingreso", "admision", "examen", "pase reglamentado"],
-            "horarios": ["horario", "horarios", "materias", "clases", "profesores"],
-            "contactos": ["telefono", "correo", "direccion", "contacto", "redes", "facebook", "ubicacion"],
-            "inscripciones": ["inscripcion", "inscripciones", "pago", "banco", "costo", "cuota"],
+            "convocatoria": ["convocatoria", "ingreso", "admision", "examen", "pase reglamentado", "primer ingreso", "nuevo ingreso"],
+            "horarios": ["horario", "horarios", "materias", "clases", "profesores", "grupo", "turno"],
+            "contactos": ["telefono", "correo", "direccion", "contacto", "redes", "facebook", "ubicacion", "oficina", "ventanilla", "edificio"],
+            "inscripciones": ["inscripcion", "inscripciones", "pago", "banco", "costo", "cuota", "referencia", "cajas", "ficha"],
             "tramites": ["constancia", "certificado", "titulacion", "servicio social", "bajas", "altas", "baja", "alta", "permuta", "sorteo", "cita", "extra", "suspension", "rectificacion", "revalidacion", "turno", "simultanea", "imss", "seguro", "egresado", "acreditacion", "pasante"],
-            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro", "gimnasio", "pesas", "siefc", "ludoteca", "diverpuma"]
+            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro", "gimnasio", "pesas", "siefc", "ludoteca", "diverpuma", "intercambio", "movilidad", "dgeci", "coil", "erasmus", "toefl", "extranjero"]
         }
         for cat, palabras in palabras_clave.items():
             for p in palabras:
@@ -209,6 +213,7 @@ class BotICO:
         self.ui.agregar_boton_en_chat(texto_boton="🤝 9. Permutas e Inscripción al IMSS", comando=self.action_tram_permutas_imss_menu)
         self.ui.agregar_boton_en_chat(texto_boton="📉 10. Bajas de Materias o del Semestre", comando=self.action_tram_bajas_menu)
         self.ui.agregar_boton_en_chat(texto_boton="⚽ 11. Actividades Deportivas y Recreativas", comando=self.action_faq_deportes_menu)
+        self.ui.agregar_boton_en_chat(texto_boton="✈️ 12. Intercambio Académico y Movilidad UNAM", comando=self.action_faq_intercambio_menu)
 
     # ========== CONTROLADORES DE ACCIONES INDIVIDUALES ==========
     def action_faq_reinscripcion(self):
@@ -223,6 +228,14 @@ class BotICO:
     def action_faq_credencial(self):
         self.ui.agregar_mensaje_bot(MenuSystem.faq_credencial_texto())
         self.ui.agregar_boton_en_chat(texto_boton="🏫 Acceder a Servicios Escolares Web", comando=self.abrir_pagina_escolares_fes)
+
+    def action_faq_certificados(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_certificados_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🤝 Consultar Servicio Social FES", comando=self.abrir_servicio_social)
+
+    def abrir_servicio_social(self):
+        webbrowser.open("https://www.fes-aragon.unam.mx/servicio-social")
+        self.ventana.after(1000, self.preguntar_continuidad)
 
     def action_tram_extraordinarios(self):
         self.ui.agregar_mensaje_bot(MenuSystem.tram_extraordinarios_texto())
@@ -300,7 +313,6 @@ class BotICO:
         self.ui.agregar_mensaje_bot(MenuSystem.tram_baja_semestre_texto())
         self.ui.agregar_boton_en_chat(texto_boton="📖 Ver Directorio de Ventanillas", comando=self.abrir_pagina_escolares_fes)
 
-    # ========== SECCIÓN INTERACTIVA EXCLUSIVA DE DEPORTES ==========
     def action_faq_deportes_menu(self):
         self.ui.agregar_mensaje_bot("⚽ Coordinación Deportiva. Selecciona la opción que deseas desglosar:")
         self.ui.agregar_boton_en_chat(texto_boton="📋 Disciplinas, Ejes y Programas (Diverpuma)", comando=self.action_faq_deportes_presentacion)
@@ -323,6 +335,25 @@ class BotICO:
         webbrowser.open("https://lovelace.aragon.unam.mx/siefc/")
         self.ventana.after(1000, self.preguntar_continuidad)
 
+    # ========== SECCIÓN INTERACTIVA EXCLUSIVA DE INTERCAMBIO ACADÉMICO ==========
+    def action_faq_intercambio_menu(self):
+        self.ui.agregar_mensaje_bot("✈️ Oficina de Intercambio Académico y Vinculación. Selecciona una opción:")
+        self.ui.agregar_boton_en_chat(texto_boton="📜 Movilidad para Alumnos Inscritos (DGECI/CRAI)", comando=self.action_faq_intercambio_internos)
+        self.ui.agregar_boton_en_chat(texto_boton="🏛️ Alumnos Externos / Estancias / Académicos Visitantes", comando=self.action_faq_intercambio_externos)
+        self.ui.agregar_boton_en_chat(texto_boton="📞 Ubicación, Horarios de Oficina y Contacto", comando=self.action_faq_intercambio_contacto)
+
+    def action_faq_intercambio_internos(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_alumnos_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial DGAE SIAE Citas", comando=self.abrir_siae_web)
+
+    def action_faq_intercambio_externos(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_externos_texto())
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def action_faq_intercambio_contacto(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_contacto_texto())
+        self.ventana.after(1000, self.preguntar_continuidad)
+
     # ========== ENLACES GLOBALES E INSCRIPCIÓN ==========
     def mostrar_inscripcion_nuevo_ingreso(self):
         informacion_inscripcion = (
@@ -337,6 +368,7 @@ class BotICO:
             "📧 Dudas: serviciosescolares@aragon.unam.mx"
         )
         self.ui.agregar_mensaje_bot(informacion_inscripcion)
+        
         self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema PIIANI FES Aragón", comando=self.open_piiani)
         self.ui.agregar_boton_en_chat(texto_boton="📄 Descargar Carta Compromiso 2026-2", comando=self.descargar_carta_compromiso)
         self.ui.agregar_boton_en_chat(texto_boton="🏫 Página Servicios Escolares FES", comando=self.abrir_pagina_escolares_fes)
@@ -398,6 +430,14 @@ class BotICO:
 
     def usuario_desea_continuar(self):
         self.ui.agregar_mensaje_bot("BotICO: ¡Perfecto! Puedes usar los botones inferiores o escribirme tu duda directamente.")
+        self.autopilot_regresar_menu()
+
+    def autopilot_regresar_menu(self):
+        """Helper para re-inyectar los descriptores en el chat de forma fluida"""
+        if self.es_nuevo_ingreso:
+            self.ui.actualizar_botones(MenuSystem.get_botones_nuevo_ingreso())
+        else:
+            self.ui.actualizar_botones(MenuSystem.get_botones_principales())
 
     def usuario_desea_clean_close(self):
         self.ui.agregar_mensaje_bot("👋 ¡Gracias por utilizar BotICO! Tu sesión ha finalizado con éxito. ¡Goya!")
