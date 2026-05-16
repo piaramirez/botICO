@@ -127,17 +127,13 @@ class MenuSystem:
     def mensaje_inscripciones():
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║                    📋 INSCRIPCIONES - ICO                        ║
+║                    📋 INSCRIPCIONES - ICO BLOCK                  ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║  💰 COSTO: $0.50 centavos (mínimo $100 MXN)                      ║
 ║                                                                  ║
 ║  📄 DOCUMENTOS:                                                  ║
-║     • Acta de nacimiento                                         ║
-║     • CURP                                                       ║
-║     • Certificado de bachillerato                                ║
-║     • Comprobante de domicilio                                   ║
-║     • 4 fotografías                                              ║
-║     • Certificado médico                                         ║
+║     • Acta de nacimiento, CURP y Certificado de bachillerato      ║
+║     • Comprobante de domicilio y certificado médico              ║
 ║                                                                  ║
 ║  🔗 https://www.fes-aragon.unam.mx/inscripciones                 ║
 ╚══════════════════════════════════════════════════════════════════╝
@@ -148,13 +144,10 @@ class MenuSystem:
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 📄 TRÁMITES ESCOLARES - ICO                      ║
-╠══════════════════════════════════════════════════════════════════╣
+╠══════════════════════════════════════════════════════════════════╗
 ║  📄 CONSTANCIAS: Servicios Escolares                             ║
 ║  🎓 CERTIFICADO: Control Escolar                                 ║
-║  📜 TITULACIÓN:                                                  ║
-║     • Tesis                                                      ║
-║     • Reporte de experiencia profesional                         ║
-║     • Totalidad de créditos                                      ║
+║  📜 TITULACIÓN: Tesis o reporte profesional                      ║
 ║                                                                  ║
 ║  🤝 SERVICIO SOCIAL:                                             ║
 ║     https://www.fes-aragon.unam.mx/servicio-social               ║
@@ -169,23 +162,12 @@ class MenuSystem:
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🎭 ACTIVIDADES COMPLEMENTARIAS - ICO                ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  🎵 TALLERES DISPONIBLES:                                        ║
-║     • Música (guitarra, piano, canto)                            ║
-║     • Teatro y danza                                             ║
-║     • Artes plásticas                                            ║
+║  🎵 TALLERES DISPONIBLES: Música, teatro, danza, artes plásticas ║
+║  ⚽ DEPORTES: 21 disciplinas de recreación e instalaciones       ║
+║  🗣️ IDIOMAS (CLE): Cursos de Inglés, Francés, Alemán, Italiano    ║
+║  🤖 ROBÓTICA Y PROGRAMACIÓN: Arduino, Python, Desarrollo web     ║
 ║                                                                  ║
-║  ⚽ DEPORTES Y ACTIVIDADES DEPORTIVAS:                           ║
-║     • Fútbol, Basquetbol, Voleibol                               ║
-║     • Taekwondo, Judo, Activación Física                         ║
-║                                                                  ║
-║  🗣️ IDIOMAS (CENTRO DE LENGUAS CLE):                              ║
-║     • Cursos de Inglés, Francés, Alemán, Italiano                ║
-║                                                                  ║
-║  🤖 ROBÓTICA Y PROGRAMACIÓN:                                     ║
-║     • Arduino, Python, Desarrollo web                            ║
-║                                                                  ║
-║  📧 culturales@fes-aragon.unam.mx                                ║
-║  🔗 https://www.fes-aragon.unam.mx/culturales                    ║
+║  👉 Escribe 'Deportes' para ver el desglose de la Coordinación.  ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
@@ -344,7 +326,9 @@ La convocatoria para tramitar la suspensión temporal de estudios se publica al 
 📜 EXPEDICIÓN DE CERTIFICADOS Y CARTA PASANTE
 
 • CERTIFICADO DE ESTUDIOS (Oficial FES Aragón, describe materias, notas y periodos):
-  - Costo: 1er certificado aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 días hábiles. Requisitos: Historial con datos de contacto y fotos tamaño óvalo credencial oficiales.
+  - Costo: 1er certificado aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 
+
+días hábiles. Requisitos: Historial con datos de contacto y fotos tamaño óvalo credencial oficiales.
 
 • CARTA PASANTE (Sirve para ejercer la carrera de forma oficial por 1 año):
   - Se puede tramitar dentro de los 11 meses posteriores al acreditar el 100% de créditos. Requisitos: Promedio mín 7.00, recibo cuota voluntaria, Historial SIAE y Carta Responsiva firmado por un responsable titulado (con copia de cédula). Recógela en ventanilla, recaba firma de DGAE en C.U. y continúa en la SEP.
@@ -366,4 +350,81 @@ La convocatoria para tramitar la suspensión temporal de estudios se publica al 
 
 • BAJA DE ASIGNATURAS: La Ordinaria se procesa en línea a través del sistema TramiFES las primeras semanas del ciclo. La Extemporánea requiere causas de fuerza mayor comprobables y carta dirigida a la Jefatura de Carrera.
 • BAJA DEL SEMESTRE / DEFINITIVA: La Temporal Reglamentaria se solicita en ventanilla al inicio del bloque. La Definitiva es la renuncia total a tu lugar e implica la devolución de papeles originales previa entrega de firmas de no adeudo.
+        """
+
+    # ========== COMPONENTES: EXTENSIÓN UNIVERSITARIA (DEPORTES ACTUALIZADO) ==========
+    @staticmethod
+    def faq_deportes_presentacion_texto():
+        return """
+⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS Y RECREATIVAS
+
+El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos competitivos/formativos en tres ejes fundamentales:
+1️⃣ Cultura física, activación y recreación.
+2️⃣ Deporte competitivo.
+3️⃣ Escuela del Deporte (infantil y juvenil).
+
+📍 LUGARES DE ENTRENAMIENTO OFICIALES POR DISCIPLINA:
+• Ajedrez: Lobby del teatro José Vasconcelos
+• Atletismo: Pista de atletismo
+• Bádminton, Basquetbol, Tenis de mesa, Voleibol sala: Gimnasio de parquet
+• Beisbol: Campo de beisbol
+• Futbol 7: Cancha de futbol 7
+• Futbol asociación: Campo de futbol
+• Futbol rápido: Cancha de futbol rápido
+• Gimnasia, Porras y animación: Gimnasio multidisciplinario, salón 1
+• Gimnasio de pesas, Karate do: Gimnasio de pesas y salones
+• Lima Lama, Luchas asociadas: Gimnasio multidisciplinario, salón 2
+• Montañismo: Áreas deportivas generales
+• Rugby, Tocho bandera: Campo anexo
+• Taekwondo: Gimnasio multidisciplinario
+
+🎮 PROGRAMAS ESPECIALES DISPONIBLES:
+• Diverpuma: Concepto lúdico-recreativo para integración de grupos (Agendar cita en Coordinación).
+• Deporteca y Ludoteca: Préstamo de material deportivo/lúdico de lunes a viernes de 8:00 a 19:00 h en la Coordinación.
+• Espacio Puma: Activación física predeportiva para relajación y compañerismo.
+        """
+
+    @staticmethod
+    def faq_deportes_costos_texto():
+        return """
+💰 REQUISITOS, COSTOS E INSCRIPCIÓN DEPORTIVA
+
+Para la práctica de cualquier disciplina o el uso del gimnasio de pesas es obligatorio inscribirse en línea. Las convocatorias semestrales se publican en el Facebook oficial de 'Extensión Universitaria FES Aragón'.
+
+📋 REQUISITOS INDISPENSABLES:
+1. Credencial UNAM o INE vigente.
+2. Tira de materias o comprobante de inscripción del semestre actual.
+3. Certificado médico original (No mayor a 3 meses de antigüedad).
+4. Comprobante de seguro médico activo (IMSS, ISSSTE, etc.).
+5. Comprobante de pago original de cajas.
+
+💳 COSTOS DE APORTACIÓN SEMESTRAL:
+• Comunidad Universitaria Vigente: $115.00 MXN.
+• Exalumnos: $600.00 MXN.
+* Nota: Los pagos se realizan físicamente en las cajas de la FES Aragón ubicadas en el edificio de la Unidad de Extensión Universitaria (Entrada de Bosques de Aragón). Horarios: Lun-Vie 10:00 a 13:00 h y 16:00 a 19:00 h.
+
+👶 ESCUELA DEL DEPORTE (MENORES DE 6 A 17 AÑOS / COMUNIDAD EXTERNA):
+• Disciplinas: Ajedrez (en línea), Básquetbol, Béisbol, Fútbol, Gimnasia, Taekwondo, Tochito y Voleibol. 
+• Inscripciones: Martes y jueves de 10:00 a 13:00 h y 16:00 a 20:00 h. WhatsApp: 55 5474 4687 | Correo: deportivas.escueladeldeporte@aragon.unam.mx
+        """
+
+    @staticmethod
+    def faq_deportes_instalaciones_texto():
+        return """
+🏛️ INFRAESTRUCTURA Y CONTACTO DE COORDINACIÓN DEPORTIVA
+
+La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
+• 1 Gimnasio multidisciplinario (Salón 1, Salón 2 y área de pesas).
+• 1 Gimnasio de duela (parquet) junto con vestidores, regaderas y sanitarios.
+• 1 Gimnasio y barras de calistenia al aire libre.
+• 6 Canchas multidisciplinarias externas (Básquet, Voleibol, Fútbol).
+• 1 Cancha de voleibol de playa, 2 de fútbol rápido, 1 de fútbol 7.
+• 1 Pista de atletismo, 1 Campo de béisbol, 1 Campo de fútbol asociación y 1 Campo anexo.
+
+📞 DATOS DE CONTACTO Y ATENCIÓN:
+• Responsable: Carlos Octavio Cruz Valencia
+• Horarios: Lunes a viernes de 8:00 a 20:00 h | Sábados de 9:00 a 14:00 h.
+• Teléfono: 55 5623 0222 (Extensión 31035)
+• Correo Oficial: deportivas.contacto@aragon.unam.mx
+• Actividades Externas Adultos: Entrenamiento funcional, pesas, taekwondo y karate do. Costo: $390.00 MXN mensuales (validar cupo previo por correo).
         """

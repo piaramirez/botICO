@@ -136,6 +136,9 @@ class BotICO:
         if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas", "baja semestre", "baja definitiva", "baja total", "renunciar carrera"]):
             self.action_tram_bajas_menu()
             return
+        if any(p in texto_limpio for p in ["deporte", "deportes", "futbol", "basquet", "gimnasio", "pesas", "siefc", "instalaciones", "carlos octavio"]):
+            self.action_faq_deportes_menu()
+            return
 
         # ========== FILTRADO POR ESTADO EXPERTO (NUEVO VS REGULAR) ==========
         if self.es_nuevo_ingreso:
@@ -156,7 +159,6 @@ class BotICO:
                 self.process_mensaje_directo(categoria, mensaje)
 
     def evaluar_categoria(self, comando):
-        """Diccionario semántico con mapeo avanzado de intenciones estudiantiles"""
         texto = limpiar_texto(comando)
         comandos_directos = ["inscripciones_nuevo", "co4nvocatoria", "preguntas_nuevo", "preguntas", 
                              "horarios", "contactos", "contacto", "inscripciones", "tramites", "actividades", "calendario"]
@@ -173,7 +175,7 @@ class BotICO:
             "contactos": ["telefono", "correo", "direccion", "contacto", "redes", "facebook", "ubicacion"],
             "inscripciones": ["inscripcion", "inscripciones", "pago", "banco", "costo", "cuota"],
             "tramites": ["constancia", "certificado", "titulacion", "servicio social", "bajas", "altas", "baja", "alta", "permuta", "sorteo", "cita", "extra", "suspension", "rectificacion", "revalidacion", "turno", "simultanea", "imss", "seguro", "egresado", "acreditacion", "pasante"],
-            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro"]
+            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro", "gimnasio", "pesas", "siefc", "ludoteca", "diverpuma"]
         }
         for cat, palabras in palabras_clave.items():
             for p in palabras:
@@ -206,6 +208,7 @@ class BotICO:
         self.ui.agregar_boton_en_chat(texto_boton="🎓 8. Ingreso a Años Posteriores / Egresados", comando=self.action_faq_egresados_menu)
         self.ui.agregar_boton_en_chat(texto_boton="🤝 9. Permutas e Inscripción al IMSS", comando=self.action_tram_permutas_imss_menu)
         self.ui.agregar_boton_en_chat(texto_boton="📉 10. Bajas de Materias o del Semestre", comando=self.action_tram_bajas_menu)
+        self.ui.agregar_boton_en_chat(texto_boton="⚽ 11. Actividades Deportivas y Recreativas", comando=self.action_faq_deportes_menu)
 
     # ========== CONTROLADORES DE ACCIONES INDIVIDUALES ==========
     def action_faq_reinscripcion(self):
@@ -241,7 +244,6 @@ class BotICO:
         webbrowser.open("https://www.dgae-siae.unam.mx")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # Submenú interactivo para Egresados y Años Posteriores
     def action_faq_egresados_menu(self):
         self.ui.agregar_mensaje_bot("🎓 Selecciona el trámite específico para Egresados o Años Posteriores:")
         self.ui.agregar_boton_en_chat(texto_boton="📜 Ingreso a Años Posteriores por Acreditación/Revalidación", comando=self.action_tram_anos_posteriores)
@@ -268,7 +270,6 @@ class BotICO:
         webbrowser.open("https://sigerel.dgae.unam.mx")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # Submenú interactivo para Permutas e IMSS
     def action_tram_permutas_imss_menu(self):
         self.ui.agregar_mensaje_bot("🤝 Selecciona la duda específica que deseas resolver:")
         self.ui.agregar_boton_en_chat(texto_boton="📜 Ver requisitos para Permutas", comando=self.action_tram_permutas)
@@ -286,7 +287,6 @@ class BotICO:
         webbrowser.open("https://www.imss.gob.mx/derechohabientes/tramites")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # Submenú interactivo para Bajas
     def action_tram_bajas_menu(self):
         self.ui.agregar_mensaje_bot("📉 Selecciona el tipo de baja que deseas revisar:")
         self.ui.agregar_boton_en_chat(texto_boton="📋 Baja parcial de asignaturas", comando=self.action_tram_baja_materias)
@@ -299,6 +299,29 @@ class BotICO:
     def action_tram_baja_semestre(self):
         self.ui.agregar_mensaje_bot(MenuSystem.tram_baja_semestre_texto())
         self.ui.agregar_boton_en_chat(texto_boton="📖 Ver Directorio de Ventanillas", comando=self.abrir_pagina_escolares_fes)
+
+    # ========== SECCIÓN INTERACTIVA EXCLUSIVA DE DEPORTES ==========
+    def action_faq_deportes_menu(self):
+        self.ui.agregar_mensaje_bot("⚽ Coordinación Deportiva. Selecciona la opción que deseas desglosar:")
+        self.ui.agregar_boton_en_chat(texto_boton="📋 Disciplinas, Ejes y Programas (Diverpuma)", comando=self.action_faq_deportes_presentacion)
+        self.ui.agregar_boton_en_chat(texto_boton="💰 Requisitos, Costos (Cajas FES) e Inscripciones", comando=self.action_faq_deportes_costos)
+        self.ui.agregar_boton_en_chat(texto_boton="🏛️ Infraestructura, Horarios y Contacto Oficial", comando=self.action_faq_deportes_instalaciones)
+
+    def action_faq_deportes_presentacion(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_presentacion_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema de Inscripción SIEFC", comando=self.abrir_siefc_web)
+
+    def action_faq_deportes_costos(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_costos_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a la plataforma SIEFC", comando=self.abrir_siefc_web)
+
+    def action_faq_deportes_instalaciones(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_instalaciones_texto())
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def abrir_siefc_web(self):
+        webbrowser.open("https://lovelace.aragon.unam.mx/siefc/")
+        self.ventana.after(1000, self.preguntar_continuidad)
 
     # ========== ENLACES GLOBALES E INSCRIPCIÓN ==========
     def mostrar_inscripcion_nuevo_ingreso(self):
@@ -314,7 +337,6 @@ class BotICO:
             "📧 Dudas: serviciosescolares@aragon.unam.mx"
         )
         self.ui.agregar_mensaje_bot(informacion_inscripcion)
-        
         self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema PIIANI FES Aragón", comando=self.open_piiani)
         self.ui.agregar_boton_en_chat(texto_boton="📄 Descargar Carta Compromiso 2026-2", comando=self.descargar_carta_compromiso)
         self.ui.agregar_boton_en_chat(texto_boton="🏫 Página Servicios Escolares FES", comando=self.abrir_pagina_escolares_fes)
