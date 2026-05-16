@@ -472,12 +472,22 @@ class BotICO:
         self.ventana.after(1000, self.preguntar_continuidad)
 
     def abrir_concurso_ingreso(self):
-        webbrowser.open("https://www.dgae.unam.mx/admision_licenciatura/")
+        webbrowser.open("https://www.dgae-siae.unam.mx") # Unificado al portal SIAE para validaciones de concurso
         self.ventana.after(1000, self.preguntar_continuidad)
 
     def abrir_calendario(self):
         webbrowser.open("https://aragon.unam.mx/fes-aragon/public_html/documents/nuestra_facultad/calendario-2026-ll.pdf")
         self.ventana.after(1000, self.preguntar_continuidad)
+
+    # ========== GESTIÓN DE FLUJO ("¿ALGO MÁS?") ==========
+    def preguntar_continuidad(self):
+        self.ui.agregar_mensaje_bot("BotICO: ¿Te puedo ayudar en algo más?")
+        self.ui.agregar_boton_en_chat(texto_boton="👍 Sí, tengo otra duda", comando=self.usuario_desea_continuar)
+        self.ui.agregar_boton_en_chat(texto_boton="🛑 No, es todo. Salir", comando=self.usuario_desea_clean_close)
+
+    def usuario_desea_continuar(self):
+        self.ui.agregar_mensaje_bot("BotICO: ¡Perfecto! Puedes usar los botones inferiores o escribirme tu duda directamente.")
+        self.autopilot_regresar_menu()
 
     def autopilot_regresar_menu(self):
         """Helper para re-inyectar los descriptores en el chat de forma fluida"""
@@ -491,7 +501,6 @@ class BotICO:
         self.ventana.after(2000, self.ventana.quit)
 
     def run(self):
-        self.ventana.quit()  # Prevención para Tkinter loop cycles antiguos
         self.ventana.mainloop()
 
 if __name__ == "__main__":
