@@ -174,9 +174,12 @@ class MenuSystem:
 ║     • Teatro y danza                                             ║
 ║     • Artes plásticas                                            ║
 ║                                                                  ║
-║  ⚽ DEPORTES:                                                    ║
+║  ⚽ DEPORTES Y ACTIVIDADES DEPORTIVAS:                           ║
 ║     • Fútbol, Basquetbol, Voleibol                               ║
-║     • Taekwondo, Judo                                            ║
+║     • Taekwondo, Judo, Activación Física                         ║
+║                                                                  ║
+║  🗣️ IDIOMAS (CENTRO DE LENGUAS CLE):                              ║
+║     • Cursos de Inglés, Francés, Alemán, Italiano                ║
 ║                                                                  ║
 ║  🤖 ROBÓTICA Y PROGRAMACIÓN:                                     ║
 ║     • Arduino, Python, Desarrollo web                            ║
@@ -190,7 +193,7 @@ class MenuSystem:
     def mensaje_no_entendido():
         return "❓ No entendí tu pregunta. Puedes escribir 'menú' para ver las opciones disponibles o reformular tu duda."
 
-    # ========== COMPONENTES DE PREGUNTAS FRECUENTES (CATÁLOGO EXPANDIDO) ==========
+    # ========== COMPONENTES DE PREGUNTAS FRECUENTES (CATÁLOGO COMPLETO) ==========
     @staticmethod
     def faq_reinscripcion_texto():
         return """
@@ -300,55 +303,67 @@ La convocatoria para tramitar la suspensión temporal de estudios se publica al 
         """
 
     @staticmethod
-    def tram_cambio_turno_texto():
+    def tram_cambio_carrera_sistema_texto():
         return """
-🔀 CAMBIOS DE TURNO Y CARRERA SIMULTÁNEA
+🔀 CAMBIOS DE CARRERA, INTERNO Y DE SISTEMA
 
-• CAMBIO DE TURNO (PRIMER INGRESO): Acreditar estar inscrito en el semestre actual. Consultar la convocatoria 'Cambio de turno primer ingreso' y registrar la solicitud. Si es afirmativa, presentarse al grupo asignado.
-• CAMBIO DE TURNO (REINGRESO): Requisito tener derecho a inscripción en el semestre. Solicitar el cambio con base en la convocatoria de reingreso y reincorporarse al turno asignado si se aprueba.
-• CARRERA SIMULTÁNEA: Los alumnos que desean cursar otra carrera paralelamente deberán consultar las bases del Manual del alumno y tramitarlo en Servicios Escolares en periodos aprobados por DGAE.
+• CAMBIO INTERNO DE CARRERA:
+  - Exclusivo para Relaciones Internacionales, Comunicación, Sociología e Ingenierías.
+  - Requisitos: Ser alumno regular y estar dentro de los primeros 2 años de la carrera. Los de Ingenierías solo pueden optar por otra ingeniería. Solicitud en www.dgae-siae.unam.mx en fechas asignadas.
+
+• CAMBIO DE SISTEMA (PRESENCIAL A SUAyED):
+  - Disponible para Derecho, Economía y Relaciones Internacionales. Convocatoria una vez al año por la DGAE.
+  - Requisitos (Art. 8): Cupo disponible, promedio mínimo de 8.5, haber aprobado de forma regular todas las materias de los 2 primeros semestres. La solicitud solo se puede presentar UNA vez y es definitiva. Trámite en www.dgae-siae.unam.mx.
+        """
+
+    @staticmethod
+    def tram_anos_posteriores_texto():
+        return """
+🎓 INGRESO A AÑOS POSTERIORES (ACREDITACIÓN Y REVALIDACIÓN)
+
+• POR ACREDITACIÓN (SISTEMA INCORPORADO):
+  - Aspirantes con estudios de licenciatura en una institución del Sistema Incorporado de la UNAM que desean continuar su formación en alguna Facultad de la UNAM deben consultar el Manual del Alumno y el trámite "Ingreso en Años Posteriores al Primero por Acreditación".
+
+• POR REVALIDACIÓN (OTRAS INSTITUCIONES LICENCIATURA):
+  - Aspirantes de escuelas externas a la UNAM que desean continuar aquí sus estudios deben revisar detalladamente la convocatoria de la Dirección General de Incorporación y Revalidación (DGIRE).
+        """
+
+    @staticmethod
+    def faq_egresados_texto():
+        return """
+🎓 TRÁMITES FORMALES PARA EGRESADOS
+
+• CONSTANCIA DE CRÉDITOS: Informa el avance de créditos, materias aprobadas y promedio. Requisitos: Historial Académico reciente e impreso (máx 1 mes) y recibo de pago de cuota voluntaria.
+• CONSTANCIA DE HISTORIAL ACADÉMICO: Copia sellada por Secretaría Académica. Requisitos: Historial reciente, ID oficial y recibo de pago (cuota voluntaria en negro).
+• CREDENCIAL DE EGRESADO: Para quienes terminaron la carrera o están titulados. Con grandes beneficios institucionales.
+        """
+
+    @staticmethod
+    def faq_egresados_documentos_pesados_texto():
+        return """
+📜 EXPEDICIÓN DE CERTIFICADOS Y CARTA PASANTE
+
+• CERTIFICADO DE ESTUDIOS (Oficial FES Aragón, describe materias, notas y periodos):
+  - Costo: 1er certificado aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 días hábiles. Requisitos: Historial con datos de contacto y fotos tamaño óvalo credencial oficiales.
+
+• CARTA PASANTE (Sirve para ejercer la carrera de forma oficial por 1 año):
+  - Se puede tramitar dentro de los 11 meses posteriores al acreditar el 100% de créditos. Requisitos: Promedio mín 7.00, recibo cuota voluntaria, Historial SIAE y Carta Responsiva firmado por un responsable titulado (con copia de cédula). Recógela en ventanilla, recaba firma de DGAE en C.U. y continúa en la SEP.
         """
 
     @staticmethod
     def tram_permutas_texto():
         return """
-🤝 TRÁMITE DE PERMUTAS (CAMBIO DE PLANTEL O CARRERA)
+🤝 TRÁMITE DE PERMUTAS Y SEGURO FACULTATIVO
 
-Este trámite permite solicitar el intercambio de adscripción entre dos alumnos de la misma carrera o plantel, o el cambio interno.
-
-📋 REQUISITOS Y PASOS:
-• Ambos alumnos deben ser regulares y estar formalmente inscritos en el semestre lectivo vigente.
-• Consultar la convocatoria de 'Permutas' que publica la DGAE al término del ciclo escolar.
-• Registrar la solicitud en los tiempos establecidos y entregar los historiales académicos en la ventanilla de Servicios Escolares para su validación técnica.
-        """
-
-    @staticmethod
-    def tram_seguro_texto():
-        return """
-🏥 SEGURO FACULTATIVO (IMSS)
-
-Como alumno de la UNAM, tienes derecho al servicio médico gratuito del IMSS durante tu permanencia en la carrera.
-
-📋 REQUISITOS Y PASOS:
-• Obtén tu Número de Seguridad Social (NSS) en la página oficial del IMSS Digital.
-• Ingresa al sistema de Servicios Escolares de la FES Aragón y registra tu NSS en el apartado de 'Seguro Médico'.
-• Descarga tu comprobante de vigencia de derechos para validar que la UNAM ya te dio de alta como estudiante activo.
+• PERMUTAS (CAMBIO DE PLANTEL O CARRERA): Ambos alumnos deben ser regulares, estar inscritos en el semestre vigente y registrar la solicitud en los tiempos de la convocatoria de la DGAE al término del ciclo escolar.
+• SEGURO FACULTATIVO (IMSS): Derecho al servicio médico gratuito. Obtén tu Número de Seguridad Social (NSS) en el portal de IMSS Digital e ingrésalo en el sistema de Servicios Escolares de la FES Aragón en el apartado 'Seguro Médico'.
         """
 
     @staticmethod
     def tram_baja_materias_texto():
         return """
-📉 BAJA DE ASIGNATURAS (ORDINARIA Y EXTEMPORÁNEA)
+📉 BAJA DE ASIGNATURAS Y BAJA DEL SEMESTRE
 
-• BAJA ORDINARIA: Se realiza dentro de los plazos establecidos en el Calendario Escolar (primeras semanas del semestre). El trámite se procesa directamente en línea a través del sistema TramiFES.
-• BAJA EXTEMPORÁNEA: Fuera del periodo ordinario, únicamente procede por causas de fuerza mayor justificables (salud, trabajo, etc.). Debes entregar carta exposición de motivos dirigida a tu Jefatura de Carrera.
-        """
-
-    @staticmethod
-    def tram_baja_semestre_texto():
-        return """
-❌ BAJA DEL SEMESTRE (TEMPORAL REGLAMENTARIA O DEFINITIVA)
-
-• BAJA TEMPORAL REGLAMENTARIA: Se solicita durante las primeras semanas del bloque lectivo directamente en ventanilla. No afecta tu historial si cumples los plazos del artículo 22 del Reglamento General de Inscripciones.
-• BAJA DEFINITIVA: Renuncia formal a tu lugar en la carrera. Implica la devolución de tus documentos originales (Acta, Certificado de Bachillerato) previa entrega de tu credencial y firmas de no adeudo en laboratorios ni biblioteca.
+• BAJA DE ASIGNATURAS: La Ordinaria se procesa en línea a través del sistema TramiFES las primeras semanas del ciclo. La Extemporánea requiere causas de fuerza mayor comprobables y carta dirigida a la Jefatura de Carrera.
+• BAJA DEL SEMESTRE / DEFINITIVA: La Temporal Reglamentaria se solicita en ventanilla al inicio del bloque. La Definitiva es la renuncia total a tu lugar e implica la devolución de papeles originales previa entrega de firmas de no adeudo.
         """

@@ -96,45 +96,45 @@ class BotICO:
             self.ui.agregar_boton_en_chat(texto_boton="📅 Ver Calendario Oficial 2026-II", comando=self.abrir_calendario)
             return
 
-        # ========== INTERCEPTACIÓN GLOBAL: TEXTO LIBRE DE PREGUNTAS FRECUENTES ==========
-        if any(p in texto_limpio for p in ["cuando me inscribo", "fecha de inscripcion", "cuando me toca"]):
+        # ========== INTERCEPTACIÓN GLOBAL COMPLETA POR TEXTO LIBRE ==========
+        if any(p in texto_limpio for p in ["cuando me inscribo", "fecha de inscripcion", "cuando me toca", "pago cuota", "ordinario"]):
             self.action_faq_reinscripcion()
             return
-        if any(p in texto_limpio for p in ["altas y bajas", "sorteo", "cambiar materia", "trami", "tramifes"]):
+        if any(p in texto_limpio for p in ["altas y bajas", "sorteo", "cambiar materia", "trami", "tramifes", "mi cita", "que dia me toca"]):
             self.mostrar_detalles_altas_bajas()
             return
-        if any(p in texto_limpio for p in ["constancia", "estudios", "creditos", "historial", "tira"]):
+        if any(p in texto_limpio for p in ["constancia", "estudios", "creditos", "historial", "tira", "boleta", "kardex", "materias aprobadas"]):
             self.action_faq_constancias()
             return
-        if any(p in texto_limpio for p in ["credencial", "resello", "reposicion"]):
+        if any(p in texto_limpio for p in ["credencial", "resello", "reposicion", "crede", "perdi mi credencial"]):
             self.action_faq_credencial()
             return
-        if any(p in texto_limpio for p in ["certificado", "pasante", "carta pasante"]):
-            self.action_faq_certificados()
-            return
-        if any(p in texto_limpio for p in ["extraordinario", "extra", "extras"]):
+        if any(p in texto_limpio for p in ["extraordinario", "extra", "extras", "reprobe", "pasar materia"]):
             self.action_tram_extraordinarios()
             return
-        if any(p in texto_limpio for p in ["suspension", "baja temporal", "gracia"]):
+        if any(p in texto_limpio for p in ["suspension", "baja temporal", "gracia", "dejar de estudiar", "pausar"]):
             self.action_tram_suspension()
             return
-        if any(p in texto_limpio for p in ["rectificacion", "aclaracion calificacion", "cambio calificacion", "revalidacion", "movilidad"]):
+        if any(p in texto_limpio for p in ["rectificacion", "aclaracion calificacion", "cambio calificacion", "revalidacion", "movilidad", "intercambio", "f306"]):
             self.action_tram_rectificacion()
             return
-        if any(p in texto_limpio for p in ["cambio de turno", "turno matutino", "turno vespertino", "simultanea", "carrera simultanea"]):
-            self.action_tram_cambio_turno()
+        if any(p in texto_limpio for p in ["cambio interno", "cambio de carrera", "cambio de sistema", "cambio modalidad", "8.5", "suayed", "siae", "dgae"]):
+            self.action_tram_cambio_carrera_sistema()
             return
-        if any(p in texto_limpio for p in ["permuta", "permutas", "cambio de plantel"]):
-            self.action_tram_permutas()
+        if any(p in texto_limpio for p in ["años posteriores", "acreditacion", "incorporado", "revalidación", "vengo de incorporada"]):
+            self.action_tram_anos_posteriores()
             return
-        if any(p in texto_limpio for p in ["imss", "seguro", "facultativo", "medico", "médico"]):
-            self.action_tram_seguro()
+        if any(p in texto_limpio for p in ["egresado", "egresados", "certificado de estudios", "carta pasante", "titulacion", "titularme", "pasante"]):
+            self.action_faq_egresados_menu()
             return
-        if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas"]):
-            self.action_tram_baja_materias()
+        if any(p in texto_limpio for p in ["permuta", "permutas", "cambio de plantel", "cambio de fec"]):
+            self.action_tram_permutas_imss_menu()
             return
-        if any(p in texto_limpio for p in ["baja semestre", "baja definitiva", "baja total", "renunciar carrera"]):
-            self.action_tram_baja_semestre()
+        if any(p in texto_limpio for p in ["imss", "seguro", "facultativo", "medico", "médico", "clinica"]):
+            self.action_tram_permutas_imss_menu()
+            return
+        if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas", "baja semestre", "baja definitiva", "baja total", "renunciar carrera"]):
+            self.action_tram_bajas_menu()
             return
 
         # ========== FILTRADO POR ESTADO EXPERTO (NUEVO VS REGULAR) ==========
@@ -142,7 +142,6 @@ class BotICO:
             if mensaje == "inscripciones_nuevo" or categoria == "inscripciones":
                 self.mostrar_inscripcion_nuevo_ingreso()
             elif mensaje == "preguntas_nuevo" or categoria == "preguntas" or mensaje == "tramites" or categoria == "tramites":
-                # Consolidamos todo en la súper botonera unificada de preguntas frecuentes
                 self.mostrar_menu_preguntas_frecuentes_acciones()
             elif categoria == "convocatoria":
                 self.ui.agregar_mensaje_bot("BotICO: Con base en tu estatus de Nuevo Ingreso, preparé este acceso rápido para los detalles oficiales de la Convocatoria:")
@@ -157,7 +156,8 @@ class BotICO:
                 self.process_mensaje_directo(categoria, mensaje)
 
     def evaluar_categoria(self, comando):
-        """Diccionario de palabras clave (IF-THEN) con soporte para variaciones lingüísticas"""
+        """Diccionario semántico con mapeo avanzado de intenciones estudiantiles"""
+        texto = limpiar_texto(comando)
         comandos_directos = ["inscripciones_nuevo", "co4nvocatoria", "preguntas_nuevo", "preguntas", 
                              "horarios", "contactos", "contacto", "inscripciones", "tramites", "actividades", "calendario"]
         
@@ -167,22 +167,17 @@ class BotICO:
             if comando in ["contacto"]: return "contactos"
             return comando
             
-        texto = limpiar_texto(comando)
-        
         palabras_clave = {
-            "convocatoria": ["convocatoria", "ingreso", "admision", "examen", "nuevo ingreso"],
-            "horarios": ["horario", "horarios", "cambio", "extraordinario", "materias", "turno"],
-            "contactos": ["telefono", "correo", "direccion", "contacto", "atencion", "contactos"],
-            "inscripciones": ["inscripcion", "inscripciones", "inscribirme", "fechas", "documentos", "pago"],
-            "tramites": ["constancia", "certificado", "titulacion", "servicio social", "bajas", "altas", "baja", "alta", "permuta", "sorteo", "cita", "extra", "suspension", "rectificacion", "revalidacion", "turno", "simultanea", "imss", "seguro", "facultativo"],
-            "actividades": ["taller", "deporte", "cultural", "musica", "teatro", "actividad", "talleres"],
-            "calendario": ["calendario", "agenda", "fechas oficiales", "cuando entramos", "inicio de clases"]
+            "convocatoria": ["convocatoria", "ingreso", "admision", "examen", "pase reglamentado"],
+            "horarios": ["horario", "horarios", "materias", "clases", "profesores"],
+            "contactos": ["telefono", "correo", "direccion", "contacto", "redes", "facebook", "ubicacion"],
+            "inscripciones": ["inscripcion", "inscripciones", "pago", "banco", "costo", "cuota"],
+            "tramites": ["constancia", "certificado", "titulacion", "servicio social", "bajas", "altas", "baja", "alta", "permuta", "sorteo", "cita", "extra", "suspension", "rectificacion", "revalidacion", "turno", "simultanea", "imss", "seguro", "egresado", "acreditacion", "pasante"],
+            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro"]
         }
-        
-        for categoria, palabras in palabras_clave.items():
-            for palabra in palabras:
-                if palabra in texto:
-                    return categoria
+        for cat, palabras in palabras_clave.items():
+            for p in palabras:
+                if p in texto: return cat
         return "desconocido"
 
     def obtener_respuesta_por_categoria(self, categoria, mensaje_original):
@@ -193,8 +188,7 @@ class BotICO:
             "inscripciones": MenuSystem.mensaje_inscripciones,
             "actividades": MenuSystem.mensaje_actividades,
         }
-        if category in respuestas:
-            return respuestas[categoria]()
+        if categoria in respuestas: return respuestas[categoria]()
         return MenuSystem.mensaje_no_entendido()
 
     # ========== MÓDULO UNIFICADO DE PREGUNTAS FRECUENTES (SÚPER ÍNDICE DE ACCIONES) ==========
@@ -205,15 +199,15 @@ class BotICO:
         self.ui.agregar_boton_en_chat(texto_boton="🔄 1. Reinscripción, Sorteos y Pagos", comando=self.action_faq_reinscripcion)
         self.ui.agregar_boton_en_chat(texto_boton="📄 2. Tramitar Constancias e Historial", comando=self.action_faq_constancias)
         self.ui.agregar_boton_en_chat(texto_boton="🪪 3. Nueva Credencial y Resellos", comando=self.action_faq_credencial)
-        self.ui.agregar_boton_en_chat(texto_boton="📜 4. Certificados y Carta Pasante", comando=self.action_faq_certificados)
-        self.ui.agregar_boton_en_chat(texto_boton="📝 5. Exámenes Extraordinarios (Extras)", comando=self.action_tram_extraordinarios)
-        self.ui.agregar_boton_en_chat(texto_boton="🛑 6. Suspensión Temporal de Estudios", comando=self.action_tram_suspension)
-        self.ui.agregar_boton_en_chat(texto_boton="🔄 7. Rectificación / Revalidación de Notas", comando=self.action_tram_rectificacion)
-        self.ui.agregar_boton_en_chat(texto_boton="🔀 8. Cambios de Turno / Carrera Simultánea", comando=self.action_tram_cambio_turno)
+        self.ui.agregar_boton_en_chat(texto_boton="📝 4. Exámenes Extraordinarios (Extras)", comando=self.action_tram_extraordinarios)
+        self.ui.agregar_boton_en_chat(texto_boton="🛑 5. Suspensión Temporal de Estudios", comando=self.action_tram_suspension)
+        self.ui.agregar_boton_en_chat(texto_boton="🔄 6. Rectificación / Revalidación de Notas", comando=self.action_tram_rectificacion)
+        self.ui.agregar_boton_en_chat(texto_boton="🔀 7. Cambios de Carrera / De Sistema (SUAyED)", comando=self.action_tram_cambio_carrera_sistema)
+        self.ui.agregar_boton_en_chat(texto_boton="🎓 8. Ingreso a Años Posteriores / Egresados", comando=self.action_faq_egresados_menu)
         self.ui.agregar_boton_en_chat(texto_boton="🤝 9. Permutas e Inscripción al IMSS", comando=self.action_tram_permutas_imss_menu)
         self.ui.agregar_boton_en_chat(texto_boton="📉 10. Bajas de Materias o del Semestre", comando=self.action_tram_bajas_menu)
 
-    # ========== DESGLOSE DE ACCIONES DE PREGUNTAS FRECUENTES ==========
+    # ========== CONTROLADORES DE ACCIONES INDIVIDUALES ==========
     def action_faq_reinscripcion(self):
         self.ui.agregar_mensaje_bot(MenuSystem.faq_reinscripcion_texto())
         self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar al Sistema TramiFES", comando=self.abrir_link_tramifes_final)
@@ -227,14 +221,6 @@ class BotICO:
         self.ui.agregar_mensaje_bot(MenuSystem.faq_credencial_texto())
         self.ui.agregar_boton_en_chat(texto_boton="🏫 Acceder a Servicios Escolares Web", comando=self.abrir_pagina_escolares_fes)
 
-    def action_faq_certificados(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_certificados_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🤝 Consultar Servicio Social FES", comando=self.abrir_servicio_social)
-
-    def abrir_servicio_social(self):
-        webbrowser.open("https://www.fes-aragon.unam.mx/servicio-social")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
     def action_tram_extraordinarios(self):
         self.ui.agregar_mensaje_bot(MenuSystem.tram_extraordinarios_texto())
         self.ui.agregar_boton_en_chat(texto_boton="🌐 Ver Fechas en Calendario FES", comando=self.abrir_calendario)
@@ -247,11 +233,42 @@ class BotICO:
         self.ui.agregar_mensaje_bot(MenuSystem.tram_rectificacion_texto())
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    def action_tram_cambio_turno(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_cambio_turno_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Verificar Convocatorias Activas", comando=self.abrir_pagina_escolares_fes)
+    def action_tram_cambio_carrera_sistema(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.tram_cambio_carrera_sistema_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial DGAE SIAE", comando=self.abrir_siae_web)
 
-    # Submenús internos para optimizar la vista en pantalla
+    def abrir_siae_web(self):
+        webbrowser.open("https://www.dgae-siae.unam.mx")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    # Submenú interactivo para Egresados y Años Posteriores
+    def action_faq_egresados_menu(self):
+        self.ui.agregar_mensaje_bot("🎓 Selecciona el trámite específico para Egresados o Años Posteriores:")
+        self.ui.agregar_boton_en_chat(texto_boton="📜 Ingreso a Años Posteriores por Acreditación/Revalidación", comando=self.action_tram_anos_posteriores)
+        self.ui.agregar_boton_en_chat(texto_boton="📄 Constancias y Credencial de Egresado", comando=self.action_faq_egresados_bloque)
+        self.ui.agregar_boton_en_chat(texto_boton="📜 Expedición de Certificados y Carta Pasante", comando=self.action_faq_egresados_docs_pesados)
+
+    def action_tram_anos_posteriores(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.tram_anos_posteriores_texto())
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def action_faq_egresados_bloque(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_egresados_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal de Exalumnos UNAM", comando=self.abrir_exalumnos_web)
+
+    def abrir_exalumnos_web(self):
+        webbrowser.open("http://www.pve.unam.mx/credencial.html")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def action_faq_egresados_docs_pesados(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.faq_egresados_documentos_pesados_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial SIGEREL", comando=self.abrir_sigerel_web)
+
+    def abrir_sigerel_web(self):
+        webbrowser.open("https://sigerel.dgae.unam.mx")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    # Submenú interactivo para Permutas e IMSS
     def action_tram_permutas_imss_menu(self):
         self.ui.agregar_mensaje_bot("🤝 Selecciona la duda específica que deseas resolver:")
         self.ui.agregar_boton_en_chat(texto_boton="📜 Ver requisitos para Permutas", comando=self.action_tram_permutas)
@@ -263,8 +280,13 @@ class BotICO:
 
     def action_tram_seguro(self):
         self.ui.agregar_mensaje_bot(MenuSystem.tram_seguro_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Registrar NSS en portal FES", comando=self.abrir_pagina_escolares_fes)
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder a IMSS Digital", comando=self.abrir_imss_digital)
 
+    def abrir_imss_digital(self):
+        webbrowser.open("https://www.imss.gob.mx/derechohabientes/tramites")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    # Submenú interactivo para Bajas
     def action_tram_bajas_menu(self):
         self.ui.agregar_mensaje_bot("📉 Selecciona el tipo de baja que deseas revisar:")
         self.ui.agregar_boton_en_chat(texto_boton="📋 Baja parcial de asignaturas", comando=self.action_tram_baja_materias)
@@ -278,21 +300,7 @@ class BotICO:
         self.ui.agregar_mensaje_bot(MenuSystem.tram_baja_semestre_texto())
         self.ui.agregar_boton_en_chat(texto_boton="📖 Ver Directorio de Ventanillas", comando=self.abrir_pagina_escolares_fes)
 
-    # ========== TRÁMITES DE CONVOCATORIA (NUEVO INGRESO) ==========
-    def mostrar_requisitos_pdf(self):
-        self.ui.agregar_mensaje_bot("BotICO: Selecciona el tipo de proceso por el cual deseas ingresar a la UNAM:")
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Pase Reglamentado UNAM", comando=self.abrir_pase_reglamentado)
-        self.ui.agregar_boton_en_chat(texto_boton="📝 Concurso de Selección", comando=self.abrir_concurso_ingreso)
-
-    def abrir_pase_reglamentado(self):
-        webbrowser.open("https://www.dgae.unam.mx/Pase2026/index.html")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_concurso_ingreso(self):
-        webbrowser.open("https://www.dgae.unam.mx/admision_licenciatura/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    # ========== TRÁMITES DE INSCRIPCIÓN (NUEVO INGRESO) ==========
+    # ========== ENLACES GLOBALES E INSCRIPCIÓN ==========
     def mostrar_inscripcion_nuevo_ingreso(self):
         informacion_inscripcion = (
             "🏛️ FACULTAD DE ESTUDIOS SUPERIORES ARAGÓN\n"
@@ -307,12 +315,12 @@ class BotICO:
         )
         self.ui.agregar_mensaje_bot(informacion_inscripcion)
         
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema PIIANI FES Aragón", comando=self.abrir_sistema_piiani)
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema PIIANI FES Aragón", comando=self.open_piiani)
         self.ui.agregar_boton_en_chat(texto_boton="📄 Descargar Carta Compromiso 2026-2", comando=self.descargar_carta_compromiso)
         self.ui.agregar_boton_en_chat(texto_boton="🏫 Página Servicios Escolares FES", comando=self.abrir_pagina_escolares_fes)
         self.ui.agregar_boton_en_chat(texto_boton="🔄 Sistema de Altas y Bajas TramiFES", comando=self.mostrar_detalles_altas_bajas)
 
-    def abrir_sistema_piiani(self):
+    def open_piiani(self):
         webbrowser.open("http://132.248.44.93:8080/PIIANI/")
         self.ventana.after(1000, self.preguntar_continuidad)
 
@@ -324,7 +332,6 @@ class BotICO:
         webbrowser.open("https://www.aragon.unam.mx/fes-aragon/#!/cise/servicios-escolares")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # ========== SECCIÓN DETALLADA: PASO A PASO DE ALTAS Y BAJAS ==========
     def mostrar_detalles_altas_bajas(self):
         guia_pasos = (
             "🔄 PROCESO DETALLADO DE ALTAS Y BAJAS (TramiFES)\n\n"
@@ -344,12 +351,24 @@ class BotICO:
         webbrowser.open("https://tramifes.aragon.unam.mx/")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # ========== MÉTODOS DE CONTROL GLOBAL ==========
     def abrir_calendario(self):
         webbrowser.open("https://aragon.unam.mx/fes-aragon/public_html/documents/nuestra_facultad/calendario-2026-ll.pdf")
         self.ventana.after(1000, self.preguntar_continuidad)
 
-    # ========== SECCIÓN DE GESTIÓN DE FLUJO ("¿ALGO MÁS?") ==========
+    def mostrar_requisitos_pdf(self):
+        self.ui.agregar_mensaje_bot("BotICO: Selecciona el tipo de proceso por el cual deseas ingresar a la UNAM:")
+        self.ui.agregar_boton_en_chat(texto_boton="📜 Pase Reglamentado UNAM", comando=self.abrir_pase_reglamentado)
+        self.ui.agregar_boton_en_chat(texto_boton="📝 Concurso de Selección", comando=self.abrir_concurso_ingreso)
+
+    def abrir_pase_reglamentado(self):
+        webbrowser.open("https://www.dgae.unam.mx/Pase2026/index.html")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def abrir_concurso_ingreso(self):
+        webbrowser.open("https://www.dgae.unam.mx/admision_licenciatura/")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    # ========== GESTIÓN DE FLUJO ("¿ALGO MÁS?") ==========
     def preguntar_continuidad(self):
         self.ui.agregar_mensaje_bot("BotICO: ¿Te puedo ayudar en algo más?")
         self.ui.agregar_boton_en_chat(texto_boton="👍 Sí, tengo otra duda", comando=self.usuario_desea_continuar)
