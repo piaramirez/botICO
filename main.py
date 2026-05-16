@@ -145,18 +145,66 @@ class BotICO:
         return MenuSystem.mensaje_no_entendido()
 
     def mostrar_requisitos_pdf(self):
-        """Función callback activada al presionar el botón incrustado en el chat"""
-        requisitos_texto = (
-            "\n📋 --- REQUISITOS ESENCIALES CONVOCATORIA 2026-1 ---\n"
-            "• Acta de nacimiento original.\n"
-            "• Clave Única de Registro de Población (CURP).\n"
-            "• Certificado de bachillerato con promedio superior a 7.0.\n"
-            "• Cuatro fotografías tamaño infantil a blanco y negro.\n"
-            "• Certificado médico expedido por la institución.\n\n"
-            "🌐 ¡Redirigiendo de manera segura a la página oficial de la DGAE para consultar las bases completas!"
+        """Muestra las opciones de ingreso con dos botones interactivos en el chat"""
+        self.ui.agregar_mensaje_bot(
+            "BotICO: Selecciona el tipo de proceso por el cual deseas ingresar a la UNAM "
+            "para dirigirte al sitio oficial correspondiente:"
         )
-        self.ui.agregar_mensaje_bot(requisitos_texto)
-        webbrowser.open("https://www.dgae.unam.mx/convocatoria")
+        
+        # Insertamos el primer botón interactivo para Pase Reglamentado
+        self.ui.agregar_boton_en_chat(
+            texto_boton="📜 Pase Reglamentado UNAM",
+            comando=self.abrir_pase_reglamentado
+        )
+        
+        # Insertamos el segundo botón interactivo para Concurso de Selección
+        self.ui.agregar_boton_en_chat(
+            texto_boton="📝 Concurso de Selección",
+            comando=self.abrir_concurso_ingreso
+        )
+
+    def abrir_pase_reglamentado(self):
+        """Abre el enlace oficial para Pase Reglamentado y pregunta si desea algo más"""
+        self.ui.agregar_mensaje_bot("🌐 Abriendo el sitio oficial de Pase Reglamentado de la DGAE...")
+        webbrowser.open("https://www.dgae.unam.mx/Pase2026/index.html")
+        
+        # Esperamos un pequeño momento para lanzar la pregunta de continuidad
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def abrir_concurso_ingreso(self):
+        """Abre el enlace oficial para el Concurso de Selección y pregunta si desea algo más"""
+        self.ui.agregar_mensaje_bot("🌐 Abriendo el sitio oficial de Admisión por Concurso de la DGAE...")
+        webbrowser.open("https://www.dgae.unam.mx/admision_licenciatura/")
+        
+        # Esperamos un pequeño momento para lanzar la pregunta de continuidad
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    # ========== NUEVAS FUNCIONES DE FLUJO Y CIERRE ==========
+    def preguntar_continuidad(self):
+        """Pregunta al usuario si requiere asistencia adicional con botones interactivos"""
+        self.ui.agregar_mensaje_bot("BotICO: ¿Te puedo ayudar en algo más?")
+        
+        # Botón para continuar interactuando
+        self.ui.agregar_boton_en_chat(
+            texto_boton="👍 Sí, tengo otra duda",
+            comando=self.usuario_desea_continuar
+        )
+        
+        # Botón para finalizar la sesión y cerrar la app
+        self.ui.agregar_boton_en_chat(
+            texto_boton="🛑 No, es todo. Salir",
+            comando=self.usuario_desea_salir
+        )
+
+    def usuario_desea_continuar(self):
+        """El usuario decide continuar en el chat"""
+        self.ui.agregar_mensaje_bot("BotICO: ¡Perfecto! Puedes usar los botones de la barra inferior o escribirme directamente tu duda.")
+
+    def usuario_desea_salir(self):
+        """El usuario decide salir: se despide y se destruye la ventana"""
+        self.ui.agregar_mensaje_bot("👋 ¡Gracias por usar BotICO! Tu sesión ha finalizado. Éxito en tu proceso.")
+        # Espera 2000 milisegundos (2 segundos) para que el usuario lea la despedida y cierra la app
+        self.ventana.after(2000, self.ventana.quit)
 
     def run(self):
         self.ventana.mainloop()

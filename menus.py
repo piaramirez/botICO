@@ -60,10 +60,10 @@ class MenuSystem:
 ║     • Registro: noviembre - diciembre                            ║
 ║     • Examen de admisión: enero                                  ║
 ║                                                                  ║
-║  🔗 https://www.fes-aragon.unam.mx/inscripciones                 ║
+║  👉 Usa los botones interactivos del chat para ver tu proceso.   ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
-    
+
     @staticmethod
     def mensaje_convocatoria():
         return """
@@ -75,18 +75,13 @@ class MenuSystem:
 ║     • Registro en línea: noviembre - diciembre                   ║
 ║     • Examen de admisión: enero - febrero                        ║
 ║                                                                  ║
-║  📋 REQUISITOS:                                                  ║
-║     • Acta de nacimiento                                         ║
-║     • CURP                                                       ║
-║     • Certificado de bachillerato                                ║
-║     • Comprobante de domicilio                                   ║
-║     • 4 fotografías tamaño infantil                              ║
-║     • Certificado médico                                         ║
+║  📋 REQUISITOS GENERALES:                                        ║
+║     • Acta de nacimiento, CURP y Comprobante de domicilio        ║
+║     • Certificado de bachillerato (Promedio mínimo 7.0)          ║
 ║                                                                  ║
-║  🔗 https://www.dgae.unam.mx/convocatoria                        ║
+║  👉 Selecciona tu modalidad en los botones que aparecen abajo.   ║
 ╚══════════════════════════════════════════════════════════════════╝
-        """
-    
+        """  
     @staticmethod
     def mensaje_preguntas_nuevo_ingreso():
         return """
