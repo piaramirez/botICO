@@ -80,24 +80,36 @@ class MenuSystem:
     def mensaje_contactos():
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║                   📞 CONTACTOS - FES ARAGÓN                      ║
+║             📞 DIRECTORIO DE CONTACTOS OFICIALES                 ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  📞 TELÉFONOS:                                                   ║
-║     • Conmutador: 55 5623 0000                                   ║
-║     • Servicios Escolares: 55 5623 1234                          ║
+║ 🏛️ CONMUTADOR GENERAL FES ARAGÓN:                                 ║
+║    • Teléfono: 55 5623 0000                                      ║
 ║                                                                  ║
-║  📧 CORREOS:                                                     ║
-║     • escolares@fes-aragon.unam.mx                               ║
-║     • ico@fes-aragon.unam.mx                                     ║
+║ 🏫 DEPARTAMENTO DE SERVICIOS ESCOLARES:                          ║
+║    • Correo: serviciosescolares@aragon.unam.mx                   ║
+║    • Correo Alterno: escolares@fes-aragon.unam.mx                ║
 ║                                                                  ║
-║  🌐 REDES SOCIALES:                                              ║
-║     • Facebook: /FESAragonOficial                                ║
-║     • Instagram: @fesaragon                                      ║
+║ 🎓 JEFATURA DE INGENIERÍA EN COMPUTACIÓN (ICO):                  ║
+║    • Correo: ico@fes-aragon.unam.mx                              ║
 ║                                                                  ║
-║  📍 UBICACIÓN:                                                   ║
-║     Av. Rancho Seco S/N, Nezahualcóyotl, EDOMEX                  ║
+║ ⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS:                        ║
+║    • Responsable: Carlos Octavio Cruz Valencia                   ║
+║    • Teléfono: 55 5623 0222 (Extensión: 31035)                   ║
+║    • Correo: deportivas.contacto@aragon.unam.mx                  ║
+║    • Escuela del Deporte: deportivas.escueladeldeporte@aragon.     ║
+║      unam.mx | WhatsApp: 55 5474 4687                            ║
+║    • Horarios: Lun-Vie 8:00 a 20:00 h | Sáb 9:00 a 14:00 h       ║
 ║                                                                  ║
-║  🔗 https://www.fes-aragon.unam.mx/directorio                    ║
+║ ✈️ OFICINA DE INTERCAMBIO ACADÉMICO Y VINCULACIÓN:                ║
+║    • Correo: intercambioacademico@aragon.unam.mx                 ║
+║    • Ubicación: CISE, Planta Baja del Edificio A1                ║
+║    • Horarios: Lun-Vie 9:00 a 13:30 h y 16:00 a 20:00 h          ║
+║                                                                  ║
+║ 🔗 CENTRO DE LENGUAS (CLE) - IDIOMAS:                            ║
+║    • Coordinación de Idiomas: cle.aragon@unam.mx                 ║
+║                                                                  ║
+║ 📍 UBICACIÓN PLANTEL: Av. Rancho Seco S/N, Plazas de Aragón,     ║
+║    Nezahualcóyotl, Estado de México.                             ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
     
@@ -105,15 +117,26 @@ class MenuSystem:
     def mensaje_inscripciones():
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║                    📋 INSCRIPCIONES - ICO BLOCK                  ║
+║             📋 PROCESO DE INSCRIPCIÓN PRIMER INGRESO             ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  💰 COSTO: $0.50 centavos (mínimo $100 MXN)                      ║
+║  🏢 VENTANILLA DE SERVICIOS ESCOLARES:                            ║
+║     Debes presentarte físicamente en la FES Aragón siguiendo la   ║
+║     agenda de fechas y horarios establecidos según tu carrera.   ║
 ║                                                                  ║
-║  📄 DOCUMENTOS:                                                  ║
-║     • Acta de nacimiento, CURP y Certificado de bachillerato      ║
-║     • Comprobante de domicilio y certificado médico              ║
+║  📄 DOCUMENTACIÓN OBLIGATORIA A ENTREGAR:                        ║
+║     • Carta de asignación firmada (marcada como PLANTEL).        ║
+║     • Carta Compromiso (llena y firmada).                        ║
+║     • Comprobante de aportación voluntaria de banco o cajas:     ║
+║       (Cajas plantel: $0.50 centavos / Banco: Mínimo $100.00).   ║
+║     • Clave CURP impresa.                                        ║
+║     • Original y copia de tu identificación oficial vigente con  ║
+║       fotografía y firma por AMBOS LADOS (INE, Pasaporte,        ║
+║       Licencia o Credencial de bachillerato).                    ║
 ║                                                                  ║
-║  🔗 https://www.fes-aragon.unam.mx/inscripciones                 ║
+║  🪪 RECOLECCIÓN DE PAPELES:                                      ║
+║     Al entregar tus documentos en ventanilla, recibirás tu       ║
+║     comprobante de inscripción oficial y tu credencial UNAM      ║
+║     física (si no hubiese llegado, se te avisará la fecha).       ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
     
@@ -138,14 +161,21 @@ class MenuSystem:
     def mensaje_actividades():
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║              🎭 ACTIVIDADES COMPLEMENTARIAS - ICO                ║
+║        🎭 TALLERES CULTURALES Y EXTENSIÓN UNIVERSITARIA          ║
 ╠══════════════════════════════════════════════════════════════════╣
-║  🎵 TALLERES DISPONIBLES: Música, teatro, danza, artes plásticas ║
-║  ⚽ DEPORTES: 21 disciplinas de recreación e instalaciones       ║
-║  🗣️ IDIOMAS (CLE): Cursos de Inglés, Francés, Alemán, Italiano    ║
-║  🤖 ROBÓTICA Y PROGRAMACIÓN: Arduino, Python, Desarrollo web     ║
+║ 🏛️ CENTRO DE LENGUAS (CLE):                                       ║
+║    Cursos oficiales de Inglés, Francés, Alemán, Italiano y       ║
+║    Certificaciones de comprensión de lectura.                    ║
 ║                                                                  ║
-║  👉 Escribe 'Deportes' o 'Intercambio' para ver los desgloses.   ║
+║ 🎵 TALLERES CULTURALES ACTIVOS:                                  ║
+║    Clases de música (guitarra, piano), teatro, danza             ║
+║    contemporánea, fotografía y artes plásticas.                  ║
+║                                                                  ║
+║ ⚽ ACTIVIDADES DEPORTIVAS:                                       ║
+║    Inscripción a las 21 disciplinas de recreación, uso de        ║
+║    pista de atletismo, canchas de fútbol rápido y gimnasio.      ║
+║                                                                  ║
+║ 👉 Escribe 'Deportes' para ver los costos o requisitos oficiales║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
@@ -157,15 +187,19 @@ class MenuSystem:
     @staticmethod
     def faq_reinscripcion_texto():
         return """
-🔄 PROCESO DE REINSCRIPCIÓN SEMESTRAL
+🔄 PROCESO DE REINSCRIPCIÓN SEMESTRAL Y PAGOS
 
 Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFES.
 
-💳 1. PAGO DE CUOTA ANUAL (Cajas del plantel o Banco):
+💳 1. MONTO DE APORTACIÓN Y VIAS DE PAGO:
+   • Pago físico en cajas del plantel: $0.50 centavos.
+   • Depósito en banco o transferencia: Mínimo $100.00 MXN.
+
+🏦 CUENTAS BANCARIAS AUTORIZADAS:
    • SCOTIABANK  | Convenio: 0010215800-03751
    • SANTANDER   | Convenio: 65501522119 | CLABE: 014180655015221193
    • BBVA        | Cuenta: 0011035708  | CLABE: 012914002013009620
-   * Nota: Es obligatorio poner tu NÚMERO DE CUENTA como referencia del depósito.
+   * Nota importante: Es obligatorio poner tu NÚMERO DE CUENTA UNAM como referencia del depósito.
 
 📚 2. VALIDACIÓN:
    Verifica no tener adeudos en biblioteca, Fundación UNAM o laboratorios.
@@ -224,111 +258,6 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
         """
 
     @staticmethod
-    def tram_extraordinarios_texto():
-        return """
-📝 REGISTRO DE EXÁMENES EXTRAORDINARIOS
-
-Este proceso se realiza 2 veces por semestre en las fechas establecidas en el Calendario Escolar, con el fin de presentar la oposición para aprobar materias que no se hayan logrado en periodo ordinario.
-
-📋 REQUISITOS Y PASOS:
-• Registrar las asignaturas vía Internet en la plataforma oficial.
-• El sistema se habilita a partir de las 10:00:00 hrs del primer día y cierra hasta las 23:59 hrs del último día marcado en la convocatoria.
-• Recuerda realizar el pago correspondiente por materia en las cajas o banco autorizado.
-        """
-
-    @staticmethod
-    def tram_suspension_texto():
-        return """
-🛑 SUSPENSIÓN TEMPORAL DE ESTUDIOS
-
-La convocatoria para tramitar la suspensión temporal de estudios se publica al inicio de cada semestre.
-
-📋 REQUISITOS Y PASOS:
-• Los alumnos podrán solicitar este periodo de gracia por un semestre o un año lectivo máximo.
-• El trámite se realiza directamente en las ventanillas del Departamento de Servicios Escolares dentro de las fechas establecidas en la convocatoria de inicio de ciclo.
-        """
-
-    @staticmethod
-    def tram_rectificacion_texto():
-        return """
-🔄 RECTIFICACIÓN Y REVALIDACIÓN DE CALIFICACIONES
-
-• RECTIFICACIÓN DE CALIFICACIONES:
-  - Para solicitar el cambio de calificación en una materia en el sistema escolar es necesario estar dentro de los 60 días posteriores a la realización del examen.
-  - El alumno debe contactar al profesor para que este realice la aclaración en el sistema. Posteriormente, verifica el cambio en tu Historia Académica.
-
-• REVALIDACIÓN DE MATERIAS:
-  - En caso de movilidad académica, presenta en tu Jefatura de Carrera el comprobante original de la calificación aprobatoria a revalidar.
-  - Para materias optativas se entrega el Formato F306 (en Servicios Escolares). Verifica la actualización en tu Historia Académica en un lapso de 15 días.
-        """
-
-    @staticmethod
-    def tram_cambio_carrera_sistema_texto():
-        return """
-🔀 CAMBIOS DE CARRERA, INTERNO Y DE SISTEMA
-
-• CAMBIO INTERNO DE CARRERA:
-  - Exclusivo para Relaciones Internacionales, Comunicación, Sociología e Ingenierías.
-  - Requisitos: Ser alumno regular y estar dentro de los primeros 2 años de la carrera. Los de Ingenierías solo pueden optar por otra ingeniería. Solicitud en www.dgae-siae.unam.mx en fechas asignadas.
-
-• CAMBIO DE SISTEMA (PRESENCIAL A SUAyED):
-  - Disponible para Derecho, Economía y Relaciones Internacionales. Convocatoria una vez al año por la DGAE.
-  - Requisitos (Art. 8): Cupo disponible, promedio mínimo de 8.5, haber aprobado de forma regular todas las materias de los 2 primeros semestres. La solicitud solo se puede presentar UNA vez y es definitiva. Trámite en www.dgae-siae.unam.mx.
-        """
-
-    @staticmethod
-    def tram_anos_posteriores_texto():
-        return """
-🎓 INGRESO A AÑOS POSTERIORES (ACREDITACIÓN Y REVALIDACIÓN)
-
-• POR ACREDITACIÓN (SISTEMA INCORPORADO):
-  - Aspirantes con estudios de licenciatura en una institución del Sistema Incorporado de la UNAM que desean continuar su formación en alguna Facultad de la UNAM deben consultar el Manual del Alumno y el trámite "Ingreso en Años Posteriores al Primero por Acreditación".
-
-• POR REVALIDACIÓN (OTRAS INSTITUCIONES LICENCIATURA):
-  - Aspirantes de escuelas externas a la UNAM que desean continuar aquí sus estudios deben revisar detalladamente la convocatoria de la Dirección General de Incorporación y Revalidación (DGIRE).
-        """
-
-    @staticmethod
-    def faq_egresados_texto():
-        return """
-🎓 TRÁMITES FORMALES PARA EGRESADOS
-
-• CONSTANCIA DE CRÉDITOS: Informa el avance de créditos, materias aprobadas y promedio. Requisitos: Historial Académico reciente e impreso (máx 1 mes) y recibo de pago de cuota voluntaria.
-• CONSTANCIA DE HISTORIAL ACADÉMICO: Copia sellada por Secretaría Académica. Requisitos: Historial reciente, ID oficial y recibo de pago (cuota voluntaria en negro).
-• CREDENCIAL DE EGRESADO: Para quienes terminaron la carrera o están titulados. Con grandes beneficios institucionales.
-        """
-
-    @staticmethod
-    def faq_egresados_documentos_pesados_texto():
-        return """
-📜 EXPEDICIÓN DE CERTIFICADOS Y CARTA PASANTE
-
-• CERTIFICADO DE ESTUDIOS (Oficial FES Aragón, describe materias, notas y periodos):
-  - Costo: 1er certificado de aportación voluntaria. A partir del 2do cuesta $100 pesos (descarga referencia bancaria en SIGEREL: https://sigerel.dgae.unam.mx). Tiempo de entrega: 25 días hábiles. Requisitos: Historia Académica con datos de contacto en la primera hoja y fotos tamaño óvalo credencial.
-
-• CARTA PASANTE (Sirve para ejercer la carrera de forma oficial por 1 año):
-  - Se puede tramitar dentro de los 11 meses posteriores al acreditar el 100% de créditos. Requisitos: Promedio mín 7.00, recibo cuota voluntaria, Historial SIAE y Carta Responsiva firmado por un responsable titulado (con copia de cédula). Recógela en ventanilla, recaba firma de DGAE en C.U. y continúa en la SEP.
-        """
-
-    @staticmethod
-    def tram_permutas_texto():
-        return """
-🤝 TRÁMITE DE PERMUTAS Y SEGURO FACULTATIVO
-
-• PERMUTAS (CAMBIO DE PLANTEL O CARRERA): Ambos alumnos deben ser regulares, estar inscritos en el semestre vigente y registrar la solicitud en los tiempos de la convocatoria de la DGAE al término del ciclo escolar.
-• SEGURO FACULTATIVO (IMSS): Derecho al servicio médico gratuito. Obtén tu Número de Seguridad Social (NSS) en el portal de IMSS Digital e ingrésalo en el sistema de Servicios Escolares de la FES Aragón en el apartado 'Seguro Médico'.
-        """
-
-    @staticmethod
-    def tram_baja_materias_texto():
-        return """
-📉 BAJA DE ASIGNATURAS Y BAJA DEL SEMESTRE
-
-• BAJA DE ASIGNATURAS: La Ordinaria se procesa en línea a través del sistema TramiFES las primeras semanas del ciclo. La Extemporánea requiere causas de fuerza mayor comprobables y carta dirigida a la Jefatura de Carrera.
-• BAJA DEL SEMESTRE / DEFINITIVA: La Temporal Reglamentaria se solicita en ventanilla al inicio del bloque. La Definitiva es la renuncia total a tu lugar e implica la devolución de papeles originales previa entrega de firmas de no adeudo.
-        """
-
-    @staticmethod
     def faq_deportes_presentacion_texto():
         return """
 ⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS Y RECREATIVAS
@@ -377,7 +306,7 @@ Para la práctica de cualquier disciplina o uso del gimnasio de pesas es obligat
     @staticmethod
     def faq_deportes_instalaciones_texto():
         return """
-🏛️ INFRAESTRUCTURA E CONTACTO DE COORDINACIÓN DEPORTIVA
+🏛️ INFRAESTRUCTURA Y CONTACTO DE COORDINACIÓN DEPORTIVA
 
 La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 • 1 Gimnasio multidisciplinario (Salón 1, Salón 2 y área de pesas).
@@ -385,8 +314,8 @@ La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 • 6 Canchas externas, 1 de voleibol playa, 2 de fútbol rápido, 1 de fútbol 7.
 • 1 Pista de atletismo, 1 Campo de béisbol, 1 Campo de fútbol asociación y 1 Campo anexo.
 
-📞 DATOS DE CONTACTO E ATENCIÓN:
-• Responsible: Carlos Octavio Cruz Valencia | Teléfono: 55 5623 0222 (Ext. 31035)
+📞 DATOS DE CONTACTO Y ATENCIÓN:
+• Responsable: Carlos Octavio Cruz Valencia | Teléfono: 55 5623 0222 (Ext. 31035)
 • Horarios: Lunes a viernes de 8:00 a 20:00 h | Sábados de 9:00 a 14:00 h.
 • Correo Oficial: deportivas.contacto@aragon.unam.mx
 • Actividades Externas Adultos: Entrenamiento funcional, pesas, taekwondo y karate do ($390.00 MXN mensuales). Validar cupo previo por correo.
@@ -453,10 +382,9 @@ Para revisar tus notas parciales, actas finales asentadas, promedio general acum
 💻 ACCESO AL SISTEMA:
 • Plataforma Oficial: Sistema de Internet de la Administración Escolar (SIAE).
 • Datos de Ingreso: Número de cuenta UNAM y tu contraseña personal del sistema.
-• Contenido: Historial académico, desglose de calificaciones por ciclo lectivo, estatus de regularidad y comprobante de créditos.
+• Contentido: Historial académico, desglose de calificaciones por ciclo lectivo, estatus de regularidad y comprobante de créditos.
         """
 
-    # ========== COMPONENTES DE HORARIOS ACTUALIZADOS (TABLAS OFICIALES DE CÓMPUTO) ==========
     @staticmethod
     def faq_horarios_detallado_texto():
         return """
@@ -485,7 +413,7 @@ Módulo dedicado a revisar las fechas, horarios y sinodales asignados para la ev
 📋 INSTRUCCIONES DE USO:
 • Selecciona el semestre a consultar en el combo correspondiente.
 • Selecciona la vuelta de examen que deseas revisar (1ra. o 2da. vuelta de acuerdo a los plazos marcados en el calendario escolar).
-• Elige tu carrera (Ingeniería en Computación) y dale clic a ENVIAR.
+• Elige tu carrera (Ingeniería en Computación) and dale clic a ENVIAR.
 • Adicionalmente, el portal te permite realizar un filtrado dinámico directo por materia para localizar el aula exacta de aplicación de forma rápida.
         """
 
@@ -498,8 +426,23 @@ Consulta el calendario de aplicaciones para las evaluaciones de fin de curso reg
 
 📋 INSTRUCCIONES DE USO:
 • Selecciona el periodo semestral vigente en la lista desplegable (ej. 2026-2).
-• Ingresa el grupo completo a consultar, el cual se encuentra formado estrictamente por 4 números.
+• Ukresa el grupo completo a consultar, el cual se encuentra formado estrictamente por 4 números.
 • Selecciona la carrera de Ingeniería en Computación en el combo y presiona ENVIAR.
 
 👉 Te mostrará las fechas límite, horarios y especificaciones oficiales para asentar las calificaciones de tus vueltas regulares en actas.
+        """
+
+    @staticmethod
+    def faq_concepto_altas_bajas_texto():
+        return """
+🔄 ¿QUÉ ES EL PERIODO DE ALTAS Y BAJAS EN LA FES ARAGÓN?
+
+Es un proceso reglamentario posterior a la reinscripción ordinaria que permite a los alumnos regulares realizar ajustes finales a su carga académica del semestre.
+
+📋 ¿PARA QUÉ SIRVE ESTE TRÁMITE?:
+• DAR DE ALTA: Inscribir asignaturas ordinarias en los grupos que cuenten con cupos disponibles tras el cierre del sorteo principal. Es la oportunidad ideal para meter materias si te quedaste sin lugar con un profesor.
+• DAR DE BAJA: Renunciar a la inscripción de una asignatura que ya habías cargado en TramiFES (Liberando el cupo para que otro compañero pueda ocuparlo).
+
+⚠️ NOTA IMPORTANTE:
+Este movimiento se realiza estrictamente en las fechas marcadas en el Calendario Oficial al inicio del bloque de clases a través de TramiFES. Recuerda que es obligatorio imprimir y guardar tu comprobante final como tu único respaldo legal de inscripción.
         """
