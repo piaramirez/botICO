@@ -280,7 +280,7 @@ class BotICO:
     def action_faq_reinscripcion(self):
         self.ui.agregar_mensaje_bot(MenuSystem.faq_reinscripcion_texto())
         self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar al Sistema TramiFES", comando=self.abrir_link_tramifes_final)
-        self.ui.agregar_boton_en_chat(texto_boton="📋 Ver Guía de Sorteo Altas/Bajas", comando=self.action_faq_horarios_menu)
+        self.ui.agregar_boton_en_chat(texto_boton="📋 Ver Guía de Sorteo Altas/Bajas", comando=self.action_faq_concepto_altas_bajas)
 
     def action_faq_constancias(self):
         self.ui.agregar_mensaje_bot(MenuSystem.faq_constancias_texto())
@@ -472,7 +472,7 @@ class BotICO:
         self.ventana.after(1000, self.preguntar_continuidad)
 
     def abrir_concurso_ingreso(self):
-        webbrowser.open("https://www.dgae-siae.unam.mx") # Unificado al portal SIAE para validaciones de concurso
+        webbrowser.open("https://www.dgae-siae.unam.mx")
         self.ventana.after(1000, self.preguntar_continuidad)
 
     def abrir_calendario(self):
@@ -496,9 +496,12 @@ class BotICO:
         else:
             self.ui.actualizar_botones(MenuSystem.get_botones_principales())
 
+    def Ballback_quit(self):
+        self.ventana.quit()
+
     def usuario_desea_clean_close(self):
         self.ui.agregar_mensaje_bot("👋 ¡Gracias por utilizar BotICO! Tu sesión ha finalizado con éxito. ¡Goya!")
-        self.ventana.after(2000, self.ventana.quit)
+        self.ventana.after(2000, self.Ballback_quit)
 
     def run(self):
         self.ventana.mainloop()
