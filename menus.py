@@ -382,7 +382,7 @@ Para revisar tus notas parciales, actas finales asentadas, promedio general acum
 💻 ACCESO AL SISTEMA:
 • Plataforma Oficial: Sistema de Internet de la Administración Escolar (SIAE).
 • Datos de Ingreso: Número de cuenta UNAM y tu contraseña personal del sistema.
-• Contentido: Historial académico, desglose de calificaciones por ciclo lectivo, estatus de regularidad y comprobante de créditos.
+• Contenido: Historial académico, desglose de calificaciones por ciclo lectivo, estatus de regularidad y comprobante de créditos.
         """
 
     @staticmethod
@@ -413,7 +413,7 @@ Módulo dedicado a revisar las fechas, horarios y sinodales asignados para la ev
 📋 INSTRUCCIONES DE USO:
 • Selecciona el semestre a consultar en el combo correspondiente.
 • Selecciona la vuelta de examen que deseas revisar (1ra. o 2da. vuelta de acuerdo a los plazos marcados en el calendario escolar).
-• Elige tu carrera (Ingeniería en Computación) and dale clic a ENVIAR.
+• Elige tu carrera (Ingeniería en Computación) y dale clic a ENVIAR.
 • Adicionalmente, el portal te permite realizar un filtrado dinámico directo por materia para localizar el aula exacta de aplicación de forma rápida.
         """
 
@@ -426,7 +426,7 @@ Consulta el calendario de aplicaciones para las evaluaciones de fin de curso reg
 
 📋 INSTRUCCIONES DE USO:
 • Selecciona el periodo semestral vigente en la lista desplegable (ej. 2026-2).
-• Ukresa el grupo completo a consultar, el cual se encuentra formado estrictamente por 4 números.
+• Ingresa el grupo completo a consultar, el cual se encuentra formado estrictamente por 4 números.
 • Selecciona la carrera de Ingeniería en Computación en el combo y presiona ENVIAR.
 
 👉 Te mostrará las fechas límite, horarios y especificaciones oficiales para asentar las calificaciones de tus vueltas regulares en actas.
@@ -445,4 +445,70 @@ Es un proceso reglamentario posterior a la reinscripción ordinaria que permite 
 
 ⚠️ NOTA IMPORTANTE:
 Este movimiento se realiza estrictamente en las fechas marcadas en el Calendario Oficial al inicio del bloque de clases a través de TramiFES. Recuerda que es obligatorio imprimir y guardar tu comprobante final como tu único respaldo legal de inscripción.
+        """
+
+    @staticmethod
+    def tram_suspension_texto():
+        return """
+🛑 SOLICITUD DE SUSPENSIÓN TEMPORAL DE ESTUDIOS (PERIODO DE GRACIA)
+
+Trámite oficial para pausar tus estudios de forma reglamentaria sin perder tu lugar en la UNAM.
+
+📋 REQUISITOS Y ESPECIFICACIONES:
+• Los alumnos regulares podrán solicitar la suspensión por un semestre o hasta un año lectivo máximo.
+• El trámite se gestiona estrictamente las primeras semanas del ciclo escolar directo en las ventanillas del Departamento de Servicios Escolares.
+• Al finalizar el periodo asignado, el reingreso se procesa de forma automática en el sistema.
+        """
+
+    @staticmethod
+    def tram_rectificacion_texto():
+        return """
+🔄 RECTIFICACIÓN DE ACTAS Y ACLARACIÓN DE CALIFICACIONES
+
+Módulo diseñado para solicitar la corrección de una nota mal asentada en el historial oficial del SIAE.
+
+📋 INSTRUCCIONES Y TIEMPOS LEGALES:
+• Plazo Máximo: Cuentas estrictamente con 60 días naturales posteriores a la fecha de aplicación del examen para solicitar aclaraciones.
+• Proceso: El alumno debe contactar al docente titular de la materia. Es el profesor quien genera la solicitud oficial de rectificación ante la Jefatura de Carrera y Servicios Escolares. Una vez firmada, verás reflejado el cambio en tu Historia Académica de internet.
+        """
+
+    # ========== MÉTODOS REINJECTADOS FALTANTES (REPARACIÓN COMPLETA) ==========
+    @staticmethod
+    def tram_cambio_carrera_sistema_texto():
+        return """
+🔀 CAMBIOS INTERNOS DE CARRERA Y DE SISTEMA (SUAyED)
+
+Especificaciones para modificar tu estatus académico dentro de los planteles de la UNAM.
+
+📋 1. CAMBIO INTERNO DE CARRERA (FES ARAGÓN):
+   • Requisitos: Ser alumno regular (no deber materias), promedio mínimo y estar dentro de los primeros dos años del plan de estudios original. Solicitud en SIAE.
+
+📋 2. CAMBIO DE SISTEMA (PRESENCIAL A SUAyED):
+   • Requisitos (Artículo 8 del Reglamento): Cupo disponible en la modalidad a distancia, promedio general mínimo de 8.5, haber acreditado el 100% de materias de los primeros dos semestres. La solicitud es definitiva y se procesa en el portal DGAE.
+        """
+
+    @staticmethod
+    def tram_permutas_texto():
+        return """
+🤝 TRÁMITE DE PERMUTAS ENTRE FACULTADES
+
+Proceso para intercambiar tu lugar de inscripción con otro estudiante de la misma carrera en diferente plantel.
+
+📋 REQUISITOS GENERALES:
+• Ambos alumnos solicitantes deben mantener el estatus de Alumno Regular.
+• Estar formalmente inscritos en el semestre lectivo vigente.
+• Registrar la solicitud conjunta durante los plazos específicos marcados en la convocatoria de la DGAE al término del ciclo escolar.
+        """
+
+    @staticmethod
+    def tram_seguro_texto():
+        return """
+🏥 SEGURO FACULTATIVO MÉDICO (IMSS UNAM)
+
+Derecho de acceso gratuito a los servicios de salud clínica y hospitalaria por ser estudiante de la UNAM.
+
+📋 PASOS PARA EL ALTA OFICIAL:
+1️⃣ OBTENER TU NSS: Ingresa al portal web o App de IMSS Digital y genera tu Número de Seguridad Social de 11 dígitos.
+2️⃣ REGISTRO EN FES: Entra al portal de Servicios Escolares de la FES Aragón, ve al apartado 'Seguro Médico' e introduce tu NSS.
+3️⃣ CLÍNICA: Acude a la Unidad de Medicina Familiar (UMF) asignada con tu carátula impresa para darte de alta en ventanilla y recibir tu cartilla física.
         """
