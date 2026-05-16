@@ -55,7 +55,7 @@ class BotICO:
             )
             self.ui.agregar_mensaje_bot(texto_inicial)
             
-            self.ui.agregar_mensaje_bot("BotICO: Como eres de Nuevo Ingreso, aquí tienes el acceso a tu proceso:")
+            self.ui.agregar_mensaje_bot("BotICO: Como eres de Nuevo Ingreso, aquí tienes el acceso a tu process:")
             self.ui.agregar_boton_en_chat(
                 texto_boton="📄 Ver Requisitos de Convocatoria 2026-1",
                 comando=self.mostrar_requisitos_pdf
@@ -447,6 +447,10 @@ class BotICO:
 
     def abrir_link_tramifes_final(self):
         webbrowser.open("https://tramifes.aragon.unam.mx/")
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def abrir_pagina_escolares_fes(self):
+        webbrowser.open("https://www.aragon.unam.mx/fes-aragon/#!/cise/servicios-escolares")
         self.ventana.after(1000, self.preguntar_continuidad)
 
     def mostrar_inscripcion_nuevo_ingreso(self):
