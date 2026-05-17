@@ -55,7 +55,7 @@ class BotICO:
             )
             self.ui.agregar_mensaje_bot(texto_inicial)
             
-            self.ui.agregar_mensaje_bot("BotICO: Como eres de Nuevo Ingreso, aquí tienes el acceso a tu process:")
+            self.ui.agregar_mensaje_bot("BotICO: Como eres de Nuevo Ingreso, aquí tienes el acceso a tu proceso:")
             self.ui.agregar_boton_en_chat(
                 texto_boton="📄 Ver Requisitos de Convocatoria 2026-1",
                 comando=self.mostrar_requisitos_pdf
@@ -222,7 +222,7 @@ class BotICO:
 
     def evaluar_categoria(self, comando):
         """Diccionario semántico con mapeo avanzado de intenciones estudiantiles"""
-        texto = limpiar_texto(comando)
+        text_clean = limpiar_texto(comando)
         comandos_directos = ["inscripciones_nuevo", "co4nvocatoria", "preguntas_nuevo", "preguntas", 
                              "horarios", "contactos", "contacto", "inscripciones", "tramites", "actividades", "calendario"]
         
@@ -242,7 +242,7 @@ class BotICO:
         }
         for cat, palabras in palabras_clave.items():
             for p in palabras:
-                if p in texto: return cat
+                if p in text_clean: return cat
         return "desconocido"
 
     def obtener_respuesta_por_categoria(self, categoria, mensaje_original):

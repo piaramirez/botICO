@@ -146,7 +146,7 @@ class MenuSystem:
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 📄 TRÁMITES ESCOLARES - ICO                      ║
 ╠══════════════════════════════════════════════════════════════════╗
-║  📄 CONSTANCIAS: Servicios Escolares                             ║
+║  📄 CONSTANCIAS: Services Escolares                              ║
 ║  🎓 CERTIFICADO: Control Escolar                                 ║
 ║  📜 TITULACIÓN: Tesis o reporte profesional                      ║
 ║                                                                  ║
@@ -472,7 +472,6 @@ Módulo diseñado para solicitar la corrección de una nota mal asentada en el h
 • Proceso: El alumno debe contactar al docente titular de la materia. Es el profesor quien genera la solicitud oficial de rectificación ante la Jefatura de Carrera y Servicios Escolares. Una vez firmada, verás reflejado el cambio en tu Historia Académica de internet.
         """
 
-    # ========== MÉTODOS REINJECTADOS FALTANTES (REPARACIÓN COMPLETA) ==========
     @staticmethod
     def tram_cambio_carrera_sistema_texto():
         return """
@@ -511,4 +510,47 @@ Derecho de acceso gratuito a los servicios de salud clínica y hospitalaria por 
 1️⃣ OBTENER TU NSS: Ingresa al portal web o App de IMSS Digital y genera tu Número de Seguridad Social de 11 dígitos.
 2️⃣ REGISTRO EN FES: Entra al portal de Servicios Escolares de la FES Aragón, ve al apartado 'Seguro Médico' e introduce tu NSS.
 3️⃣ CLÍNICA: Acude a la Unidad de Medicina Familiar (UMF) asignada con tu carátula impresa para darte de alta en ventanilla y recibir tu cartilla física.
+        """
+
+    # ========== RESTAURACIÓN COMPLETA DEL BOTÓN 8 (AÑOS POSTERIORES Y EGRESADOS) ==========
+    @staticmethod
+    def tram_anos_posteriores_texto():
+        return """
+🎓 INGRESO A AÑOS POSTERIORES (ACREDITACIÓN Y REVALIDACIÓN)
+
+Módulo informativo para alumnos externos o de sistemas incorporados que desean continuar estudios en UNAM.
+
+📋 1. POR ACREDITACIÓN (SISTEMA INCORPORADO):
+   • Aplica para alumnos que vienen de escuelas con plan de estudios incorporado a la UNAM. Debes presentar tu historial completo y validarlo en Servicios Escolares bajo el manual de reingreso por acreditación.
+
+📋 2. POR REVALIDACIÓN (OTRAS UNIVERSIDADES):
+   • Aplica si vienes de una universidad ajena a la UNAM (pública o privada). El trámite se gestiona directamente ante la DGIRE para determinar qué porcentaje de materias son equivalentes con Ingeniería en Computación.
+        """
+
+    @staticmethod
+    def faq_egresados_texto():
+        return """
+🎓 TRÁMITES ACADÉMICOS FORMALES PARA EGRESADOS
+
+Información sobre constancias de cierre de ciclo y la obtención de identificaciones institucionales.
+
+📋 1. CONSTANCIA DE CRÉDITOS Y PROMEDIO:
+   • Documento oficial que certifica que cubriste el 100% de los créditos con tu promedio final asentado. Requisitos: Historial SIAE impreso y recibo de aportación voluntaria. Lista en 3 días hábiles.
+
+📋 2. CREDENCIAL DE EXALUMNO UNAM:
+   • Otorga acceso a las bibliotecas del campus, descuentos en talleres del CLE, actividades culturales y convenios externos. El trámite se solicita en línea a través del portal del Programa de Vinculación con Exalumnos.
+        """
+
+    @staticmethod
+    def faq_egresados_documentos_pesados_texto():
+        return """
+📜 EXPEDICIÓN DE CERTIFICADOS OFICIALES Y CARTA PASANTE
+
+Módulo definitivo para la obtención de documentos de término de carrera con validez oficial nacional.
+
+📋 1. CERTIFICADO COMPLETO DE ESTUDIOS:
+   • Describe todas las materias, calificaciones, fechas y créditos oficiales firmados por el Director. Requisitos: Descargar la referencia bancaria en la plataforma SIGEREL ($100.00 MXN), entregar fotos óvalo credencial en ventanilla de egresados. Tiempo de entrega: 25 días hábiles.
+
+📋 2. CARTA PASANTE:
+   • Documento intermedio indispensable para ejercer la carrera de forma oficial por un año mientras realizas tu titulación. Requisitos: Haber acreditado el 100% de créditos, promedio mínimo de 7.00, Servicio Social liberado y entregar la Carta Responsiva firmada por un profesional titulado junto con copia de su cédula.
         """
