@@ -1,10 +1,22 @@
-# menus.py - Sistema de menús y botones para BotICO
+# menus.py - Sistema de menús, componentes de texto y FAQs para BotICO
+"""
+Módulo de Configuración de Contenido y Menús Escolares (BotICO).
+
+Este módulo centraliza todas las estructuras de botones del sistema, mensajes 
+de bienvenida y el catálogo unificado de preguntas frecuentes (FAQs) utilizando
+métodos estáticos para su consumo dinámico desde el core principal.
+"""
 
 class MenuSystem:
     
     @staticmethod
     def get_botones_nuevo_ingreso():
-        """Botones específicos para nuevo ingreso"""
+        """
+        Retorna la colección de botones interactivos para el perfil de primer ingreso.
+        
+        Returns:
+            list[tuple[str, str]]: Pares de (Texto del Botón, Identificador de Comando).
+        """
         return [
             ("📋 INSCRIPCIÓN", "inscripciones_nuevo"),
             ("❓ PREGUNTAS FRECUENTES", "preguntas_nuevo"),
@@ -14,7 +26,12 @@ class MenuSystem:
     
     @staticmethod
     def get_botones_principales():
-        """Botones generales para alumnos regulares"""
+        """
+        Retorna la colección de botones interactivos para el perfil de alumnos regulares.
+        
+        Returns:
+            list[tuple[str, str]]: Pares de (Texto del Botón, Identificador de Comando).
+        """
         return [
             ("📌 Inscripciones", "inscripciones"),
             ("🕒 Horarios", "horarios"),
@@ -22,9 +39,21 @@ class MenuSystem:
             ("📞 Contacto", "contactos"),
             ("🎭 Actividades", "actividades")
         ]
+
+    @staticmethod
+    def get_botones_tramites():
+        """
+        Retorna los botones interactivos que se despliegan al presionar 'Trámites'.
+        """
+        return [
+            ("1. Registro de Modalidad de Titulación", "tramite_registro_titulacion"),
+            ("2. Requisitos Toma de Protesta y Fotos", "tramite_protesta_diplomados"),
+            ("🌐 Sitio Oficial de Titulación FES", "tramite_web_titulacion")
+        ]
     
     @staticmethod
     def mensaje_bienvenida_nuevo(nombre):
+        """Genera la tarjeta de bienvenida para usuarios de nuevo ingreso."""
         return f"""
 ╔══════════════════════════════════════════════════════════════════╗
 ║     🎓 ¡BIENVENIDO A LA FES ARAGÓN - ICO, {nombre.upper()}! 🎓      ║
@@ -36,6 +65,7 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_bienvenida_regular(nombre):
+        """Genera la tarjeta de bienvenida para alumnos inscritos regulares."""
         return f"""
 ╔══════════════════════════════════════════════════════════════════╗
 ║           📚 ¡BIENVENIDO DE VUELTA, {nombre.upper()}! 📚           ║
@@ -46,6 +76,7 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_fechas_inscripcion():
+        """Retorna el cronograma síncrono del periodo lectivo vigente."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📅 FECHAS DE INSCRIPCIÓN - ICO                ║
@@ -59,6 +90,7 @@ class MenuSystem:
 
     @staticmethod
     def mensaje_convocatoria():
+        """Retorna la información legal descriptiva del concurso de selección UNAM."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📋 CONVOCATORIA UNAM - ICO                    ║
@@ -78,6 +110,7 @@ class MenuSystem:
 
     @staticmethod
     def mensaje_contactos():
+        """Retorna el directorio unificado de dependencias del plantel."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║             📞 DIRECTORIO DE CONTACTOS OFICIALES                 ║
@@ -115,6 +148,7 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_inscripciones():
+        """Retorna el flujo detallado con requisitos físicos para la ventanilla de Servicios Escolares."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║             📋 PROCESO DE INSCRIPCIÓN PRIMER INGRESO             ║
@@ -125,9 +159,8 @@ class MenuSystem:
 ║                                                                  ║
 ║  📄 DOCUMENTACIÓN OBLIGATORIA A ENTREGAR:                        ║
 ║     • Carta de asignación firmada (marcada como PLANTEL).        ║
-║     • Carta Compromiso (llena y firmada).                        ║
-║     • Comprobante de aportación voluntaria de banco o cajas:     ║
-║       (Cajas plantel: $0.50 centavos / Banco: Mínimo $100.00).   ║
+║     • Carta Compromiso (disponible en la página del PIIANITE).   ║
+║     • Comprobante de aportación voluntaria de banco o cajas.     ║
 ║     • Clave CURP impresa.                                        ║
 ║     • Original y copia de tu identificación oficial vigente con  ║
 ║       fotografía y firma por AMBOS LADOS (INE, Pasaporte,        ║
@@ -135,57 +168,120 @@ class MenuSystem:
 ║                                                                  ║
 ║  🪪 RECOLECCIÓN DE PAPELES:                                      ║
 ║     Al entregar tus documentos en ventanilla, recibirás tu       ║
-║     comprobante de inscripción oficial y tu credencial UNAM      ║
-║     física (si no hubiese llegado, se te avisará la fecha).       ║
+║     comprobante de inscripción oficial y tu credencial UNAM.     ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
     
     @staticmethod
     def mensaje_tramites():
+        """Retorna la invitación para seleccionar un trámite específico mediante botones."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║                 📄 TRÁMITES ESCOLARES - ICO                      ║
-╠══════════════════════════════════════════════════════════════════╗
-║  📄 CONSTANCIAS: Services Escolares                              ║
-║  🎓 CERTIFICADO: Control Escolar                                 ║
-║  📜 TITULACIÓN: Tesis o reporte profesional                      ║
+║                 📄 TRÁMITES ESCOLARES Y TITULACIÓN               ║
+╠══════════════════════════════════════════════════════════════════╣
+║  Aquí puedes consultar la información sobre tu proceso           ║
+║  de titulación y egreso en la FES Aragón.                        ║
 ║                                                                  ║
-║  🤝 SERVICIO SOCIAL:                                             ║
-║     https://www.fes-aragon.unam.mx/servicio-social               ║
-║                                                                  ║
-║  📧 escolares@fes-aragon.unam.mx                                 ║
+║  👇 Por favor, selecciona una opción en los botones de abajo     ║
+║     para conocer los detalles y requisitos de tu trámite.        ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
     
     @staticmethod
-    def mensaje_actividades():
+    def tramite_registro_titulacion_texto():
+        """Retorna los pasos para el Registro de Modalidad de Titulación."""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
-║        🎭 TALLERES CULTURALES Y EXTENSIÓN UNIVERSITARIA          ║
+║             📝 REGISTRO DE MODALIDAD DE TITULACIÓN               ║
 ╠══════════════════════════════════════════════════════════════════╣
-║ 🏛️ CENTRO DE LENGUAS (CLE):                                       ║
-║    Cursos oficiales de Inglés, Francés, Alemán, Italiano y       ║
-║    Certificaciones de comprensión de lectura.                    ║
+║  1️⃣ Acude a tu jefatura de carrera y llena la solicitud de       ║
+║     modalidad de titulación.                                     ║
 ║                                                                  ║
-║ 🎵 TALLERES CULTURALES ACTIVOS:                                  ║
-║    Clases de música (guitarra, piano), teatro, danza             ║
-║    contemporánea, fotografía y artes plásticas.                  ║
+║  2️⃣ Solicita en Secretaría Académica tu registro de tesis o     ║
+║     modalidad de titulación, presentando la solicitud de         ║
+║     autorización previa.                                         ║
 ║                                                                  ║
-║ ⚽ ACTIVIDADES DEPORTIVAS:                                       ║
-║    Inscripción a las 21 disciplinas de recreación, uso de        ║
-║    pista de atletismo, canchas de fútbol rápido y gimnasio.      ║
-║                                                                  ║
-║ 👉 Escribe 'Deportes' para ver los costos o requisitos oficiales║
+║  3️⃣ Después de 20 días hábiles (a partir de la solicitud),       ║
+║     recibirás en Secretaría Académica el oficio de aceptación    ║
+║     del registro suscrito por el director del plantel.           ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
     @staticmethod
+    def tramite_protesta_diplomados_texto():
+        """Retorna los Requisitos para la Toma de Protesta (Diplomados) y especificaciones fotográficas."""
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║         📜 REQUISITOS TOMA DE PROTESTA Y EMISIÓN                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  • Pago de título (Se realiza directamente en la DGAE).          ║
+║  • Solicitud de título y Oficio de autorización reciente.        ║
+║  • Comprobante y pago de revisión de estudios (sellado en caja). ║
+║  • Carta de no adeudo de libros (Biblioteca Central UNAM).       ║
+║  • Formato para expedición de cédula profesional (SIREP).       ║
+║  • Cuestionario de opinión de egresados (Contestar en DGAE).     ║
+║  • Formato de trámite de titulación.                             ║
+║                                                                  ║
+║  📌 Nota: Anota con lápiz tu nombre completo en un papel e       ║
+║     inclúyelo en una bolsa de plástico transparente (sin el      ║
+║     nombre o logotipo del estudio fotográfico).                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║                  📸 CARACTERÍSTICAS DE LAS FOTOS                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  👩 Mujeres: Vestimenta formal sin escote, maquillaje discreto,   ║
+║     frente y orejas descubiertas, aretes pequeños, sin lentes    ║
+║     obscuros o pupilentes de color.                              ║
+║                                                                  ║
+║  👨 Hombres: Saco y corbata, cabello corto, frente y orejas      ║
+║     descubiertas, barba y bigote recortados (deben verse los     ║
+║     labios), sin lentes obscuros o pupilentes de color.          ║
+║                                                                  ║
+║  📜 Opción Pergamino: Siete fotos tamaño título (6 x 9 cm), en   ║
+║     blanco y negro, con fondo gris claro, uniforme sin manchas,  ║
+║     recientes, con retoque, impresas en papel mate (no instan-   ║
+║     táneas o digitales), debidamente recortadas, rostro serio,   ║
+║     el tamaño de la cara medirá 3.5 cm de oreja a oreja por      ║
+║     5 cm del pelo al mentón.                                     ║
+║                                                                  ║
+║  📄 Opción Papel Bond: Siete fotos tamaño diploma (5 x 7 cm),    ║
+║     blanco y negro, cara proporcionada al tamaño de la foto;     ║
+║     y cuatro tamaño infantil (30 x 25 mm), fondo blanco con      ║
+║     retoque (tiene un costo de $1.00 peso y se paga en DGAE).    ║
+╠══════════════════════════════════════════════════════════════════╣
+║               📊 CONSULTA DE AVANCE DE EMISIÓN                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║  Una vez acreditado el examen o tras haber tomado protesta,      ║
+║  deberás consultar en la página web de la Dirección General de   ║
+║  Administración Escolar (DGAE) el avance de tu emisión.          ║
+║  🔑 Requisitos: Colocar número de cuenta y NIP (el mismo de la   ║
+║     historia académica. Si no puedes ingresar, verifica que tu   ║
+║     NIP no tenga más de 10 caracteres).                          ║
+║                                                                  ║
+║  🏢 Ubicación DGAE: A un costado del metro Ciudad Universitaria   ║
+║     y del CENDI.                                                 ║
+║  🕒 Horario de atención: 9:00 a 17:30 horas (horario corrido).  ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def tramite_web_titulacion_texto():
+        """Retorna los enlaces de titulación oficiales de la facultad y formularios externos."""
+        return """
+🌐 Portal de Titulación - Comunidad Egresada FES Aragón:
+https://aragon.unam.mx/comunidad-egresada/content/titulacion/
+
+📋 Enlace al Formulario de Registro Solicitado (Microsoft Forms):
+https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__mF8m8FUQzZJTjdUTVdMUFA5VDQyVTZLWVRDVTRCNS4u
+        """
+    
+    @staticmethod
     def mensaje_no_entendido():
+        """Mensaje de excepción por defecto ante fallas del motor de parseo semántico."""
         return "❓ No entendí tu pregunta. Puedes escribir 'menú' para ver las opciones disponibles o reformular tu duda."
 
-    # ========== COMPONENTES DE PREGUNTAS FRECUENTES (CATÁLOGO COMPLETO) ==========
     @staticmethod
     def faq_reinscripcion_texto():
+        """FAQ de Reinscripción Ordinaria."""
         return """
 🔄 PROCESO DE REINSCRIPCIÓN SEMESTRAL Y PAGOS
 
@@ -210,6 +306,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_constancias_texto():
+        """FAQ de Constancias e Historiales Académicos."""
         return """
 📄 GUÍA DE TRÁMITE DE CONSTANCIAS Y TIRAS
 
@@ -218,7 +315,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
   - Alumnos Regulares: Entra al portal de Servicios Escolares > Alumnos > Trámites Escolares. Elige 'Comprobantes de Reinscripción' y dale clic al icono de la impresora.
 
 • CONSTANCIA DE ESTUDIOS (Indica turno, materias y periodo lectivo):
-  - Requisitos: Identificación vigente, Comprobante de inscripción y recibo de pago (cuota voluntaria). Presenta documentos en ventanilla y recoge al 3er día hábil.
+  - Requisitos: Identificación vigente, Comprobante de inscripción y recibo de pago (cuota voluntaria). Presenta documentos en ventanilla y recoge al 3er día hábiles.
 
 • CONSTANCIA DE CRÉDITOS (Muestra promedio general y avance de créditos):
   - Requisitos: ID oficial, Historial Académico reciente, recibo de pago y comprobante de inscripción. Lista al 3er día hábil en ventanilla.
@@ -229,6 +326,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_credencial_texto():
+        """FAQ de Identificaciones Físicas y Resellos Escolares."""
         return """
 🪪 TRÁMITES DE CREDENCIAL UNAM Y RESELLO
 
@@ -244,6 +342,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_certificados_texto():
+        """FAQ descriptiva de Certificados Parciales de Egreso."""
         return """
 📜 CERTIFICADOS PARCIALES Y CARTA PASANTE
 
@@ -259,6 +358,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_deportes_presentacion_texto():
+        """FAQ de Estructura de Deportes e Infraestructura del Gimnasio Multidisciplinario."""
         return """
 ⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS Y RECREATIVAS
 
@@ -283,6 +383,7 @@ El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos en 
 
     @staticmethod
     def faq_deportes_costos_texto():
+        """FAQ de Costos, Requisitos e Inscripciones del Gimnasio Puma."""
         return """
 💰 REQUISITOS, COSTOS E INSCRIPCIÓN DEPORTIVA
 
@@ -305,6 +406,7 @@ Para la práctica de cualquier disciplina o uso del gimnasio de pesas es obligat
 
     @staticmethod
     def faq_deportes_instalaciones_texto():
+        """FAQ de Infraestructura Deportiva y Horarios de Carlos Octavio Cruz Valencia."""
         return """
 🏛️ INFRAESTRUCTURA Y CONTACTO DE COORDINACIÓN DEPORTIVA
 
@@ -323,6 +425,7 @@ La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 
     @staticmethod
     def faq_intercambio_alumnos_texto():
+        """FAQ para Movilidad Estudiantil e Intercambios Académicos (CRAI/DGECI)."""
         return """
 ✈️ PROGRAMAS DE MOVILIDAD PARA ALUMNOS INSCRITOS (FES ARAGÓN)
 
@@ -342,13 +445,14 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_intercambio_externos_texto():
+        """FAQ de Colaboraciones y Estancias de Académicos Visitantes Externos."""
         return """
 🏛️ ESTUDIA EN LA FES ARAGÓN (ESTUDIANTES EXTERNOS / PRIMER INGRESO)
 
 • INTERCAMBIO EN LA LICENCIATURA (ALUMNOS DE OTRAS UNIVERSIDADES):
   Estudiantes de otras instituciones de educación superior nacionales o extranjeras pueden realizar un intercambio académico en nuestra Facultad si su escuela tiene convenio vigente con la UNAM. Esto contempla la exención total del pago de inscripción y colegiaturas. Las solicitudes las gestiona de entrada la DGECI.
 
-• ESTANCIAS DE INVESTIRACIÓN:
+• ESTANCIAS DE INVESTIGACIÓN:
   Es posible realizar estancias de investigación especializada colaborando directamente con el personal académico de las distintas licenciaturas de la Facultad.
 
 • COOPERACIÓN E INTERNACIONALIZACIÓN IN SITU:
@@ -357,6 +461,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_intercambio_contacto_texto():
+        """FAQ de Ubicación y Horarios de Ventanilla del Intercambio Académico."""
         return """
 📞 HORARIOS, UBICACIÓN Y CONTACTO DE INTERCAMBIO ACADÉMICO
 
@@ -374,6 +479,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_calificaciones_texto():
+        """FAQ de Acceso Técnico al Gateway del SIAE para Calificaciones."""
         return """
 📊 CONSULTA DE CALIFICACIONES E HISTORIAL ACADÉMICO (SIAE)
 
@@ -387,6 +493,7 @@ Para revisar tus notas parciales, actas finales asentadas, promedio general acum
 
     @staticmethod
     def faq_horarios_detallado_texto():
+        """FAQ de Interpretación de Grupos y Consulta Ordinaria de Horarios."""
         return """
 🕒 1. CONSULTA DE HORARIOS DE CLASES ORDINARIOS
 
@@ -405,6 +512,7 @@ Para revisar las asignaturas activas del semestre en curso, los salones asignado
 
     @staticmethod
     def faq_horarios_extraordinarios_texto():
+        """FAQ de Consulta de Exámenes Extraordinarios (Extras)."""
         return """
 📝 2. CONSULTA DE EXÁMENES EXTRAORDINARIOS
 
@@ -412,13 +520,14 @@ Módulo dedicado a revisar las fechas, horarios y sinodales asignados para la ev
 
 📋 INSTRUCCIONES DE USO:
 • Selecciona el semestre a consultar en el combo correspondiente.
-• Selecciona la vuelta de examen que deseas revisar (1ra. o 2da. vuelta de acuerdo a los plazos marcados en el calendario escolar).
+• Selecciona la vuelta de examen que deseas revisar (1ra. o 2da. de acuerdo a los plazos marcados en el calendario escolar).
 • Elige tu carrera (Ingeniería en Computación) y dale clic a ENVIAR.
 • Adicionalmente, el portal te permite realizar un filtrado dinámico directo por materia para localizar el aula exacta de aplicación de forma rápida.
         """
 
     @staticmethod
     def faq_horarios_finales_texto():
+        """FAQ de Consulta de Actas de Exámenes Finales Ordinarios."""
         return """
 📜 3. CONSULTA DE EXÁMENES FINALES (ORDINARIOS)
 
@@ -434,6 +543,7 @@ Consulta el calendario de aplicaciones para las evaluaciones de fin de curso reg
 
     @staticmethod
     def faq_concepto_altas_bajas_texto():
+        """FAQ Descriptiva del Periodo Reglamentario de Altas/Bajas en TramiFES."""
         return """
 🔄 ¿QUÉ ES EL PERIODO DE ALTAS Y BAJAS EN LA FES ARAGÓN?
 
@@ -449,6 +559,7 @@ Este movimiento se realiza estrictamente en las fechas marcadas en el Calendario
 
     @staticmethod
     def tram_suspension_texto():
+        """FAQ de Solicitud de Baja o Suspensión Temporal de Estudios."""
         return """
 🛑 SOLICITUD DE SUSPENSIÓN TEMPORAL DE ESTUDIOS (PERIODO DE GRACIA)
 
@@ -462,6 +573,7 @@ Trámite oficial para pausar tus estudios de forma reglamentaria sin perder tu l
 
     @staticmethod
     def tram_rectificacion_texto():
+        """FAQ de Corrección de Actas Escolares por Error de Profesor."""
         return """
 🔄 RECTIFICACIÓN DE ACTAS Y ACLARACIÓN DE CALIFICACIONES
 
@@ -474,6 +586,7 @@ Módulo diseñado para solicitar la corrección de una nota mal asentada en el h
 
     @staticmethod
     def tram_cambio_carrera_sistema_texto():
+        """FAQ de Cambios Internos de Carrera y Cambio de Sistema (SUAyED)."""
         return """
 🔀 CAMBIOS INTERNOS DE CARRERA Y DE SISTEMA (SUAyED)
 
@@ -501,6 +614,7 @@ Proceso para intercambiar tu lugar de inscripción con otro estudiante de la mis
 
     @staticmethod
     def tram_seguro_texto():
+        """FAQ Descriptiva de Incorporación al Seguro Facultativo (IMSS)."""
         return """
 🏥 SEGURO FACULTATIVO MÉDICO (IMSS UNAM)
 
@@ -512,9 +626,9 @@ Derecho de acceso gratuito a los servicios de salud clínica y hospitalaria por 
 3️⃣ CLÍNICA: Acude a la Unidad de Medicina Familiar (UMF) asignada con tu carátula impresa para darte de alta en ventanilla y recibir tu cartilla física.
         """
 
-    # ========== RESTAURACIÓN COMPLETA DEL BOTÓN 8 (AÑOS POSTERIORES Y EGRESADOS) ==========
     @staticmethod
     def tram_anos_posteriores_texto():
+        """FAQ de Continuación de Estudios por Acreditación o Revalidación Externa."""
         return """
 🎓 INGRESO A AÑOS POSTERIORES (ACREDITACIÓN Y REVALIDACIÓN)
 
@@ -529,6 +643,7 @@ Módulo informativo para alumnos externos o de sistemas incorporados que desean 
 
     @staticmethod
     def faq_egresados_texto():
+        """FAQ de Constancia de Créditos y Promedio para Egresados."""
         return """
 🎓 TRÁMITES ACADÉMICOS FORMALES PARA EGRESADOS
 
@@ -543,6 +658,7 @@ Información sobre constancias de cierre de ciclo y la obtención de identificac
 
     @staticmethod
     def faq_egresados_documentos_pesados_texto():
+        """FAQ de Emisión Oficial de Certificados y Carta Pasante."""
         return """
 📜 EXPEDICIÓN DE CERTIFICADOS OFICIALES Y CARTA PASANTE
 
@@ -553,4 +669,151 @@ Módulo definitivo para la obtención de documentos de término de carrera con v
 
 📋 2. CARTA PASANTE:
    • Documento intermedio indispensable para ejercer la carrera de forma oficial por un año mientras realizas tu titulación. Requisitos: Haber acreditado el 100% de créditos, promedio mínimo de 7.00, Servicio Social liberado y entregar la Carta Responsiva firmada por un profesional titulado junto con copia de su cédula.
+        """
+
+    @staticmethod
+    def faq_inscripcion_regulares_texto():
+        """
+        FAQ Unificada de Reinscripción para Alumnos Regulares.
+        Incluye canales oficiales hibridos (Correo electrónico institucional y ventanilla física).
+        """
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                🔄 REINSCRIPCIÓN ALUMNOS REGULARES                ║
+╠══════════════════════════════════════════════════════════════════╣
+║ 🖥️ Proceso en Línea:                                             ║
+║    El trámite se realiza 100% digital a través de TramiFES       ║
+║    según la cita de reinscripción asignada por tu promedio.      ║
+║                                                                  ║
+║ 💵 Pago de Cuota:                                                ║
+║    Debes realizar tu aportación voluntaria regulada en las       ║
+║    fechas asignadas (Plantel: $0.50 ctvos / Banco: Mínimo $100). ║
+║                                                                  ║
+║ 📬 ¿Dudas o Aclaraciones con tu Estatus de Carga?                ║
+║    Si tienes problemas con tu historial, bloqueo bancario o      ║
+║    asignación de materias ordinarias, escribe de inmediato a:   ║
+║    📧 aragon.serviciosescolares@unam.mx                          ║
+║                                                                  ║
+║ 🏫 Atención Presencial Directa:                                  ║
+║    O si lo prefieres, puedes acudir directamente a la            ║
+║    Ventanilla de tu carrera en el edificio del CISE para        ║
+║    recibir aclaraciones de forma física y personalizada.         ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def faq_olvido_contrasena_texto():
+        """FAQ de Recuperación de Contraseñas y Token Personal."""
+        return """
+🔐 ¿QUÉ HACER SI OLVIDASTE TU CONTRASEÑA DE ACCESO? (TRAMIFES / SIAE)
+
+Si perdiste, bloqueaste o no recuerdas tu clave para ingresar a los portales de control escolar o inscripciones, el proceso de restablecimiento NO es automatizado por internet por cuestiones de seguridad.
+
+🏫 SOLUCIÓN OFICIAL:
+• Debes acudir directamente a las ventanillas del Departamento de Servicios Escolares situadas en el edificio del CISE.
+• El horario de atención general es de lunes a viernes de 9:00 a 13:30 h y de 16:00 a 20:00 h.
+
+📄 REQUISITOS OBLIGATORIOS PARA EL TRÁMITE:
+1️⃣ Presentar original y copia de tu Identificación Oficial vigente (INE, Pasaporte) o tu Credencial Física de la UNAM.
+2️⃣ Proporcionar tu Número de Cuenta de la UNAM completo.
+   
+*Nota: El trámite es estrictamente personal. En ventanilla validarán tus datos biométricos y de sistema para asignarte un token o clave temporal de acceso al instante.*
+        """
+
+# ========== AGREGAR ESTO AL FINAL DE TU CLASE MENUSYSTEM ==========
+
+    @staticmethod
+    def get_botones_tramites():
+        """Retorna las opciones de botones interactivos para Trámites."""
+        return [
+            ("📜 1. Normatividad", "tramite_normatividad"),
+            ("📝 2. Registro de Modalidad", "tramite_registro_titulacion"),
+            ("📋 3. Requisitos de Fotos", "tramite_protesta_diplomados"),
+            ("💻 4. Seguimiento DGAE", "tramite_seguimiento_dgae"),
+            ("❓ 5. FAQs de Titulación", "tramite_faqs_titulacion")
+        ]
+
+    @staticmethod
+    def tramite_normatividad_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    ⚖️ NORMATIVIDAD DE TITULACIÓN                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  • Reglamento General de Exámenes                                ║
+║  • Lineamientos Internos para la Titulación de la FES Aragón     ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def tramite_registro_titulacion_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    📝 REGISTRO DE MODALIDAD                      ║
+╠══════════════════════════════════════════════════════════════════╣
+║  1. Acude a tu jefatura de carrera y llena la solicitud.         ║
+║  2. Solicita en Secretaría Académica tu registro de tesis o      ║
+║     modalidad presentando la solicitud de autorización.          ║
+║  3. Después de 20 días hábiles recibirás en Secretaría           ║
+║     Académica el oficio de aceptación suscrito por el director.  ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def tramite_protesta_diplomados_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║               📋 REQUISITOS GENERALES Y FOTOS                    ║
+╠══════════════════════════════════════════════════════════════════╣
+║  🟢 REQUISITOS INICIALES:                                        ║
+║     Certificado de Estudios | Carta de Servicio Social liberado  ║
+║     Revisión de Estudios Documental Autorizada                   ║
+║  🔵 REQUISITOS COMPLEMENTARIOS:                                  ║
+║     Solicitud de título y referencia bancaria | No adeudo libros║
+║     Autorización de transferencia de información                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║                  📸 CARACTERÍSTICAS DE LAS FOTOS                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  👩 Mujeres: Ropa formal sin escote, maquillaje muy discreto,    ║
+║     frente/orejas descubiertas, aretes chicos, sin lentes.       ║
+║  👨 Hombres: Saco y corbata, pelo corto, frente/orejas           ║
+║     descubiertas, barba/bigote recortados (verse labios).        ║
+║  📌 Nota: Pon tu nombre a lápiz dentro de una bolsa transparente.║
+║  📜 Pergamino: 7 fotos título (6x9 cm), B/N, fondo gris claro    ║
+║     uniforme, papel mate con retoque, rostro serio.              ║
+║  📄 Papel Bond: 7 fotos diploma (5x7 cm) B/N y 4 infantil ($1.00)║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def tramite_seguimiento_dgae_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║               💻 SEGUIMIENTO DE TITULACIÓN UNIVERSITARIA         ║
+╠══════════════════════════════════════════════════════════════════╣
+║  Plataforma de la DGAE para gestionar tu proceso asociado:       ║
+║  • Registro y aceptación de la solicitud                         ║
+║  • Aprobación, desarrollo y conclusión del trabajo académico     ║
+║  • Entrega electrónica y física de documentos                    ║
+║  • Incorporación del Acta e integración de carpeta física        ║
+║  • Entrega de carpeta física a la DGAE                           ║
+║  🔑 Entra con tu Cuenta y NIP (máximo 10 caracteres).           ║
+║  🕒 Horario DGAE C.U.: 9:00 a 17:30 h (junto a metro C.U.).     ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def tramite_faqs_titulacion_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║               ❓ PREGUNTAS FRECUENTES DE TITULACIÓN               ║
+╠══════════════════════════════════════════════════════════════════╣
+║ ❓ ¿Dónde pago el título?                                        ║
+║ 🗣️ En la DGAE, a un costado del metro Ciudad Universitaria.      ║
+║                                                                  ║
+║ ❓ ¿Puedo elegir Pergamino y Papel Bond seguidos?                ║
+║ 🗣️ No, solo puedes escoger una opción de título.                 ║
+║                                                                  ║
+║ ❓ Mi NIP marca error en el sistema de seguimiento:              ║
+║ 🗣️ Valida que tu contraseña del SIAE no pase de 10 caracteres.   ║
+╚══════════════════════════════════════════════════════════════════╝
         """
