@@ -1,16 +1,4 @@
 # main.py - Punto de entrada principal del chatbot escolar
-"""
-Módulo Core Principal - Chatbot Escolar Inteligente para ICO (BotICO).
-
-Este módulo inicializa el ciclo de vida de la aplicación utilizando la librería 
-Tkinter. Implementa una máquina de soporte semántico basada en tokens textuales
-para resolver intenciones estudiantiles distribuidas por perfiles (Nuevo Ingreso / Regulares).
-
-Arquitectura del Sistema:
-    - Inicialización de Ventana y Geometría síncrona.
-    - Control de autenticación y Registro de estados vía AuthManager.
-    - Motor Parser de Categorías por evaluación de texto libre libre de walls.
-"""
 import tkinter as tk
 import webbrowser
 from auth import AuthManager
@@ -20,15 +8,7 @@ from config import COLORS, NOMBRE_APP
 from utils import limpiar_texto
 
 class BotICO:
-    """
-    Controlador Principal de la aplicación BotICO.
-    
-    Gestiona el flujo lógico entre el sistema de autenticación inicial,
-    la construcción dinámica de widgets gráficos de la UI y la interceptación
-    semántica de las consultas del alumno.
-    """
     def __init__(self):
-        """Inicializa la raíz de Tkinter, variables de sesión y centra la UI."""
         self.ventana = tk.Tk()
         self.ventana.title(NOMBRE_APP)
         self.ventana.geometry("800x650")
@@ -43,14 +23,12 @@ class BotICO:
         self.mostrar_registro()
     
     def centrar_ventana(self):
-        """Calcula el offset síncrono de la pantalla para centrar la ventana principal."""
         self.ventana.update_idletasks()
         x = (self.ventana.winfo_screenwidth() // 2) - (800 // 2)
         y = (self.ventana.winfo_screenheight() // 2) - (650 // 2)
         self.ventana.geometry(f"+{x}+{y}")
     
     def mostrar_registro(self):
-        """Instancia la pasarela de autenticación interceptando los datos del alumno."""
         def after_registro(nombre, es_nuevo):
             self.nombre_usuario = nombre
             self.es_nuevo_ingreso = es_nuevo
@@ -59,610 +37,335 @@ class BotICO:
         AuthManager(self.ventana, after_registro).solicitar_registro()
     
     def construir_interfaz(self):
-        """Construye los frames de la UI y despliega los banners de bienvenida condicionales."""
         self.ui = UI(self.ventana, self.procesar_mensaje, self.es_nuevo_ingreso)
         self.ui.set_nombre_usuario(self.nombre_usuario)
         
         if self.es_nuevo_ingreso:
             self.ui.agregar_mensaje_bot(MenuSystem.mensaje_bienvenida_nuevo(self.nombre_usuario))
-            
-            texto_inicial = (
-                "╔══════════════════════════════════════════════════════════════════╗\n"
-                "║                    📅 FECHAS DE INSCRIPCIÓN - ICO                ║\n"
-                "╠══════════════════════════════════════════════════════════════════╣\n"
-                "║  🗓️ SEMESTRE 2026-2:                                             ║\n"
-                "║     • Registro en línea: 20 - 25 de enero                        ║\n"
-                "║     • Inicio de clases: 3 de febrero 2026                        ║\n"
-                "║     • Altas y bajas: 4, 5 y 6 de febrero 2026                    ║\n"
-                "╚══════════════════════════════════════════════════════════════════╝"
-            )
-            self.ui.agregar_mensaje_bot(texto_inicial)
-            
-            self.ui.agregar_mensaje_bot("BotICO: Como eres de Nuevo Ingreso, aquí tienes el acceso a tu proceso:")
-            self.ui.agregar_boton_en_chat(
-                texto_boton="📄 Ver Requisitos de Convocatoria 2026-1",
-                comando=self.mostrar_requisitos_pdf
-            )
-            
-            self.ui.agregar_mensaje_bot("📌 Elige una opción o escribe tu duda:")
+            self.ui.agregar_mensaje_bot(MenuSystem.mensaje_fechas_inscripcion())
+            self.ui.agregar_boton_en_chat("📄 Ver Requisitos Convocatoria", self.mostrar_requisitos_pdf)
             self.ui.actualizar_botones(MenuSystem.get_botones_nuevo_ingreso())
         else:
             self.ui.agregar_mensaje_bot(MenuSystem.mensaje_bienvenida_regular(self.nombre_usuario))
             self.ui.actualizar_botones(MenuSystem.get_botones_principales())
     
-    def process_mensaje_directo(self, categoria, mensaje):
-        """Inyecta la respuesta cruda de categorías estáticas en la caja de diálogo."""
-        respuesta = self.obtener_respuesta_por_categoria(categoria, mensaje)
-        self.ui.agregar_mensaje_bot(respuesta)
-
     def procesar_mensaje(self, mensaje):
-        """
-        Motor Parser principal de mensajes. Evalúa y distribuye intenciones semánticas.
-        
-        Args:
-            mensaje (str): Cadena de texto libre ingresada por el usuario o comando de botón.
-        """
-        # ==========================================================================
-        # 1. INTERCEPTACIÓN DE CALLBACKS DEL SUBMENÚ INTERACTIVO DE TRÁMITES
-        # ==========================================================================
-        
-        # ---- NUEVO: Submenú de Trámites (Titulación vs Servicio Social) ----
+        # ========== TRÁMITES (SUBMENÚ) ==========
         if mensaje == "tramites":
             self.ui.agregar_mensaje_bot(MenuSystem.mensaje_submenu_tramites())
-            botones = MenuSystem.get_botones_submenu_tramites()
-            for texto_btn, comando_id in botones:
-                self.ui.agregar_boton_en_chat(texto_boton=texto_btn, comando=lambda cid=comando_id: self.procesar_mensaje(cid))
+            for texto, cmd in MenuSystem.get_botones_submenu_tramites():
+                self.ui.agregar_boton_en_chat(texto, lambda c=cmd: self.procesar_mensaje(c))
             return
         
-        # ---- Submenú de Titulación (los 5 botones) ----
+        # ========== SUBMENÚ TITULACIÓN ==========
         if mensaje == "submenu_titulacion":
-            self.ui.agregar_mensaje_bot("📜 Procesos de Titulación - Selecciona una opción:")
-            botones = MenuSystem.get_botones_titulacion()
-            for texto_btn, comando_id in botones:
-                self.ui.agregar_boton_en_chat(texto_boton=texto_btn, comando=lambda cid=comando_id: self.procesar_mensaje(cid))
+            self.ui.agregar_mensaje_bot("📜 Procesos de Titulación:")
+            for texto, cmd in MenuSystem.get_botones_titulacion():
+                self.ui.agregar_boton_en_chat(texto, lambda c=cmd: self.procesar_mensaje(c))
             return
         
-        # ---- Acciones específicas de Titulación ----
-        if mensaje == "tramite_normatividad":
-            self.ui.agregar_mensaje_bot(MenuSystem.tramite_normatividad_texto())
-            self.ventana.after(1000, self.preguntar_continuidad)
-            return
-        elif mensaje == "tramite_registro_titulacion":
-            self.ui.agregar_mensaje_bot(MenuSystem.tramite_registro_titulacion_texto())
-            self.ventana.after(1000, self.preguntar_continuidad)
-            return
-        elif mensaje == "tramite_protesta_diplomados":
-            self.ui.agregar_mensaje_bot(MenuSystem.tramite_protesta_diplomados_texto())
-            self.ui.agregar_boton_en_chat(texto_boton="📝 Llenar Microsoft Forms", comando=self.abrir_forms_titulacion)
-            self.ventana.after(1000, self.preguntar_continuidad)
-            return
-        elif mensaje == "tramite_seguimiento_dgae":
-            self.ui.agregar_mensaje_bot(MenuSystem.tramite_seguimiento_dgae_texto())
-            self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial DGAE SIAE", comando=self.abrir_siae_web)
-            return
-        elif mensaje == "tramite_faqs_titulacion":
-            self.ui.agregar_mensaje_bot(MenuSystem.tramite_faqs_titulacion_texto())
-            self.ventana.after(1000, self.preguntar_continuidad)
-            return
-        elif mensaje == "servicio_social":
-            self.action_tramite_servicio_social()
-            return
-        # Dentro de procesar_mensaje, después de los imports y antes de los callbacks
-
-        # ===== NUEVO: CONSTANCIAS =====
+        # ========== CONSTANCIAS ==========
         if mensaje == "tramite_constancias":
             self.ui.agregar_mensaje_bot(MenuSystem.tramite_constancias_texto())
-            self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a TramiFES para Constancias", comando=self.abrir_link_tramifes_final)
-            self.ventana.after(1000, self.preguntar_continuidad)
+            self.ui.agregar_boton_en_chat("🌐 TramiFES", self.abrir_tramifes)
+            self.preguntar_continuidad()
             return
-
-        # Registra el mensaje que el usuario acaba de escribir o presionar en la UI
+        
+        # ========== SERVICIO SOCIAL ==========
+        if mensaje == "servicio_social":
+            self.action_servicio_social()
+            return
+        
+        # ========== TITULACIÓN (ACCIONES) ==========
+        if mensaje == "tramite_normatividad":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_normatividad_texto())
+            self.preguntar_continuidad()
+            return
+        if mensaje == "tramite_registro_titulacion":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_registro_titulacion_texto())
+            self.preguntar_continuidad()
+            return
+        if mensaje == "tramite_protesta_diplomados":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_protesta_diplomados_texto())
+            self.ui.agregar_boton_en_chat("📝 Forms", self.abrir_forms)
+            self.preguntar_continuidad()
+            return
+        if mensaje == "tramite_seguimiento_dgae":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_seguimiento_dgae_texto())
+            self.ui.agregar_boton_en_chat("🌐 DGAE", self.abrir_siae)
+            return
+        if mensaje == "tramite_faqs_titulacion":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_faqs_titulacion_texto())
+            self.preguntar_continuidad()
+            return
+        
+        # ========== ACTIVIDADES ==========
+        if mensaje == "actividades":
+            self.ui.agregar_mensaje_bot(MenuSystem.mensaje_actividades())
+            for texto, cmd in MenuSystem.get_botones_actividades():
+                self.ui.agregar_boton_en_chat(texto, lambda c=cmd: self.procesar_mensaje(c))
+            return
+        
+        # ========== DEPORTES ==========
+        if mensaje == "actividades_deportes":
+            self.ui.agregar_mensaje_bot("⚽ Deportes FES Aragón:")
+            for texto, cmd in MenuSystem.get_botones_deportes():
+                self.ui.agregar_boton_en_chat(texto, lambda c=cmd: self.procesar_mensaje(c))
+            return
+        
+        # Diccionario de deportes
+        deportes = {
+            "deporte_futbol_asociacion": MenuSystem.deporte_futbol_asociacion_texto,
+            "deporte_futbol_rapido": MenuSystem.deporte_futbol_rapido_texto,
+            "deporte_basquetbol": MenuSystem.deporte_basquetbol_texto,
+            "deporte_voleibol": MenuSystem.deporte_voleibol_texto,
+            "deporte_taekwondo": MenuSystem.deporte_taekwondo_texto,
+            "deporte_karate": MenuSystem.deporte_karate_texto,
+            "deporte_gimnasio": MenuSystem.deporte_gimnasio_texto,
+            "deporte_luchas": MenuSystem.deporte_luchas_texto,
+            "deporte_ajedrez": MenuSystem.deporte_ajedrez_texto,
+            "deporte_atletismo": MenuSystem.deporte_atletismo_texto,
+            "deporte_beisbol": MenuSystem.deporte_beisbol_texto,
+            "deporte_rugby": MenuSystem.deporte_rugby_texto,
+            "deporte_tenis_mesa": MenuSystem.deporte_tenis_mesa_texto,
+            "deporte_gimnasia": MenuSystem.deporte_gimnasia_texto,
+            "deporte_todos": MenuSystem.deporte_todos_texto,
+            "deporte_costos": MenuSystem.deporte_costos_texto,
+            "deporte_contacto": MenuSystem.deporte_contacto_texto,
+        }
+        
+        if mensaje in deportes:
+            self.ui.agregar_mensaje_bot(deportes[mensaje]())
+            if mensaje == "deporte_costos":
+                self.ui.agregar_boton_en_chat("💻 SIEFC", self.abrir_siefc)
+            elif mensaje == "deporte_contacto":
+                self.ui.agregar_boton_en_chat("💻 SIEFC", self.abrir_siefc)
+            self.preguntar_continuidad()
+            return
+        
+        if mensaje == "actividades_culturales":
+            self.ui.agregar_mensaje_bot("🎨 Talleres culturales: Consulta en Extensión Universitaria.")
+            self.preguntar_continuidad()
+            return
+        if mensaje == "actividades_intercambio":
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_alumnos_texto())
+            self.preguntar_continuidad()
+            return
+        if mensaje == "actividades_idiomas":
+            self.ui.agregar_mensaje_bot("🌐 Centro de Lenguas CLE\n📧 cle.aragon@unam.mx")
+            self.ui.agregar_boton_en_chat("🌐 CLE UNAM", lambda: webbrowser.open("https://cle.unam.mx"))
+            self.preguntar_continuidad()
+            return
+        
+        # ========== INSCRIPCIONES ==========
+        if mensaje == "inscripciones_nuevo":
+            self.mostrar_inscripcion_nuevo()
+            return
+        if mensaje == "inscripciones":
+            self.action_inscripcion_regulares()
+            return
+        
+        # ========== HORARIOS ==========
+        if mensaje == "horarios":
+            self.ui.agregar_mensaje_bot("🕒 Portal de Horarios:")
+            self.ui.agregar_boton_en_chat("📅 Horarios", lambda: webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/"))
+            self.ui.agregar_boton_en_chat("📝 Extraordinarios", lambda: webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/extras.php"))
+            self.ui.agregar_boton_en_chat("📜 Finales", lambda: webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/finales.php"))
+            return
+        
+        # ========== CONTACTOS ==========
+        if mensaje == "contactos":
+            self.ui.agregar_mensaje_bot(MenuSystem.mensaje_contactos())
+            return
+        
+        # ========== PREGUNTAS FRECUENTES ==========
+        if mensaje == "preguntas_nuevo" or mensaje == "preguntas":
+            self.mostrar_faqs_completo()
+            return
+        
+        # ========== TEXTO LIBRE DEL USUARIO ==========
         self.ui.agregar_mensaje_usuario(mensaje)
+        texto = limpiar_texto(mensaje)
         
-        # Limpieza estándar del string para evaluaciones consistentes
-        texto_limpio = limpiar_texto(mensaje)
-        
-        # Comprobación global de comandos de salida de la sesión
-        if texto_limpio in ["salir", "adios", "exit", "chao", "bye", "cerrar"]:
-            self.ui.agregar_mensaje_bot("👋 ¡Gracias por usar BotICO! Hasta pronto. ¡Goya!")
+        # Comandos rápidos
+        if texto in ["salir", "adios", "exit", "bye"]:
+            self.ui.agregar_mensaje_bot("👋 ¡Hasta pronto!")
             self.ventana.after(1500, self.ventana.quit)
             return
         
-        # Comprobación global para re-desplegar opciones de ayuda o menús principales
-        if texto_limpio in ["menu", "menú", "ayuda", "opciones", "help", "inicio"]:
-            if self.es_nuevo_ingreso:
-                self.ui.agregar_mensaje_bot("📋 Opciones: Convocatoria, Horarios, Contactos, Preguntas Frecuentes, Calendario")
-            else:
-                self.ui.agregar_mensaje_bot("📋 Opciones: Inscripciones, Horarios, Trámites, Contactos, Actividades, Calendario")
+        if texto in ["menu", "menú", "ayuda"]:
+            self.ui.agregar_mensaje_bot("Usa los botones o escribe tu duda.")
             return
         
-        # ==========================================================================
-        # 2. CANDADOS DE CONTROL TOTAL PARA TRÁMITES, TITULACIÓN Y SERVICIO SOCIAL
-        # ==========================================================================
-        if texto_limpio in ["tramites", "trámites", "tramite", "trámite", "titulacion", "titulación", "egreso", "egresados", "normatividad", "seguimiento", "fotos", "diplomados", "carpeta fisica"]:
+        # ========== ALTAS Y BAJAS (DIRECTO) ==========
+        if any(p in texto for p in ["altas y bajas", "altas", "bajas", "periodo de altas", "ajustar horario", "no alcance cupo"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_concepto_altas_bajas_texto())
+            self.ui.agregar_boton_en_chat("🌐 TramiFES", self.abrir_tramifes)
+            self.preguntar_continuidad()
+            return
+        
+        # ========== DEPORTES (DIRECTO) ==========
+        if any(p in texto for p in ["deportes", "deporte", "gimnasio", "futbol", "basquet", "taekwondo", "karate", "voleibol", "atletismo", "beisbol", "ajedrez"]):
+            self.procesar_mensaje("actividades_deportes")
+            return
+        
+        # ========== SERVICIO SOCIAL (DIRECTO) ==========
+        if any(p in texto for p in ["servicio social", "liberacion servicio", "sass"]):
+            self.action_servicio_social()
+            return
+        
+        # ========== CONSTANCIAS (DIRECTO) ==========
+        if any(p in texto for p in ["constancia", "tira", "historial", "kardex", "boleta"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_constancias_texto())
+            self.ui.agregar_boton_en_chat("🌐 TramiFES", self.abrir_tramifes)
+            return
+        
+        # ========== CALENDARIO ==========
+        if any(p in texto for p in ["calendario", "fechas", "asueto", "puente", "vacaciones"]):
+            self.ui.agregar_mensaje_bot("📅 Calendario oficial FES Aragón:")
+            self.ui.agregar_boton_en_chat("📅 Ver Calendario", self.abrir_calendario)
+            return
+        
+        # ========== REINSCRIPCIÓN ==========
+        if any(p in texto for p in ["reinscripcion", "pago", "cuota", "scotiabank", "santander", "bbva", "tramifes"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_reinscripcion_texto())
+            self.ui.agregar_boton_en_chat("🌐 TramiFES", self.abrir_tramifes)
+            return
+        
+        # ========== CREDENCIAL ==========
+        if any(p in texto for p in ["credencial", "resello", "reposicion"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_credencial_texto())
+            return
+        
+        # ========== EXTRAORDINARIOS ==========
+        if any(p in texto for p in ["extraordinario", "extra", "reprobe", "oposicion"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_horarios_extraordinarios_texto())
+            self.ui.agregar_boton_en_chat("🌐 Ver Extras", lambda: webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/extras.php"))
+            return
+        
+        # ========== SUSPENSIÓN ==========
+        if any(p in texto for p in ["suspension", "baja temporal", "gracia", "congelar"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.tram_suspension_texto())
+            return
+        
+        # ========== RECTIFICACIÓN ==========
+        if any(p in texto for p in ["rectificacion", "aclaracion", "revalidacion"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.tram_rectificacion_texto())
+            return
+        
+        # ========== CAMBIO DE CARRERA ==========
+        if any(p in texto for p in ["cambio carrera", "cambio sistema", "suayed"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.tram_cambio_carrera_sistema_texto())
+            return
+        
+        # ========== PERMUTAS Y SEGURO ==========
+        if any(p in texto for p in ["permuta", "imss", "seguro", "medico"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.tram_permutas_texto() + "\n\n" + MenuSystem.tram_seguro_texto())
+            return
+        
+        # ========== CALIFICACIONES ==========
+        if any(p in texto for p in ["calificacion", "calificaciones", "siae", "notas", "promedio"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_calificaciones_texto())
+            self.ui.agregar_boton_en_chat("🌐 SIAE", self.abrir_siae)
+            return
+        
+        # ========== INTERCAMBIO ==========
+        if any(p in texto for p in ["intercambio", "movilidad", "dgeci", "extranjero"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_alumnos_texto())
+            return
+        
+        # ========== CONTRASEÑA ==========
+        if any(p in texto for p in ["olvide contrasena", "no puedo entrar", "bloqueado", "recuperar"]):
+            self.ui.agregar_mensaje_bot(MenuSystem.faq_olvido_contrasena_texto())
+            return
+        
+        # ========== TITULACIÓN (TEXTO LIBRE) ==========
+        if any(p in texto for p in ["titulacion", "titulación", "egreso", "normatividad", "seguimiento dgae"]):
             self.procesar_mensaje("tramites")
             return
-
-        if any(p in texto_limpio for p in ["servicio social", "liberacion servicio", "articulo 91", "mendieta bello", "sass"]):
-            self.action_tramite_servicio_social()
-            return
-
-        # Pasa el mensaje al evaluador NLP para clasificar la intención por palabras clave
-        categoria = self.evaluar_categoria(mensaje)
         
-        # ========== INTERCEPTACIÓN GLOBAL: CALENDARIO ESCOLAR ==========
-        if categoria == "calendario" or any(p in texto_limpio for p in ["calendario oficial", "agenda unam", "fechas de asueto", "cuando salimos de vacaciones", "puentes"]):
-            self.ui.agregar_mensaje_bot("BotICO: Aquí tienes el acceso directo al calendario oficial de la FES Aragón:")
-            self.ui.agregar_boton_en_chat(texto_boton="📅 Ver Calendario Oficial 2026-II", comando=self.abrir_calendario)
-            return
-
-        # ========== MULTI-INTERCEPTACIÓN POR TEXTO LIBRE GENERAL ==========
+        # Si no entendió nada
+        self.ui.agregar_mensaje_bot(MenuSystem.mensaje_no_entendido())
+    
+    # ========== MENÚ DE PREGUNTAS FRECUENTES COMPLETO ==========
+    def mostrar_faqs_completo(self):
+        self.ui.agregar_mensaje_bot("❓ ÍNDICE COMPLETO DE PREGUNTAS FRECUENTES ❓")
         
-        # Intención Especial: Pérdida u Olvido de Contraseña, Accesos Bloqueados en Sistemas
-        if any(p in texto_limpio for p in ["olvide mi contrasena", "olvide mi clave", "no puedo entrar", "bloqueado", "recuperar contrasena", "no me deja entrar", "perdi mi contrasena", "no me acuerdo de mi clave", "restablecer contrasena", "cuenta bloqueada", "no entra al siae", "falla trami", "clave temporal", "no recuerdo el pass", "password", "contrasenia"]):
-            self.action_faq_olvido_contrasena()
-            return
-
-        # 1. Intención: Reinscripción, Fechas, Cuotas, Pagos, Dónde/Cómo/Cuándo Inscribirse
-        if any(p in texto_limpio for p in ["donde me inscribo", "como me inscribo", "cuando me inscribo", "inscripcion nuevo ingreso", "pago cuota", "ordinario", "reinscripcion", "reinscribirme", "scotiabank", "santander", "bbva", "ficha de deposito", "adeudo biblioteca", "fundacion unam", "cuanto cuesta la inscripcion", "banco convenio", "donde pagar", "pagos", "cuota", "cajas", "costo", "referencia bancaria", "donde pago", "pagar inscripción", "hacer el pago", "50 centavos", "cien pesos", "minimo 100", "piiani", "piianite"]):
-            if self.es_nuevo_ingreso:
-                self.mostrar_inscripcion_nuevo_ingreso()
-            else:
-                self.action_inscripcion_regulares()
-            return
-            
-        # 2. Intención: Explicación del concepto de Altas y Bajas
-        if any(p in texto_limpio for p in ["que son altas y bajas", "para que sirven las altas", "ajustar horario", "no alcance cupo", "dar de alta", "dar de baja", "concepto de altas", "altas y bajas trami"]):
-            self.action_faq_concepto_altas_bajas()
-            return
-
-        # 3. Intención: Modificación de carga, Sorteo y Plataforma de Horarios en Cómputo
-        if any(p in texto_limpio for p in ["altas y bajas", "sorteo", "cambiar materia", "trami", "tramifes", "mi cita", "que dia me toca", "mover materia", "permutar grupo", "meter materia", "dar de baja una clase", "cupo en grupos"]):
-            self.action_faq_horarios_menu()
-            return
-            
-        # 4. Intención: Constancias Escolares, Tiras de Materias e Historial
-        if any(p in texto_limpio for p in ["constancia", "estudios", "creditos", "historial", "tira", "boleta", "kardex", "materias aprobadas", "porcentaje", "promedio general", "sellada", "firmada", "comprobante de estudios", "pedir constancia", "avance academico"]):
-            self.action_faq_constancias()
-            return
-            
-        # 5. Intención: Identificación Física y Resellos
-        if any(p in texto_limpio for p in ["credencial", "resello", "reposicion", "crede", "perdi mi credencial", "tarjeta unam", "plastico", "sello anual", "credencial escolar", "renovar credencial"]):
-            self.action_faq_credencial()
-            return
-            
-        # 6. Intención: Exámenes Extraordinarios
-        if any(p in texto_limpio for p in ["extraordinario", "extra", "extras", "reprobe", "pasar materia", "oposicion", "pagar extra", "cuando son los extras", "inscribir extraordinario", "sinodales de extras"]):
-            self.action_horarios_extras()
-            return
-            
-        # 7. Intención: Pausas Académicas y Suspensión de Estudios
-        if any(p in texto_limpio for p in ["suspension", "baja temporal", "gracia", "dejar de estudiar", "pausar", "periodo de gracia", "congelar un año", "congelar semestre", "darme de baja temporal"]):
-            self.action_tram_suspension()
-            return
-            
-        # 8. Intención: Corrección de Actas o Revalidación Externa
-        if any(p in texto_limpio for p in ["rectificacion", "aclaracion calificacion", "cambio calificacion", "revalidacion", "movilidad", "f306", "revalidar materias", "clase espejo", "coil virtual", "el profe se equivoco"]):
-            self.action_tram_rectificacion()
-            return
-            
-        # 9. Intención: Cambios Internos de Carrera o Sistema SUAyED
-        if any(p in texto_limpio for p in ["cambio interno", "cambio de carrera", "cambio de sistema", "cambio modalidad", "8.5", "suayed", "siae", "dgae", "modalidad abierta", "modalidad distancia", "requisitos para cambio de carrera"]):
-            self.action_tram_cambio_carrera_sistema()
-            return
-            
-        # 10. Intención: Años Posteriores e Incorporadas
-        if any(p in texto_limpio for p in ["años posteriores", "acreditacion", "incorporado", "revalidación", "vengo de incorporada", "externa", "licenciatura externa", "sistema incorporado", "continuar estudios unam"]):
-            self.action_tram_anos_posteriores()
-            return
-            
-        # 12. Intención: Permutas Internas o Interplanteles
-        if any(p in texto_limpio for p in ["permuta", "permutas", "cambio de plantel", "cambio de fes", "cambiarme de facultad", "permuta de alumno"]):
-            self.action_tram_permutas_imss_menu()
-            return
-            
-        # 13. Intención: Seguro Facultativo Médico (IMSS)
-        if any(p in texto_limpio for p in ["imss", "seguro", "facultativo", "medico", "médico", "clinica", "alta imss", "seguridad social", "nss", "cartilla del seguro", "vigencia de derechos imss"]):
-            self.action_tram_permutas_imss_menu()
-            return
-            
-        # 14. Intención: Renuncia de Carrera o Bajas Definitivas
-        if any(p in texto_limpio for p in ["baja materia", "baja materias", "baja asignatura", "bajas asignaturas", "baja semestre", "baja definitiva", "baja total", "renunciar carrera", "extemporanea", "irme de la unam"]):
-            self.action_tram_bajas_menu()
-            return
-            
-        # 15. Intención: Deportes, Instalaciones, Escuela del Deporte, Gimnasio, CLE y Cultura (Espectro Unificado)
-        if any(p in texto_limpio for p in ["deporte", "deportes", "futbol", "basquet", "gimnasio", "pesas", "siefc", "instalaciones", "carlos octavio", "ajedrez", "karate", "taekwondo", "ludoteca", "diverpuma", "95 pesos", "390", "115", "donde entreno", "canchas", "pista de atletismo", "cuentas con actividades culturales", "que actividades tiene la fes", "que actividades hay", "talleres culturales", "actividades de extension", "aprender idiomas"]):
-            if self.es_nuevo_ingreso:
-                self.process_mensaje_directo("actividades", mensaje)
-            else:
-                self.action_faq_deportes_menu()
-            return
-            
-        # 16. Intención: Intercambios Internacionales o Convocatorias DGECI
-        if any(p in texto_limpio for p in ["intercambio", "movilidad", "dgeci", "crai", "coil", "clase espejo", "pittaae", "toefl", "ielts", "extranjero", "beca internacional", "44%", "irme a otro pais", "estudiar fuera de mexico", "erasmus"]):
-            self.action_faq_intercambio_menu()
-            return
-            
-        # 17. Intención: Consulta Escolar de Calificaciones / Actas
-        if any(p in texto_limpio for p in ["calificacion", "calificaciones", "sabes calificacion", "ver notas", "ver calificacion", "subieron actas", "promedio", "siae notas", "donde veo mis califis", "portal de calificaciones"]):
-            self.action_faq_calificaciones()
-            return
-            
-        # 18. Intención: Consulta Completa de Horarios, Finales, Salones o Profesores
-        if any(p in texto_limpio for p in ["horario", "horarios", "como checo mi horario", "finales", "extraordinarios", "combo grupo", "salon", "docente", "sinodales", "materia", "filtrar por materia", "donde ver mi horario", "que salon me toca", "quien es mi profesor"]):
-            self.action_faq_horarios_menu()
-            return
-
-        # ==========================================================================
-        # 3. FILTRADO CONTEXTUAL CONDICIONADO POR PERFILES DE USUARIO (IF FINAL)
-        # ==========================================================================
-        if self.es_nuevo_ingreso:
-            if mensaje == "inscripciones_nuevo" or categoria == "inscripciones":
-                self.mostrar_inscripcion_nuevo_ingreso()
-            elif mensaje == "preguntas_nuevo" or categoria == "preguntas":
-                self.mostrar_menu_preguntas_frecuentes_acciones()
-            elif mensaje == "horarios" or categoria == "horarios":
-                self.action_faq_horarios_menu()
-            elif mensaje == "contactos" or categoria == "contactos":
-                self.process_mensaje_directo("contactos", mensaje)
-            elif categoria == "convocatoria" or any(p in texto_limpio for p in ["cuando sale la convocatoria", "requisitos de ingreso", "examen de admision unam"]):
-                self.ui.agregar_mensaje_bot("BotICO: Con base en tu estatus de Nuevo Ingreso, preparé este acceso rápido para los detalles oficiales de la Convocatoria:")
-                self.ui.agregar_boton_en_chat(texto_boton="📄 Ver Requisitos de Convocatoria 2026-1", comando=self.mostrar_requisitos_pdf)
-            else:
-                self.process_mensaje_directo(categoria, mensaje)
-        else:
-            # FLUJO ASIGNADO A ALUMNO REGULAR
-            if mensaje == "inscripciones" or categoria == "inscripciones":
-                self.action_inscripcion_regulares()
-            elif mensaje == "preguntas" or categoria == "preguntas":
-                self.mostrar_menu_preguntas_frecuentes_acciones()
-            elif mensaje == "horarios" or categoria == "horarios":
-                self.action_faq_horarios_menu()
-            elif mensaje == "contactos" or categoria == "contactos":
-                self.process_mensaje_directo("contactos", mensaje)
-            else:
-                self.process_mensaje_directo(categoria, mensaje)
-
-    def evaluar_categoria(self, comando):
-        """Diccionario semántico con mapeo avanzado de intenciones estudiantiles"""
-        text_clean = limpiar_texto(comando)
-        comandos_directos = ["inscripciones_nuevo", "co4nvocatoria", "preguntas_nuevo", "preguntas", 
-                             "horarios", "contactos", "contacto", "inscripciones", "tramites", "actividades", "calendario"]
-        
-        if comando in comandos_directos:
-            if comando in ["inscripciones_nuevo", "co4nvocatoria"]: return "convocatoria"
-            if comando in ["preguntas_nuevo", "preguntas"]: return "preguntas"
-            if comando in ["contacto"]: return "contactos"
-            return comando
-            
-        palabras_clave = {
-            "convocatoria": ["convocatoria", "ingreso", "admision", "examen", "pase reglamentado", "primer ingreso", "nuevo ingreso"],
-            "horarios": ["horario", "horarios", "materias", "clases", "profesores", "grupo", "turno", "finales", "extraordinarios", "salon", "docente"],
-            "contactos": ["telefono", "correo", "direccion", "contacto", "redes", "facebook", "ubicacion", "oficina", "ventanilla", "edificio", "extension", "responsable", "ext", "carlos octavio", "valencia"],
-            "inscripciones": ["inscripcion", "inscripciones", "pago", "banco", "costo", "cuota", "referencia", "cajas", "ficha", "contraseña", "clave", "bloqueado"],
-            "tramites": ["constancia", "certificado", "titulacion", "servicio social", "bajas", "altas", "baja", "alta", "permuta", "sorteo", "cita", "extra", "suspension", "rectificacion", "revalidacion", "turno", "simultanea", "imss", "seguro", "egresado", "acreditacion", "pasante", "Titulacion", "servicio"],
-            "actividades": ["taller", "deporte", "cultural", "musica", "idiomas", "cle", "ingles", "futbol", "basquet", "talleres", "teatro", "gimnasio", "pesas", "siefc", "ludoteca", "diverpuma", "intercambio", "movilidad", "dgeci", "coil"]
-        }
-        for cat, palabras in palabras_clave.items():
-            for p in palabras:
-                if p in text_clean: return cat
-        return "desconocido"
-
-    def obtener_respuesta_por_categoria(self, categoria, mensaje_original):
-        respuestas = {
-            "convocatoria": MenuSystem.mensaje_convocatoria,
-            "contactos": MenuSystem.mensaje_contactos,
-            "inscripciones": MenuSystem.mensaje_inscripciones,
-            "actividades": MenuSystem.mensaje_actividades,
-        }
-        if categoria in respuestas: return respuestas[categoria]()
-        return MenuSystem.mensaje_no_entendido()
-
-    # ========== MÓDULO UNIFICADO DE PREGUNTAS FRECUENTES (SÚPER ÍNDICE) ==========
-    def mostrar_menu_preguntas_frecuentes_acciones(self):
-        """Muestra el índice unificado completo de Preguntas Frecuentes y Trámites"""
-        self.ui.agregar_mensaje_bot("❓ Índice Completo de Preguntas Frecuentes y Trámites de Servicios Escolares:")
-        
-        self.ui.agregar_boton_en_chat(texto_boton="🔑 1. Olvidé mi Contraseña / Accesos", comando=self.action_faq_olvido_contrasena)
-        self.ui.agregar_boton_en_chat(texto_boton="🔄 2. Reinscripción, Sorteos y Pagos", comando=self.action_faq_reinscripcion)
-        self.ui.agregar_boton_en_chat(texto_boton="📄 3. Tramitar Constancias e Historial", comando=self.action_faq_constancias)
-        self.ui.agregar_boton_en_chat(texto_boton="🪪 4. Nueva Credencial y Resellos", comando=self.action_faq_credencial)
-        self.ui.agregar_boton_en_chat(texto_boton="📝 5. Exámenes Extraordinarios (Extras)", comando=self.action_horarios_extras)
-        self.ui.agregar_boton_en_chat(texto_boton="🛑 6. Suspensión Temporal de Estudios", comando=self.action_tram_suspension)
-        self.ui.agregar_boton_en_chat(texto_boton="🔄 7. Rectificación / Revalidación de Notas", comando=self.action_tram_rectificacion)
-        self.ui.agregar_boton_en_chat(texto_boton="🔀 8. Cambios de Carrera / De Sistema (SUAyED)", comando=self.action_tram_cambio_carrera_sistema)
-        self.ui.agregar_boton_en_chat(texto_boton="🎓 9. Ingreso a Años Posteriores / Egresados", comando=self.action_faq_egresados_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="🤝 10. Permutas e Inscripción al IMSS", comando=self.action_tram_permutas_imss_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="📉 11. Bajas de Materias o del Semestre", comando=self.action_tram_bajas_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="⚽ 12. Actividades Deportivas y Recreativas", comando=self.action_faq_deportes_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="✈️ 13. Intercambio Académico y Movilidad UNAM", comando=self.action_faq_intercambio_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="📊 14. Consulta de Calificaciones e Historial (SIAE)", comando=self.action_faq_calificaciones)
-        self.ui.agregar_boton_en_chat(texto_boton="🕒 15. Portal de Horarios, Finales y Extraordinarios", comando=self.action_faq_horarios_menu)
-        self.ui.agregar_boton_en_chat(texto_boton="🔄 16. ¿Qué es el periodo de Altas y Bajas?", comando=self.action_faq_concepto_altas_bajas)
-
-    # ========== CONTROLADORES DE ACCIONES INDIVIDUALES ==========
-    def action_faq_olvido_contrasena(self):
-        """Despliega los requisitos de reajuste presencial de contraseñas bloqueadas."""
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_olvido_contrasena_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Ver Ubicación de Servicios Escolares", comando=self.abrir_pagina_escolares_fes)
-
+        self.ui.agregar_boton_en_chat("🔑 1. Olvidé mi Contraseña", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_olvido_contrasena_texto()))
+        self.ui.agregar_boton_en_chat("🔄 2. Reinscripción y Pagos", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_reinscripcion_texto()))
+        self.ui.agregar_boton_en_chat("📄 3. Constancias e Historial", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_constancias_texto()))
+        self.ui.agregar_boton_en_chat("🪪 4. Credencial y Resellos", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_credencial_texto()))
+        self.ui.agregar_boton_en_chat("📝 5. Exámenes Extraordinarios", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_horarios_extraordinarios_texto()))
+        self.ui.agregar_boton_en_chat("🛑 6. Suspensión de Estudios", lambda: self.ui.agregar_mensaje_bot(MenuSystem.tram_suspension_texto()))
+        self.ui.agregar_boton_en_chat("🔄 7. Rectificación de Notas", lambda: self.ui.agregar_mensaje_bot(MenuSystem.tram_rectificacion_texto()))
+        self.ui.agregar_boton_en_chat("🔀 8. Cambio de Carrera/Sistema", lambda: self.ui.agregar_mensaje_bot(MenuSystem.tram_cambio_carrera_sistema_texto()))
+        self.ui.agregar_boton_en_chat("🎓 9. Egresados y Certificados", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_egresados_texto()))
+        self.ui.agregar_boton_en_chat("🤝 10. Permutas y Seguro IMSS", lambda: self.ui.agregar_mensaje_bot(MenuSystem.tram_permutas_texto() + "\n\n" + MenuSystem.tram_seguro_texto()))
+        self.ui.agregar_boton_en_chat("⚽ 11. Actividades Deportivas", lambda: self.procesar_mensaje("actividades_deportes"))
+        self.ui.agregar_boton_en_chat("✈️ 12. Intercambio Académico", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_alumnos_texto()))
+        self.ui.agregar_boton_en_chat("📊 13. Consulta de Calificaciones", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_calificaciones_texto()))
+        self.ui.agregar_boton_en_chat("🕒 14. Portal de Horarios", lambda: self.ui.agregar_mensaje_bot("🕒 Usa el botón de Horarios en el menú principal"))
+        self.ui.agregar_boton_en_chat("🔄 15. Altas y Bajas", lambda: self.ui.agregar_mensaje_bot(MenuSystem.faq_concepto_altas_bajas_texto()))
+    
+    # ========== ACCIONES ==========
+    def action_servicio_social(self):
+        self.ui.agregar_mensaje_bot(MenuSystem.tramite_servicio_social_texto())
+        self.ui.agregar_boton_en_chat("💻 Sistema SASS", lambda: webbrowser.open("https://cedco2.aragon.unam.mx/servsocial/"))
+        self.ui.agregar_boton_en_chat("📧 Correo SS", lambda: webbrowser.open("mailto:serviciosocial@aragon.unam.mx"))
+        self.preguntar_continuidad()
+    
     def action_inscripcion_regulares(self):
-        """Despliega el panel híbrido para reinscripción en línea / física de alumnos."""
         self.ui.agregar_mensaje_bot(MenuSystem.faq_inscripcion_regulares_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="📅 Ver Calendario Oficial 2026-II", comando=self.abrir_calendario)
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar al Portal TramiFES", comando=self.abrir_link_tramifes_final)
-
-    def action_faq_reinscripcion(self):
-        """Enlaza el flujo hacia el concepto de altas y bajas."""
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_reinscripcion_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar al Sistema TramiFES", comando=self.abrir_link_tramifes_final)
-        self.ui.agregar_boton_en_chat(texto_boton="📋 Ver Guía de Sorteo Altas/Bajas", comando=self.action_faq_concepto_altas_bajas)
-
-    def action_faq_constancias(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_constancias_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Ir al Portal Escolar CISE FES", comando=self.abrir_pagina_escolares_fes)
-
-    def action_faq_credencial(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_credencial_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Acceder a Servicios Escolares Web", comando=self.abrir_pagina_escolares_fes)
-
-    def action_tram_suspension(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_suspension_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Consultar en el Portal del CISE", comando=self.abrir_pagina_escolares_fes)
-
-    def action_tram_rectificacion(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_rectificacion_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_tram_cambio_carrera_sistema(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_cambio_carrera_sistema_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial DGAE SIAE", comando=self.abrir_siae_web)
-
-    def abrir_siae_web(self):
-        webbrowser.open("https://www.dgae-siae.unam.mx")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_tramite_registro_titulacion(self):
-        """Muestra los requisitos de registro de modalida de titulación."""
-        self.ui.agregar_mensaje_bot(MenuSystem.tramite_registro_titulacion_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_tramite_protesta_diplomados(self):
-        """Muestra los requisitos detallados de toma de protesta, fotos y liga del formulario."""
-        self.ui.agregar_mensaje_bot(MenuSystem.tramite_protesta_diplomados_texto())
-        # Inserción de botón dinámico para el enlace directo de Microsoft Forms
-        self.ui.agregar_boton_en_chat(
-            texto_boton="📝 Llenar Formulario de Registro (Microsoft Forms)", 
-            comando=self.abrir_forms_titulacion
-        )
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_forms_titulacion(self):
-        """Abre de forma segura el enlace de Microsoft Forms proporcionado."""
-        webbrowser.open("https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__mF8m8FUQzZJTjdUTVdMUFA5VDQyVTZLWVRDVTRCNS4u")
-
-    def action_tramite_web_titulacion(self):
-        """Abre el sitio oficial de titulación de la FES Aragón."""
-        self.ui.agregar_mensaje_bot(MenuSystem.tramite_web_titulacion_texto())
-        webbrowser.open("https://aragon.unam.mx/comunidad-egresada/content/titulacion/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    # ========== ANTERIORES FLUJOS SECUNDARIOS DE EGRESADOS ==========
-    def action_faq_egresados_menu(self):
-        self.ui.agregar_mensaje_bot("🎓 Selecciona el trámite específico para Egresados o Años Posteriores:")
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Ingreso a Años Posteriores por Acreditación/Revalidación", comando=self.action_tram_anos_posteriores)
-        self.ui.agregar_boton_en_chat(texto_boton="📄 Constancias y Credencial de Egresado", comando=self.action_faq_egresados_bloque)
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Expedición de Certificados y Carta Pasante", comando=self.action_faq_egresados_docs_pesados)
-
-    def action_tram_anos_posteriores(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_anos_posteriores_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_egresados_bloque(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_egresados_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal de Exalumnos UNAM", comando=self.abrir_exalumnos_web)
-
-    def abrir_exalumnos_web(self):
-        webbrowser.open("http://www.pve.unam.mx/credencial.html")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_egresados_docs_pesados(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_egresados_documentos_pesados_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial SIGEREL", comando=self.abrir_sigerel_web)
-
-    def abrir_sigerel_web(self):
-        webbrowser.open("https://sigerel.dgae.unam.mx")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_tram_permutas_imss_menu(self):
-        self.ui.agregar_mensaje_bot("🤝 Selecciona la duda específica que deseas resolver:")
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Ver requisitos para Permutas", comando=self.action_tram_permutas)
-        self.ui.agregar_boton_en_chat(texto_boton="🏥 Ver alta de Seguro Médico IMSS", comando=self.action_tram_seguro)
-
-    def action_tram_permutas(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_permutas_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🏫 Ir a Servicios Escolares FES", comando=self.abrir_pagina_escolares_fes)
-
-    def action_tram_seguro(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.tram_seguro_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder a IMSS Digital", comando=self.abrir_imss_digital)
-
-    def abrir_imss_digital(self):
-        webbrowser.open("https://www.imss.gob.mx/derechohabientes/tramites")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_tram_bajas_menu(self):
-        self.ui.agregar_mensaje_bot("📉 Selecciona el tipo de baja que deseas revisar:")
-        self.ui.agregar_boton_en_chat(texto_boton="❌ Solicitar Aclaraciones Generales", comando=self.abrir_pagina_escolares_fes)
-
-    def action_faq_deportes_menu(self):
-        self.ui.agregar_mensaje_bot("⚽ Coordinación Deportiva. Selecciona la opción que deseas desglosar:")
-        self.ui.agregar_boton_en_chat(texto_boton="📋 Disciplinas, Ejes y Programas (Diverpuma)", comando=self.action_faq_deportes_presentacion)
-        self.ui.agregar_boton_en_chat(texto_boton="💰 Requisitos, Costos (Cajas FES) e Inscripciones", comando=self.action_faq_deportes_costos)
-        self.ui.agregar_boton_en_chat(texto_boton="🏛️ Infraestructura, Horarios y Contacto Oficial", comando=self.action_faq_deportes_instalaciones)
-
-    def action_faq_deportes_presentacion(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_presentacion_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Sistema de Inscripción SIEFC", comando=self.abrir_siefc_web)
-
-    def action_faq_deportes_costos(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_costos_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a la plataforma SIEFC", comando=self.abrir_siefc_web)
-
-    def action_faq_deportes_instalaciones(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_deportes_instalaciones_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_siefc_web(self):
-        webbrowser.open("https://lovelace.aragon.unam.mx/siefc/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_intercambio_menu(self):
-        """Oficina de Intercambio Académico y Vinculación. Selecciona una opción."""
-        self.ui.agregar_mensaje_bot("✈️ Oficina de Intercambio Académico y Vinculación. Selecciona una opción:")
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Movilidad para Alumnos Inscritos (DGECI/CRAI)", comando=self.action_faq_intercambio_internos)
-        self.ui.agregar_boton_en_chat(texto_boton="🏛️ Alumnos Externos / Estancias / Académicos Visitantes", comando=self.action_faq_intercambio_externos)
-        self.ui.agregar_boton_en_chat(texto_boton="📞 Ubicación, Horarios de Oficina y Contacto", comando=self.action_faq_intercambio_contacto)
-
-    def action_faq_intercambio_internos(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_alumnos_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Portal Oficial DGAE SIAE Citas", comando=self.abrir_siae_web)
-
-    def action_faq_intercambio_externos(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_externos_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_intercambio_contacto(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_intercambio_contacto_texto())
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_calificaciones(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_calificaciones_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Abrir Sistema SIAE (DGAE UNAM)", comando=self.abrir_gateway_siae_calificaciones)
-
-    def abrir_gateway_siae_calificaciones(self):
-        webbrowser.open("https://www.dgae-siae.unam.mx/www_gate.php")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_horarios_menu(self):
-        """Despliega el submenú experto para la gestión de Horarios, Finales y Extraordinarios"""
-        self.ui.agregar_mensaje_bot("🕒 Portal de Horarios (Unidad de Cómputo). Selecciona la consulta que deseas realizar:")
-        self.ui.agregar_boton_en_chat(texto_boton="📅 1. Horarios de Clases Ordinarios (Materia, Salón, Docente)", comando=self.action_horarios_clases)
-        self.ui.agregar_boton_en_chat(texto_boton="📝 2. Calendario de Exámenes Extraordinarios (1ra y 2da Vuelta)", comando=self.action_horarios_extras)
-        self.ui.agregar_boton_en_chat(texto_boton="📜 3. Calendario de Exámenes Finales Ordinarios", comando=self.action_horarios_finales)
-
-    def action_horarios_clases(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_horarios_detallado_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar al Portal de Horarios de Clases", comando=self.abrir_sistema_horarios_aragon)
-
-    def action_horarios_extras(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_horarios_extraordinarios_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a Consulta de Extraordinarios", comando=self.abrir_sistema_extras_aragon)
-
-    def action_horarios_finales(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_horarios_finales_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a Consulta de Finales", comando=self.abrir_sistema_finales_aragon)
-
-    def abrir_sistema_horarios_aragon(self):
-        webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_sistema_extras_aragon(self):
-        webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/extras.php")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_sistema_finales_aragon(self):
-        webbrowser.open("https://www.aragon.unam.mx/horarios/horarios/horarios/finales.php")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def action_faq_concepto_altas_bajas(self):
-        self.ui.agregar_mensaje_bot(MenuSystem.faq_concepto_altas_bajas_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar Directo a TramiFES", comando=self.abrir_link_tramifes_final)
-
-    def abrir_link_tramifes_final(self):
-        webbrowser.open("https://tramifes.aragon.unam.mx/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_pagina_escolares_fes(self):
-        webbrowser.open("https://www.aragon.unam.mx/fes-aragon/#!/cise/servicios-escolares")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def mostrar_inscripcion_nuevo_ingreso(self):
+        self.ui.agregar_boton_en_chat("🌐 TramiFES", self.abrir_tramifes)
+        self.ui.agregar_boton_en_chat("📅 Calendario", self.abrir_calendario)
+    
+    def mostrar_inscripcion_nuevo(self):
         self.ui.agregar_mensaje_bot(MenuSystem.mensaje_inscripciones())
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Acceder al Portal PIIANITE FES", comando=self.abrir_portal_piianite_final)
-        self.ui.agregar_boton_en_chat(texto_boton="📄 Descargar Carta Compromiso Oficial", comando=self.descargar_documento_compromiso_final)
-
-    def abrir_portal_piianite_final(self):
-        webbrowser.open("http://132.248.44.93:8080/PIIANI/")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def descargar_documento_compromiso_final(self):
-        webbrowser.open("http://132.248.44.93:8080/PIIANI/doc/CARTA_COMPROMISO_GEN_2026-2.pdf")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
+        self.ui.agregar_boton_en_chat("🌐 PIIANITE", lambda: webbrowser.open("http://132.248.44.93:8080/PIIANI/"))
+        self.ui.agregar_boton_en_chat("📄 Carta Compromiso", lambda: webbrowser.open("http://132.248.44.93:8080/PIIANI/doc/CARTA_COMPROMISO_GEN_2026-2.pdf"))
+    
     def mostrar_requisitos_pdf(self):
-        self.ui.agregar_mensaje_bot("BotICO: Selecciona el tipo de proceso por el cual deseas ingresar a la UNAM:")
-        self.ui.agregar_boton_en_chat(texto_boton="📜 Pase Reglamentado UNAM", comando=self.abrir_pase_reglamentado)
-        self.ui.agregar_boton_en_chat(texto_boton="📝 Concurso de Selección", comando=self.abrir_concurso_ingreso)
-
-    def abrir_pase_reglamentado(self):
-        webbrowser.open("https://www.dgae.unam.mx/Pase2026/index.html")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_concurso_ingreso(self):
+        self.ui.agregar_mensaje_bot("Selecciona tu ingreso:")
+        self.ui.agregar_boton_en_chat("📜 Pase Reglamentado", lambda: webbrowser.open("https://www.dgae.unam.mx/Pase2026/index.html"))
+        self.ui.agregar_boton_en_chat("📝 Concurso", lambda: webbrowser.open("https://www.dgae-siae.unam.mx"))
+    
+    # ========== UTILERÍAS ==========
+    def abrir_tramifes(self):
+        webbrowser.open("https://tramifes.aragon.unam.mx/")
+        self.preguntar_continuidad()
+    
+    def abrir_siefc(self):
+        webbrowser.open("https://lovelace.aragon.unam.mx/siefc/")
+        self.preguntar_continuidad()
+    
+    def abrir_siae(self):
         webbrowser.open("https://www.dgae-siae.unam.mx")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
+        self.preguntar_continuidad()
+    
+    def abrir_forms(self):
+        webbrowser.open("https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__mF8m8FUQzZJTjdUTVdMUFA5VDQyVTZLWVRDVTRCNS4u")
+    
     def abrir_calendario(self):
         webbrowser.open("https://aragon.unam.mx/fes-aragon/public_html/documents/nuestra_facultad/calendario-2026-ll.pdf")
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    # ========== GESTIÓN DE FLUJO ==========
+        self.preguntar_continuidad()
+    
     def preguntar_continuidad(self):
-        """Despliega la verificación de continuidad de forma asíncrona."""
-        self.ui.agregar_mensaje_bot("BotICO: ¿Te puedo ayudar en algo más?")
-        self.ui.agregar_boton_en_chat(texto_boton="👍 Sí, tengo otra duda", comando=self.usuario_desea_continuar)
-        self.ui.agregar_boton_en_chat(texto_boton="🛑 No, es todo. Salir", comando=self.usuario_desea_clean_close)
-
-    def usuario_desea_continuar(self):
-        """Retorna al flujo de autopilot reinyectando los descriptores en la UI."""
-        self.ui.agregar_mensaje_bot("BotICO: ¡Perfecto! Puedes usar los botones inferiores o escribirme tu duda directamente.")
-        self.autopilot_regresar_menu()
-
-    def autopilot_regresar_menu(self):
-        """Mapea condicionalmente el layout de la botonera baja según el estado."""
+        self.ui.agregar_mensaje_bot("¿Te puedo ayudar en algo más?")
+        self.ui.agregar_boton_en_chat("👍 Sí", self.continuar)
+        self.ui.agregar_boton_en_chat("🛑 No, salir", self.salir)
+    
+    def continuar(self):
         if self.es_nuevo_ingreso:
             self.ui.actualizar_botones(MenuSystem.get_botones_nuevo_ingreso())
         else:
             self.ui.actualizar_botones(MenuSystem.get_botones_principales())
-
-    def Ballback_quit(self):
-        """Maneja el cierre seguro del loop de Tkinter."""
-        self.ventana.quit()
-
-    def usuario_desea_clean_close(self):
-        """Despliega el banner de salida final."""
-        self.ui.agregar_mensaje_bot("👋 ¡Gracias por utilizar BotICO! Tu sesión ha finalizado con éxito. ¡Goya!")
-        self.ventana.after(2000, self.Ballback_quit)
-
+    
+    def salir(self):
+        self.ui.agregar_mensaje_bot("👋 ¡Gracias por usar BotICO! ¡Goya!")
+        self.ventana.after(1500, self.ventana.quit)
+    
     def run(self):
-        """Punto de entrada síncrono para correr la ventana."""
         self.ventana.mainloop()
-
-    def action_tramite_servicio_social(self):
-        """Despliega la información del Servicio Social y genera los botones web."""
-        self.ui.agregar_mensaje_bot(MenuSystem.tramite_servicio_social_texto())
-        self.ui.agregar_boton_en_chat(texto_boton="💻 Entrar al Sistema SASS", comando=self.abrir_sass_web)
-        self.ui.agregar_boton_en_chat(texto_boton="📧 Enviar correo a Servicio Social", comando=lambda: webbrowser.open("mailto:serviciosocial@aragon.unam.mx"))
-        self.ui.agregar_boton_en_chat(texto_boton="🌐 Ver Facebook del Departamento", comando=self.abrir_facebook_ss)
-        self.ventana.after(1000, self.preguntar_continuidad)
-
-    def abrir_sass_web(self):
-        webbrowser.open("https://cedco2.aragon.unam.mx/servsocial/")
-
-    def abrir_facebook_ss(self):
-        webbrowser.open("https://www.facebook.com/SSeIncentivosFESAragon")
 
 if __name__ == "__main__":
     app = BotICO()

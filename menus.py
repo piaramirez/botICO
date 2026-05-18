@@ -40,7 +40,7 @@ class MenuSystem:
             ("🎭 Actividades", "actividades")
         ]
 
-    # ========== SUBMENÚ DE TRÁMITES (AHORA CON 3 OPCIONES) ==========
+    # ========== SUBMENÚ DE TRÁMITES (3 OPCIONES) ==========
     @staticmethod
     def get_botones_submenu_tramites():
         """
@@ -78,7 +78,8 @@ class MenuSystem:
             ("📝 2. Registro de Modalidad", "tramite_registro_titulacion"),
             ("📋 3. Requisitos de Fotos", "tramite_protesta_diplomados"),
             ("💻 4. Seguimiento DGAE", "tramite_seguimiento_dgae"),
-            ("❓ 5. FAQs de Titulación", "tramite_faqs_titulacion")
+            ("❓ 5. FAQs de Titulación", "tramite_faqs_titulacion"),
+            ("🎓 6. Formas de Titulación", "formas_titulacion")   # ← NUEVO
         ]
 
     # ========== MENSAJES DE BIENVENIDA ==========
@@ -231,6 +232,327 @@ class MenuSystem:
             ("🌐 Centro de Lenguas (CLE)", "actividades_idiomas")
         ]
 
+    # ========== ACTIVIDADES DEPORTIVAS COMPLETAS ==========
+    @staticmethod
+    def mensaje_deportes_principal():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                 ⚽ ACTIVIDADES DEPORTIVAS FES ARAGÓN             ║
+╠══════════════════════════════════════════════════════════════════╣
+║  La Coordinación de Actividades Deportivas y Recreativas ofrece  ║
+║  múltiples disciplinas para toda la comunidad universitaria.    ║
+║                                                                 ║
+║  📌 Selecciona una opción para más información:                 ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def get_botones_deportes():
+        """Botones específicos de actividades deportivas."""
+        return [
+            ("⚽ Fútbol Asociación", "deporte_futbol_asociacion"),
+            ("⚡ Fútbol Rápido", "deporte_futbol_rapido"),
+            ("🏀 Basquetbol", "deporte_basquetbol"),
+            ("🏐 Voleibol", "deporte_voleibol"),
+            ("🥋 Taekwondo", "deporte_taekwondo"),
+            ("🥊 Karate Do", "deporte_karate"),
+            ("🏋️ Gimnasio de Pesas", "deporte_gimnasio"),
+            ("🤼 Luchas Asociadas", "deporte_luchas"),
+            ("♟️ Ajedrez", "deporte_ajedrez"),
+            ("🏃 Atletismo", "deporte_atletismo"),
+            ("🏏 Béisbol", "deporte_beisbol"),
+            ("🏉 Rugby", "deporte_rugby"),
+            ("🎾 Tenis de Mesa", "deporte_tenis_mesa"),
+            ("🤸 Gimnasia", "deporte_gimnasia"),
+            ("📋 Ver todos los deportes", "deporte_todos"),
+            ("💰 Costos y Requisitos", "deporte_costos"),
+            ("📞 Contacto Deportivo", "deporte_contacto")
+        ]
+
+    @staticmethod
+    def deporte_futbol_asociacion_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    ⚽ FÚTBOL ASOCIACIÓN                          ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Campo de fútbol (Cancha 11)                          ║
+║  🕒 Entrenamientos: Martes y Jueves de 15:00 a 18:00 h          ║
+║  👤 Entrenador: Marco Antonio Sánchez                           ║
+║  🏆 Participa en la Liga Universitaria y Torneos internos       ║
+║                                                                 ║
+║  📋 Requisitos: Credencial UNAM vigente, seguro médico,         ║
+║                certificado médico no mayor a 3 meses            ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_futbol_rapido_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    ⚡ FÚTBOL RÁPIDO                              ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Cancha de fútbol rápido (junto al gimnasio)          ║
+║  🕒 Entrenamientos: Lunes y Miércoles de 16:00 a 19:00 h        ║
+║  👤 Entrenador: Luis Fernando Gómez                             ║
+║  🏆 Torneos relámpago intra y extra universitarios              ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_basquetbol_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏀 BASQUETBOL                                ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio de parquet (duela)                          ║
+║  🕒 Entrenamientos: Lunes, Miércoles y Viernes de 14:00 a 17:00 h║
+║  👤 Entrenador: Javier Hernández Ramírez                        ║
+║  🏆 Representa a la FES Aragón en la Liga de la UNAM            ║
+║  📋 Categorías: Varonil y Femenil                               ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_voleibol_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏐 VOLEIBOL                                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio de parquet / Cancha de voleibol playa       ║
+║  🕒 Entrenamientos: Martes y Jueves de 15:00 a 18:00 h          ║
+║  👤 Entrenadora: Ana Laura Méndez                               ║
+║  🏆 Participa en la Liga Universitaria de Voleibol              ║
+║  📋 Modalidades: Sala y Playa                                   ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_taekwondo_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🥋 TAEKWONDO                                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio multidisciplinario, salón 2                 ║
+║  🕒 Entrenamientos: Lunes y Miércoles de 17:00 a 20:00 h        ║
+║  👤 Instructor: David Cortés González                          ║
+║  🏆 Competencias estatales y nacionales                         ║
+║  📋 Clases desde principiantes hasta avanzados                  ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_karate_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🥊 KARATE DO                                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio multidisciplinario, salón 1                 ║
+║  🕒 Entrenamientos: Martes y Jueves de 16:00 a 19:00 h          ║
+║  👤 Instructor: Sergio Ramírez López                           ║
+║  🏆 Kata y Kumite - Torneos universitarios                      ║
+║  📋 Uniforme requerido (karategi)                               ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_gimnasio_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏋️ GIMNASIO DE PESAS                         ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Ubicación: Área de pesas - Gimnasio multidisciplinario      ║
+║  🕒 Horario: Lunes a Viernes 8:00 a 20:00 h | Sáb 9:00 a 14:00 h║
+║  🏋️ Equipo: Máquinas de peso integrado, mancuernas, barras,     ║
+║            bancas, racks de sentadilla, zona cardiovascular     ║
+║  📋 Requisitos: Inscripción semestral vía SIEFC                 ║
+║  💰 Costo: $115.00 MXN (comunidad UNAM)                         ║
+║  👤 Instructor a cargo: Entrenador asignado en horario          ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_luchas_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🤼 LUCHAS ASOCIADAS                          ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio multidisciplinario, área de colchonetas     ║
+║  🕒 Entrenamientos: Lunes, Miércoles y Viernes de 15:00 a 18:00 h║
+║  👤 Entrenador: Miguel Ángel Torres                             ║
+║  🏆 Estilo Olímpico - Competencias CONADE y Universitarios      ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_ajedrez_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    ♟️ AJEDREZ                                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Lobby del Teatro José Vasconcelos                    ║
+║  🕒 Entrenamientos: Martes y Jueves de 14:00 a 18:00 h          ║
+║  👤 Entrenador: Eduardo Sánchez Pérez                          ║
+║  🏆 Liga Universitaria de Ajedrez - Torneos relámpago           ║
+║  📋 Modalidad: Presencial y en línea                            ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_atletismo_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏃 ATLETISMO                                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Pista de atletismo                                   ║
+║  🕒 Entrenamientos: Lunes a Viernes de 7:00 a 9:00 h y          ║
+║                     16:00 a 19:00 h                             ║
+║  👤 Entrenador: Roberto Flores Nava                            ║
+║  🏆 Pruebas: Velocidad, Fondo, Saltos, Lanzamientos            ║
+║  📋 Representa a la FES Aragón en la Universiada Nacional       ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_beisbol_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏏 BÉISBOL                                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Campo de béisbol                                     ║
+║  🕒 Entrenamientos: Martes, Jueves y Sábados de 9:00 a 13:00 h  ║
+║  👤 Entrenador: Héctor Mendoza Rodríguez                       ║
+║  🏆 Liga Metropolitana de Béisbol Universitario                 ║
+║  📋 Equipo: Los Pumas de la FES Aragón                          ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_rugby_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🏉 RUGBY                                     ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Campo anexo (junto a la pista de atletismo)          ║
+║  🕒 Entrenamientos: Miércoles y Viernes de 15:00 a 18:00 h      ║
+║  👤 Entrenador: Carlos Fuentes Garza                           ║
+║  🏆 Torneos universitarios y encuentros amistosos               ║
+║  📋 Categoría: Rugby 7s (formato reducido)                     ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_tenis_mesa_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🎾 TENIS DE MESA                             ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio de parquet                                  ║
+║  🕒 Entrenamientos: Lunes y Miércoles de 16:00 a 19:00 h        ║
+║  👤 Entrenador: Ricardo Méndez Silva                           ║
+║  🏆 Liga Universitaria de Tenis de Mesa                         ║
+║  📋 Raquetas disponibles para préstamo                          ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_gimnasia_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    🤸 GIMNASIA                                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║  📍 Lugar: Gimnasio multidisciplinario, salón 1                 ║
+║  🕒 Entrenamientos: Martes y Jueves de 15:00 a 18:00 h          ║
+║  👤 Entrenadora: Patricia López Hernández                      ║
+║  🏆 Gimnasia artística y rítmica                               ║
+║  📋 Categorías: Infantil, Juvenil y Libre                       ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_todos_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║              📋 LISTA COMPLETA DE DEPORTES FES ARAGÓN           ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  ⚽ Fútbol Asociación      🏀 Basquetbol       🏐 Voleibol       ║
+║  ⚡ Fútbol Rápido          🥋 Taekwondo        🥊 Karate Do       ║
+║  🏋️ Gimnasio de Pesas      🤼 Luchas Asoc.     ♟️ Ajedrez         ║
+║  🏃 Atletismo              🏏 Béisbol          🏉 Rugby           ║
+║  🎾 Tenis de Mesa          🤸 Gimnasia         🏊 Natación*       ║
+║                                                                 ║
+║  *Natación: Convenio con alberca cercana (consultar en oficina) ║
+║                                                                 ║
+║  📌 Todos los deportes requieren inscripción semestral vía      ║
+║     SIEFC (Sistema de Información de la Escuela del Deporte)    ║
+║                                                                 ║
+║  📞 Informes: Coordinación Deportiva - Ext. 31035               ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_costos_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║              💰 COSTOS Y REQUISITOS DEPORTIVOS                  ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  💳 COSTOS SEMESTRALES (PAGO EN CAJAS FES ARAGÓN):              ║
+║     • Comunidad UNAM (alumnos, docentes, trabajadores): $115.00 ║
+║     • Exalumnos: $600.00 MXN                                    ║
+║     • Escuela del Deporte (externos 6-17 años): $95.00 MXN      ║
+║                                                                 ║
+║  📋 REQUISITOS GENERALES:                                       ║
+║     1. Credencial UNAM o INE vigente                           ║
+║     2. Tira de materias o comprobante de inscripción           ║
+║     3. Certificado médico original (máx. 3 meses)              ║
+║     4. Comprobante de seguro médico activo (IMSS/ISSSTE)       ║
+║     5. Comprobante de pago original de cajas                   ║
+║                                                                 ║
+║  💻 PROCESO DE INSCRIPCIÓN:                                     ║
+║     • Entrar a: https://lovelace.aragon.unam.mx/siefc/         ║
+║     • Registrarse y seleccionar deporte                        ║
+║     • Subir documentos y comprobante de pago                   ║
+║     • Esperar confirmación                                      ║
+║                                                                 ║
+║  🕒 HORARIO DE CAJAS (Extensión Universitaria):                 ║
+║     • Lunes a viernes de 10:00 a 13:00 h y 16:00 a 19:00 h     ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+    @staticmethod
+    def deporte_contacto_texto():
+        return """
+╔══════════════════════════════════════════════════════════════════╗
+║              📞 CONTACTO DEPORTIVO FES ARAGÓN                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  👤 RESPONSABLE:                                                ║
+║     Carlos Octavio Cruz Valencia                                ║
+║                                                                 ║
+║  📞 TELÉFONO:                                                   ║
+║     55 5623 0222 - Extensión 31035                             ║
+║                                                                 ║
+║  📧 CORREOS ELECTRÓNICOS:                                       ║
+║     deportivas.contacto@aragon.unam.mx                         ║
+║     deportivas.escueladeldeporte@aragon.unam.mx                ║
+║                                                                 ║
+║  💬 WHATSAPP (Escuela del Deporte):                             ║
+║     55 5474 4687                                                ║
+║                                                                 ║
+║  🕒 HORARIO DE ATENCIÓN:                                        ║
+║     • Lunes a viernes: 8:00 a 20:00 h                          ║
+║     • Sábados: 9:00 a 14:00 h                                  ║
+║                                                                 ║
+║  📍 UBICACIÓN:                                                  ║
+║     Coordinación de Actividades Deportivas y Recreativas       ║
+║     Gimnasio multidisciplinario - Módulo de atención           ║
+║                                                                 ║
+║  🌐 PORTAL DE INSCRIPCIÓN SIEFC:                                ║
+║     https://lovelace.aragon.unam.mx/siefc/                     ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
     @staticmethod
     def mensaje_no_entendido():
         """Mensaje de excepción por defecto ante fallas del motor de parseo semántico."""
@@ -322,7 +644,7 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== CONSTANCIAS (NUEVO) ==========
+    # ========== CONSTANCIAS ==========
     @staticmethod
     def tramite_constancias_texto():
         return """
@@ -342,7 +664,7 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== SERVICIO SOCIAL MEJORADO ==========
+    # ========== SERVICIO SOCIAL ==========
     @staticmethod
     def tramite_servicio_social_texto():
         return """
@@ -392,12 +714,12 @@ class MenuSystem:
 ║     • Facebook: Servicio Social FES Aragón                      ║
 ║                                                                 ║
 ║  💻 SISTEMA SASS:                                                ║
-║     • Plataforma para registro y seguimiento de SS              ║
+║     • https://cedco2.aragon.unam.mx/servsocial/                ║
 ║                                                                 ║
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== FAQS GENERALES ==========
+    # ========== TODAS LAS FAQS (RESTO DEL CÓDIGO IGUAL) ==========
     @staticmethod
     def faq_reinscripcion_texto():
         return """
@@ -820,4 +1142,311 @@ https://aragon.unam.mx/comunidad-egresada/content/titulacion/
 
 📋 Enlace al Formulario de Registro Solicitado (Microsoft Forms):
 https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__mF8m8FUQzZJTjdUTVdMUFA5VDQyVTZLWVRDVTRCNS4u
+        """
+    # ========== FORMAS DE TITULACIÓN OFICIALES UNAM ==========
+@staticmethod
+def get_botones_formas_titulacion():
+    """
+    Botones con las diferentes modalidades de titulación oficiales de la UNAM.
+    """
+    return [
+        ("📖 1. Tesis", "forma_tesis"),
+        ("🎓 2. Examen General de Conocimientos (EGEL)", "forma_examen_general"),
+        ("📚 3. Totalidad de Créditos y Alto Promedio", "forma_alto_promedio"),
+        ("🏆 4. Actividades de Investigación", "forma_investigacion"),
+        ("📝 5. Ampliación y Profundización (Diplomado)", "forma_diplomado"),
+        ("🌍 6. Experiencia Profesional", "forma_experiencia"),
+        ("📊 7. Apoyo a la Titulación por Proyecto (PAPIT)", "forma_papit"),
+        ("🤝 8. Servicio Social", "forma_servicio_social_titulacion"),
+        ("✈️ 9. Movilidad y Estudios en el Extranjero", "forma_movilidad"),
+        ("🎯 10. Exámenes Internacionales", "forma_examenes_internacionales")
+    ]
+
+@staticmethod
+def forma_tesis_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║                    📖 TESIS Y TRABAJO PROFESIONAL                ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Desarrollo de una investigación original en un área de      ║
+║     Ingeniería en Computación, con asesoría de un tutor.        ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Tener un tutor asignado de la carrera                     ║
+║     • Promedio mínimo 8.0 (depende de la opción)               ║
+║                                                                 ║
+║  📝 MODALIDADES:                                                ║
+║     • Tesis + réplica oral                                      ║
+║     • Tesis sin réplica oral                                    ║
+║     • Tesina                                                    ║
+║                                                                 ║
+║  ⏱️ TIEMPO ESTIMADO: 6 meses - 1 año                            ║
+║                                                                 ║
+║  👉 Acude a Jefatura de Carrera para asignación de tutor        ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_examen_general_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              🎓 EXAMEN GENERAL DE CONOCIMIENTOS (EGEL)           ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Acreditar el Examen General para el Egreso de la            ║
+║     Licenciatura (EGEL) del CENEVAL.                            ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Registro en el EGEL (convocatoria semestral)             ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • No requiere trabajo escrito                               ║
+║     • Obtienes el título y cédula profesional                   ║
+║     • El EGEL es reconocido nacionalmente                       ║
+║                                                                 ║
+║  🏆 Si obtienes resultado Sobresaliente, obtienes:             ║
+║     • Premio al Desempeño de Excelencia EGEL                    ║
+║     • Mención especial en tu título                             ║
+║                                                                 ║
+║  🌐 Informes: ceneval.edu.mx                                    ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_alto_promedio_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              📚 TOTALIDAD DE CRÉDITOS Y ALTO PROMEDIO            ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Titulación automática por haber cumplido con el 100% de     ║
+║     créditos y obtener mención honorífica.                      ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Promedio general mínimo 9.0                               ║
+║     • Servicio social liberado                                  ║
+║     • No haber presentado examen extraordinario                 ║
+║     • No haber reprobado ninguna materia                        ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Sin examen profesional                                    ║
+║     • Sin trabajo de titulación                                 ║
+║     • Trámite administrativo simplificado                       ║
+║                                                                 ║
+║  👉 Se tramita directamente en Servicios Escolares              ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_investigacion_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              🏆 ACTIVIDADES DE INVESTIGACIÓN                     ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Participación destacada en proyectos de investigación      ║
+║     avalados por la UNAM o instituciones afines.                ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Constancia de participación en proyecto                   ║
+║     • Aval de un investigador titular                           ║
+║                                                                 ║
+║  🏆 MODALIDADES RECONOCIDAS:                                    ║
+║     • PAPIT (Programa de Apoyo a Proyectos de Investigación)    ║
+║     • POED (Programa de Estímulos al Desempeño)                 ║
+║     • Publicación arbitrada como autor/coautor                  ║
+║     • Participación en congresos internacionales                ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Sin examen profesional                                    ║
+║     • Sin trabajo escrito extenso                               ║
+║     • Reconocimiento a tu labor investigadora                   ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_diplomado_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║           📝 AMPLIACIÓN Y PROFUNDIZACIÓN (DIPLOMADO)             ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Acreditar un diplomado impartido por la UNAM en áreas       ║
+║     afines a tu carrera.                                        ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Diploma o constancia del diplomado                        ║
+║     • Diplomado de mínimo 120 horas                            ║
+║     • Debe ser afín a Ingeniería en Computación                 ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Sin examen profesional                                    ║
+║     • Sin tesis                                                  ║
+║     • Complementas tu formación profesional                     ║
+║                                                                 ║
+║  👉 El diplomado debe ser aprobado por Jefatura de Carrera      ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_experiencia_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              📊 EXPERIENCIA PROFESIONAL                          ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Acreditar ejercicio profesional durante al menos 2 años     ║
+║     en el área de Ingeniería en Computación.                    ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • 2 años de experiencia comprobable                         ║
+║     • Cartas de recomendación laboral                           ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Reconocimiento a tu trayectoria profesional               ║
+║     • Sin necesidad de tesis o examen                           ║
+║     • Ideal para quienes ya trabajan en el sector               ║
+║                                                                 ║
+║  📄 DOCUMENTACIÓN NECESARIA:                                    ║
+║     • Constancias laborales                                      ║
+║     • Descripción de actividades                                ║
+║     • Aval de empleador                                          ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_papit_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║           📊 APOYO A LA TITULACIÓN POR PROYECTO (PAPIT)         ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Realizar un proyecto de investigación o desarrollo          ║
+║     tecnológico bajo la dirección de un investigador.           ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Registro en PAPIT (convocatoria anual)                   ║
+║     • Asignación de tutor-investigador                          ║
+║                                                                 ║
+║  🏆 MODALIDADES:                                                ║
+║     • PAPIT: Proyecto de investigación                          ║
+║     • PAPIME: Proyecto de mejora educativa                      ║
+║     • PAPCA: Proyectos de creación artística                    ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Trabajo tutorado                                           ║
+║     • Experiencia en investigación                              ║
+║     • Posible beca de apoyo                                      ║
+║                                                                 ║
+║  🌐 dgapa.unam.mx/papit                                         ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_servicio_social_titulacion_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              🤝 TITULACIÓN POR SERVICIO SOCIAL                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Elaboración de memoria o informe técnico del Servicio       ║
+║     Social realizado, con valor curricular complementario.      ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado (480 hrs mínimo)                 ║
+║     • Informe técnico o memoria de actividades                  ║
+║     • Aval del responsable de la institución                    ║
+║                                                                 ║
+║  🏆 CARACTERÍSTICAS:                                            ║
+║     • El servicio social DEBE estar liberado previo             ║
+║     • No confundir con la opción genérica de SS                 ║
+║     • El informe es la "tesis" del servicio social             ║
+║                                                                 ║
+║  📄 DOCUMENTACIÓN:                                              ║
+║     • Carta de liberación de servicio social                    ║
+║     • Informe técnico                                           ║
+║     • Acta de revisión                                          ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_movilidad_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║            ✈️ MOVILIDAD Y ESTUDIOS EN EL EXTRANJERO              ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Acreditar estudios en el extranjero de al menos un semestre ║
+║     en universidades con convenio con la UNAM.                  ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 70% de créditos aprobados al momento de la movilidad     ║
+║     • 100% de créditos al término                               ║
+║     • Servicio social liberado                                  ║
+║     • Promedio mínimo 8.5                                       ║
+║     • Constancia de estudios en el extranjero                   ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Experiencia internacional                                 ║
+║     • Dominio de otro idioma                                    ║
+║     • Reconocimiento académico                                  ║
+║                                                                 ║
+║  🌐 dgeci.unam.mx                                               ║
+║  📧 intercambioacademico@aragon.unam.mx                        ║
+╚══════════════════════════════════════════════════════════════════╝
+        """
+
+@staticmethod
+def forma_examenes_internacionales_texto():
+    return """
+╔══════════════════════════════════════════════════════════════════╗
+║              🎯 EXÁMENES INTERNACIONALES                         ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                 ║
+║  📌 DESCRIPCIÓN:                                                ║
+║     Acreditar exámenes internacionales que demuestren           ║
+║     conocimientos equivalentes a la carrera.                    ║
+║                                                                 ║
+║  📋 EXÁMENES ACEPTADOS:                                         ║
+║     • GRE (Graduate Record Examination) - Área de computación  ║
+║     • Exámenes de certificación profesionales                   ║
+║     • EXADEP (para áreas afines)                                ║
+║                                                                 ║
+║  📋 REQUISITOS:                                                 ║
+║     • 100% de créditos aprobados                                ║
+║     • Servicio social liberado                                  ║
+║     • Calificación aprobatoria en el examen internacional       ║
+║     • Equivalencia dictaminada por Comité Académico             ║
+║                                                                 ║
+║  ✅ VENTAJAS:                                                   ║
+║     • Reconocimiento internacional                              ║
+║     • Sin trabajo escrito                                       ║
+║     • Certificación de estándares globales                      ║
+║                                                                 ║
+║  👉 Validación previa en Jefatura de Carrera                    ║
+╚══════════════════════════════════════════════════════════════════╝
         """
