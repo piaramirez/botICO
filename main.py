@@ -105,6 +105,24 @@ class BotICO:
         # ==========================================================================
         # 1. INTERCEPTACIÓN DE CALLBACKS DEL SUBMENÚ INTERACTIVO DE TRÁMITES
         # ==========================================================================
+        
+        # ---- NUEVO: Submenú de Trámites (Titulación vs Servicio Social) ----
+        if mensaje == "tramites":
+            self.ui.agregar_mensaje_bot(MenuSystem.mensaje_submenu_tramites())
+            botones = MenuSystem.get_botones_submenu_tramites()
+            for texto_btn, comando_id in botones:
+                self.ui.agregar_boton_en_chat(texto_boton=texto_btn, comando=lambda cid=comando_id: self.procesar_mensaje(cid))
+            return
+        
+        # ---- Submenú de Titulación (los 5 botones) ----
+        if mensaje == "submenu_titulacion":
+            self.ui.agregar_mensaje_bot("📜 Procesos de Titulación - Selecciona una opción:")
+            botones = MenuSystem.get_botones_titulacion()
+            for texto_btn, comando_id in botones:
+                self.ui.agregar_boton_en_chat(texto_boton=texto_btn, comando=lambda cid=comando_id: self.procesar_mensaje(cid))
+            return
+        
+        # ---- Acciones específicas de Titulación ----
         if mensaje == "tramite_normatividad":
             self.ui.agregar_mensaje_bot(MenuSystem.tramite_normatividad_texto())
             self.ventana.after(1000, self.preguntar_continuidad)
@@ -124,6 +142,17 @@ class BotICO:
             return
         elif mensaje == "tramite_faqs_titulacion":
             self.ui.agregar_mensaje_bot(MenuSystem.tramite_faqs_titulacion_texto())
+            self.ventana.after(1000, self.preguntar_continuidad)
+            return
+        elif mensaje == "servicio_social":
+            self.action_tramite_servicio_social()
+            return
+        # Dentro de procesar_mensaje, después de los imports y antes de los callbacks
+
+        # ===== NUEVO: CONSTANCIAS =====
+        if mensaje == "tramite_constancias":
+            self.ui.agregar_mensaje_bot(MenuSystem.tramite_constancias_texto())
+            self.ui.agregar_boton_en_chat(texto_boton="🌐 Entrar a TramiFES para Constancias", comando=self.abrir_link_tramifes_final)
             self.ventana.after(1000, self.preguntar_continuidad)
             return
 
@@ -148,10 +177,14 @@ class BotICO:
             return
         
         # ==========================================================================
-        # 2. CANDADO DE CONTROL DE TRÁMITES Y INTENCIONES DE EGRESO (TEXTO LIBRE)
+        # 2. CANDADOS DE CONTROL TOTAL PARA TRÁMITES, TITULACIÓN Y SERVICIO SOCIAL
         # ==========================================================================
         if texto_limpio in ["tramites", "trámites", "tramite", "trámite", "titulacion", "titulación", "egreso", "egresados", "normatividad", "seguimiento", "fotos", "diplomados", "carpeta fisica"]:
-            self.action_tramites_menu()
+            self.procesar_mensaje("tramites")
+            return
+
+        if any(p in texto_limpio for p in ["servicio social", "liberacion servicio", "articulo 91", "mendieta bello", "sass"]):
+            self.action_tramite_servicio_social()
             return
 
         # Pasa el mensaje al evaluador NLP para clasificar la intención por palabras clave
@@ -262,15 +295,13 @@ class BotICO:
             return
 
         # ==========================================================================
-        # 3. FILTRADO CONTEXTUAL CONDICIONADO POR PERFILES DE USUARIO
+        # 3. FILTRADO CONTEXTUAL CONDICIONADO POR PERFILES DE USUARIO (IF FINAL)
         # ==========================================================================
         if self.es_nuevo_ingreso:
             if mensaje == "inscripciones_nuevo" or categoria == "inscripciones":
                 self.mostrar_inscripcion_nuevo_ingreso()
             elif mensaje == "preguntas_nuevo" or categoria == "preguntas":
                 self.mostrar_menu_preguntas_frecuentes_acciones()
-            elif mensaje == "tramites" or categoria == "tramites":
-                self.action_tramites_menu()
             elif mensaje == "horarios" or categoria == "horarios":
                 self.action_faq_horarios_menu()
             elif mensaje == "contactos" or categoria == "contactos":
@@ -286,8 +317,6 @@ class BotICO:
                 self.action_inscripcion_regulares()
             elif mensaje == "preguntas" or categoria == "preguntas":
                 self.mostrar_menu_preguntas_frecuentes_acciones()
-            elif mensaje == "tramites" or categoria == "tramites":
-                self.action_tramites_menu()
             elif mensaje == "horarios" or categoria == "horarios":
                 self.action_faq_horarios_menu()
             elif mensaje == "contactos" or categoria == "contactos":
@@ -393,14 +422,6 @@ class BotICO:
     def abrir_siae_web(self):
         webbrowser.open("https://www.dgae-siae.unam.mx")
         self.ventana.after(1000, self.preguntar_continuidad)
-
-    # ========== MODIFICADO: CONTROLADORES INTERACTIVOS DE TRÁMITES Y TITULACIÓN ==========
-    def action_tramites_menu(self):
-        """Despliega el menú con botones interactivos para la sección de Trámites y Titulación."""
-        self.ui.agregar_mensaje_bot(MenuSystem.mensaje_tramites())
-        botones = MenuSystem.get_botones_tramites()
-        for texto_btn, comando_id in botones:
-            self.ui.agregar_boton_en_chat(texto_boton=texto_btn, comando=lambda cid=comando_id: self.procesar_mensaje(cid))
 
     def action_tramite_registro_titulacion(self):
         """Muestra los requisitos de registro de modalida de titulación."""
@@ -628,6 +649,20 @@ class BotICO:
     def run(self):
         """Punto de entrada síncrono para correr la ventana."""
         self.ventana.mainloop()
+
+    def action_tramite_servicio_social(self):
+        """Despliega la información del Servicio Social y genera los botones web."""
+        self.ui.agregar_mensaje_bot(MenuSystem.tramite_servicio_social_texto())
+        self.ui.agregar_boton_en_chat(texto_boton="💻 Entrar al Sistema SASS", comando=self.abrir_sass_web)
+        self.ui.agregar_boton_en_chat(texto_boton="📧 Enviar correo a Servicio Social", comando=lambda: webbrowser.open("mailto:serviciosocial@aragon.unam.mx"))
+        self.ui.agregar_boton_en_chat(texto_boton="🌐 Ver Facebook del Departamento", comando=self.abrir_facebook_ss)
+        self.ventana.after(1000, self.preguntar_continuidad)
+
+    def abrir_sass_web(self):
+        webbrowser.open("https://cedco2.aragon.unam.mx/servsocial/")
+
+    def abrir_facebook_ss(self):
+        webbrowser.open("https://www.facebook.com/SSeIncentivosFESAragon")
 
 if __name__ == "__main__":
     app = BotICO()
