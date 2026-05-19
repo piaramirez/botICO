@@ -18,6 +18,11 @@ incluyendo:
 - Constantes de la aplicación (nombre, institución)
 - Umbrales para algoritmos de matching difuso
 - Configuración de archivos de log
+*NOTA IMPORTANTE:* 
+El proyecto utiliza un sistema de matching por palabras clave 
+implementado manualmente (NLP básico) que no requiere librerías 
+externas adicionales como thefuzz o python-Levenshtein como 
+se había considerado inicialmente.
 """
 
 # ==============================

@@ -11,6 +11,11 @@ Docente: MARTIN ROMERO UGALDE
 Estudiante: Ramírez Alcántara Pedro Antonio
             Victor Flores Felix Omar
 ================================================================
+*NOTA IMPORTANTE:* 
+El proyecto utiliza un sistema de matching por palabras clave 
+implementado manualmente (NLP básico) que no requiere librerías 
+externas adicionales como thefuzz o python-Levenshtein como 
+se había considerado inicialmente.
 """
 
 import tkinter as tk

@@ -29,6 +29,11 @@ CARACTERÍSTICAS:
 - Centraliza el contenido para fácil mantenimiento y actualización
 - Soporta dos perfiles: nuevo ingreso y alumno regular
 ================================================================
+*NOTA IMPORTANTE:* 
+El proyecto utiliza un sistema de matching por palabras clave 
+implementado manualmente (NLP básico) que no requiere librerías 
+externas adicionales como thefuzz o python-Levenshtein como 
+se había considerado inicialmente.
 """
 
 class MenuSystem:

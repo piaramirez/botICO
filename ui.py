@@ -30,6 +30,11 @@ FUNCIONALIDADES:
 - Formato de hora en cada mensaje
 - Colores institucionales UNAM
 ================================================================
+*NOTA IMPORTANTE:* 
+El proyecto utiliza un sistema de matching por palabras clave 
+implementado manualmente (NLP básico) que no requiere librerías 
+externas adicionales como thefuzz o python-Levenshtein como 
+se había considerado inicialmente.
 """
 
 import tkinter as tk

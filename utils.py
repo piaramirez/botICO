@@ -27,6 +27,12 @@ FUNCIONALIDADES PRINCIPALES:
 2. validar_nombre(): Valida nombres de usuario en registro
 3. obtener_timestamp(): Genera timestamps para mensajes
 ================================================================
+
+*NOTA IMPORTANTE:* 
+El proyecto utiliza un sistema de matching por palabras clave 
+implementado manualmente (NLP básico) que no requiere librerías 
+externas adicionales como thefuzz o python-Levenshtein como 
+se había considerado inicialmente.
 """
 
 import re
