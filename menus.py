@@ -1,27 +1,78 @@
-# menus.py - Sistema de menús, componentes de texto y FAQs para BotICO
 """
-Módulo de Configuración de Contenido y Menús Escolares (BotICO).
+================================================================
+SISTEMA DE MENÚ PRINCIPAL - PROYECTO chatbotICO
+================================================================
+Fecha: 18 de mayo de 2026
+Escuela: Universidad Nacional Autónoma de México (UNAM) 
+         Facultad de Estudios Superiores Aragón
+Grupo: 2907
+Materia: Inteligencia Artificial
+Docente: MARTIN ROMERO UGALDE
+Estudiante: Ramírez Alcántara Pedro Antonio
+            Victor Flores Felix Omar
 
-Este módulo centraliza todas las estructuras de botones del sistema, mensajes 
-de bienvenida y el catálogo unificado de preguntas frecuentes (FAQs) utilizando
-métodos estáticos para su consumo dinámico desde el core principal.
+MÓDULO DE CONFIGURACIÓN DE CONTENIDO Y MENÚS ESCOLARES
+
+DESCRIPCIÓN:
+============
+Este módulo centraliza TODAS las estructuras de contenido del chatbot:
+- Botones interactivos por perfil de usuario
+- Mensajes de bienvenida personalizados
+- Información de trámites, deportes, titulación, etc.
+- Preguntas frecuentes (FAQs) categorizadas
+- 10 formas de titulación oficiales de la UNAM
+
+CARACTERÍSTICAS:
+================
+- Todos los métodos son estáticos (@staticmethod) para acceso directo
+- Retorna textos formateados con bordes ASCII para mejor presentación
+- Centraliza el contenido para fácil mantenimiento y actualización
+- Soporta dos perfiles: nuevo ingreso y alumno regular
+================================================================
 """
 
 class MenuSystem:
+    """
+    Clase contenedora de toda la configuración de menús y contenido.
+    
+    Utiliza métodos estáticos para proporcionar:
+    - Botones interactivos (listas de tuplas texto-comando)
+    - Mensajes informativos con formato de recuadro
+    - Textos detallados de trámites, deportes, titulación, etc.
+    
+    La clase está organizada en secciones:
+    1. Botones por perfil (nuevo ingreso / regular)
+    2. Submenús (trámites, titulación, actividades, deportes)
+    3. Mensajes de bienvenida
+    4. Trámites específicos (Servicio Social, Constancias, Titulación)
+    5. Actividades deportivas (más de 15 disciplinas)
+    6. Preguntas frecuentes (FAQs)
+    7. Formas de titulación UNAM (10 modalidades oficiales)
+    """
+    
+    # ================================================================
+    # SECCIÓN 1: BOTONES PRINCIPALES POR PERFIL DE USUARIO
+    # ================================================================
     
     @staticmethod
     def get_botones_nuevo_ingreso():
         """
         Retorna la colección de botones interactivos para el perfil de primer ingreso.
         
+        Los alumnos de nuevo ingreso tienen un menú simplificado enfocado en:
+        - Proceso de inscripción
+        - Preguntas frecuentes específicas para nuevos alumnos
+        - Consulta de horarios
+        - Contactos de la facultad
+        
         Returns:
-            list[tuple[str, str]]: Pares de (Texto del Botón, Identificador de Comando).
+            list[tuple[str, str]]: Lista de pares (Texto del Botón, Identificador de Comando)
         """
         return [
-            ("📋 INSCRIPCIÓN", "inscripciones_nuevo"),
-            ("❓ PREGUNTAS FRECUENTES", "preguntas_nuevo"),
-            ("🕒 HORARIOS", "horarios"),
-            ("📞 CONTACTO", "contactos")
+            ("📋 INSCRIPCIÓN", "inscripciones_nuevo"),          # Comando para inscripción
+            ("❓ PREGUNTAS FRECUENTES", "preguntas_nuevo"),     # FAQ para nuevos
+            ("🕒 HORARIOS", "horarios"),                       # Portal de horarios
+            ("📞 CONTACTO", "contactos")                       # Directorio institucional
         ]
     
     @staticmethod
@@ -29,32 +80,55 @@ class MenuSystem:
         """
         Retorna la colección de botones interactivos para el perfil de alumnos regulares.
         
+        Los alumnos regulares tienen acceso completo a todas las funcionalidades:
+        - Inscripciones (reinscripción)
+        - Horarios (ordinarios, extraordinarios, finales)
+        - Trámites (titulación, servicio social, constancias)
+        - Contactos (directorio oficial)
+        - Actividades (deportes, culturales, intercambio, idiomas)
+        
         Returns:
-            list[tuple[str, str]]: Pares de (Texto del Botón, Identificador de Comando).
+            list[tuple[str, str]]: Lista de pares (Texto del Botón, Identificador de Comando)
         """
         return [
-            ("📌 Inscripciones", "inscripciones"),
-            ("🕒 Horarios", "horarios"),
-            ("📄 Trámites", "tramites"),
-            ("📞 Contacto", "contactos"),
-            ("🎭 Actividades", "actividades")
+            ("📌 Inscripciones", "inscripciones"),      # Reinscripción regulares
+            ("🕒 Horarios", "horarios"),               # Portal de horarios
+            ("📄 Trámites", "tramites"),               # Submenú de trámites
+            ("📞 Contacto", "contactos"),              # Directorio
+            ("🎭 Actividades", "actividades")          # Submenú de actividades
         ]
 
-    # ========== SUBMENÚ DE TRÁMITES (3 OPCIONES) ==========
+    # ================================================================
+    # SECCIÓN 2: SUBMENÚ DE TRÁMITES (3 OPCIONES PRINCIPALES)
+    # ================================================================
+    
     @staticmethod
     def get_botones_submenu_tramites():
         """
         Botones que aparecen al presionar 'Trámites' en el menú principal.
-        Muestra las tres áreas: Titulación, Servicio Social y Constancias.
+        
+        Muestra las tres áreas principales de trámites escolares:
+        1. Titulación - Procesos de egreso y titulación
+        2. Servicio Social - Liberación de horas y trámites
+        3. Constancias - Documentos oficiales (tira, kardex, etc.)
+        
+        Returns:
+            list[tuple[str, str]]: Botones del submenú de trámites
         """
         return [
-            ("📜 Titulación", "submenu_titulacion"),
-            ("🤝 Servicio Social", "servicio_social"),
-            ("📄 Constancias", "tramite_constancias")
+            ("📜 Titulación", "submenu_titulacion"),           # Submenú de titulación
+            ("🤝 Servicio Social", "servicio_social"),         # Servicio social
+            ("📄 Constancias", "tramite_constancias")          # Constancias escolares
         ]
 
     @staticmethod
     def mensaje_submenu_tramites():
+        """
+        Mensaje informativo que se muestra al entrar al submenú de trámites.
+        
+        Returns:
+            str: Texto formateado con bordes ASCII explicando las opciones
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 📄 TRÁMITES ESCOLARES                           ║
@@ -67,11 +141,25 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== SUBMENÚ DE TITULACIÓN (5 BOTONES) ==========
+    # ================================================================
+    # SECCIÓN 3: SUBMENÚ DE TITULACIÓN (6 BOTONES + 10 FORMAS)
+    # ================================================================
+    
     @staticmethod
     def get_botones_titulacion():
         """
         Botones específicos del proceso de titulación.
+        
+        Opciones:
+        1. Normatividad - Reglamentos y lineamientos
+        2. Registro de Modalidad - Cómo registrar tu forma de titulación
+        3. Requisitos de Fotos - Especificaciones fotográficas
+        4. Seguimiento DGAE - Portal de seguimiento de la DGAE
+        5. FAQs de Titulación - Preguntas frecuentes
+        6. Formas de Titulación - Las 10 modalidades oficiales UNAM
+        
+        Returns:
+            list[tuple[str, str]]: Botones del submenú de titulación
         """
         return [
             ("📜 1. Normatividad", "tramite_normatividad"),
@@ -79,16 +167,54 @@ class MenuSystem:
             ("📋 3. Requisitos de Fotos", "tramite_protesta_diplomados"),
             ("💻 4. Seguimiento DGAE", "tramite_seguimiento_dgae"),
             ("❓ 5. FAQs de Titulación", "tramite_faqs_titulacion"),
-            ("🎓 6. Formas de Titulación", "formas_titulacion")   # ← NUEVO
+            ("🎓 6. Formas de Titulación", "submenu_formas_titulacion")   # Submenú con 10 opciones
+        ]
+    
+    @staticmethod
+    def get_botones_formas_titulacion():
+        """
+        Botones con las 10 modalidades de titulación oficiales de la UNAM.
+        
+        Estas son TODAS las formas reconocidas por la UNAM para obtener
+        el título profesional, según el Reglamento General de Exámenes.
+        
+        Returns:
+            list[tuple[str, str]]: Las 10 opciones de titulación
+        """
+        return [
+            ("📖 1. Tesis", "forma_tesis"),
+            ("🎓 2. Examen General de Conocimientos (EGEL)", "forma_examen_general"),
+            ("📚 3. Totalidad de Créditos y Alto Promedio", "forma_alto_promedio"),
+            ("🏆 4. Actividades de Investigación", "forma_investigacion"),
+            ("📝 5. Ampliación y Profundización (Diplomado)", "forma_diplomado"),
+            ("🌍 6. Experiencia Profesional", "forma_experiencia"),
+            ("📊 7. Apoyo a la Titulación por Proyecto (PAPIT)", "forma_papit"),
+            ("🤝 8. Servicio Social", "forma_servicio_social_titulacion"),
+            ("✈️ 9. Movilidad y Estudios en el Extranjero", "forma_movilidad"),
+            ("🎯 10. Exámenes Internacionales", "forma_examenes_internacionales")
         ]
 
-    # ========== MENSAJES DE BIENVENIDA ==========
+    # ================================================================
+    # SECCIÓN 4: MENSAJES DE BIENVENIDA PERSONALIZADOS
+    # ================================================================
+    
     @staticmethod
     def mensaje_bienvenida_nuevo(nombre):
-        """Genera la tarjeta de bienvenida para usuarios de nuevo ingreso."""
+        """
+        Genera la tarjeta de bienvenida para usuarios de nuevo ingreso.
+        
+        El mensaje es personalizado con el nombre del usuario para crear
+        una experiencia más acogedora y personal.
+        
+        Args:
+            nombre (str): Nombre del usuario registrado
+            
+        Returns:
+            str: Texto formateado con bordes ASCII
+        """
         return f"""
 ╔══════════════════════════════════════════════════════════════════╗
-║     🎓 ¡BIENVENIDO A LA FES ARAGÓN - ICO, {nombre.upper()}! 🎓      ║
+║     🎓 ¡BIENVENIDO A LA FES ARAGÓN - ICO, {nombre.upper()}! 🎓   ║
 ╠══════════════════════════════════════════════════════════════════╣
 ║  Te damos la más cordial bienvenida a Ingeniería en Computación. ║
 ║  Estoy aquí para guiarte en TODO tu proceso de ingreso.          ║
@@ -97,7 +223,15 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_bienvenida_regular(nombre):
-        """Genera la tarjeta de bienvenida para alumnos inscritos regulares."""
+        """
+        Genera la tarjeta de bienvenida para alumnos inscritos regulares.
+        
+        Args:
+            nombre (str): Nombre del usuario registrado
+            
+        Returns:
+            str: Texto formateado con bordes ASCII
+        """
         return f"""
 ╔══════════════════════════════════════════════════════════════════╗
 ║           📚 ¡BIENVENIDO DE VUELTA, {nombre.upper()}! 📚           ║
@@ -106,10 +240,23 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
     
-    # ========== MENSAJES INFORMATIVOS GENERALES ==========
+    # ================================================================
+    # SECCIÓN 5: MENSAJES INFORMATIVOS GENERALES
+    # ================================================================
+    
     @staticmethod
     def mensaje_fechas_inscripcion():
-        """Retorna el cronograma síncrono del periodo lectivo vigente."""
+        """
+        Retorna el cronograma del periodo lectivo vigente.
+        
+        Contiene fechas clave para el semestre actual:
+        - Registro en línea
+        - Inicio de clases
+        - Periodo de altas y bajas
+        
+        Returns:
+            str: Calendario de inscripciones formateado
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📅 FECHAS DE INSCRIPCIÓN - ICO                ║
@@ -123,7 +270,15 @@ class MenuSystem:
 
     @staticmethod
     def mensaje_convocatoria():
-        """Retorna la información legal descriptiva del concurso de selección UNAM."""
+        """
+        Retorna la información del concurso de selección UNAM.
+        
+        Incluye fechas importantes, requisitos generales y
+        modalidades de ingreso.
+        
+        Returns:
+            str: Información de convocatoria formateada
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📋 CONVOCATORIA UNAM - ICO                    ║
@@ -143,7 +298,21 @@ class MenuSystem:
 
     @staticmethod
     def mensaje_contactos():
-        """Retorna el directorio unificado de dependencias del plantel."""
+        """
+        Retorna el directorio completo de dependencias del plantel.
+        
+        Incluye:
+        - Conmutador general
+        - Servicios Escolares
+        - Jefatura de carrera ICO
+        - Actividades Deportivas
+        - Intercambio Académico
+        - Centro de Lenguas (CLE)
+        - Ubicación del plantel
+        
+        Returns:
+            str: Directorio oficial formateado
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║             📞 DIRECTORIO DE CONTACTOS OFICIALES                 ║
@@ -162,7 +331,7 @@ class MenuSystem:
 ║    • Responsable: Carlos Octavio Cruz Valencia                   ║
 ║    • Teléfono: 55 5623 0222 (Extensión: 31035)                   ║
 ║    • Correo: deportivas.contacto@aragon.unam.mx                  ║
-║    • Escuela del Deporte: deportivas.escueladeldeporte@aragon.     ║
+║    • Escuela del Deporte: deportivas.escueladeldeporte@aragon.   ║
 ║      unam.mx | WhatsApp: 55 5474 4687                            ║
 ║    • Horarios: Lun-Vie 8:00 a 20:00 h | Sáb 9:00 a 14:00 h       ║
 ║                                                                  ║
@@ -181,7 +350,18 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_inscripciones():
-        """Retorna el flujo detallado con requisitos físicos para la ventanilla de Servicios Escolares."""
+        """
+        Retorna el flujo detallado con requisitos físicos para ventanilla.
+        
+        Incluye documentación obligatoria para primer ingreso:
+        - Carta de asignación
+        - Carta Compromiso
+        - Comprobante de pago
+        - CURP e identificación oficial
+        
+        Returns:
+            str: Instrucciones de inscripción formateadas
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║             📋 PROCESO DE INSCRIPCIÓN PRIMER INGRESO             ║
@@ -207,7 +387,19 @@ class MenuSystem:
     
     @staticmethod
     def mensaje_actividades():
-        """Mensaje informativo sobre Actividades Deportivas, Culturales e Intercambio."""
+        """
+        Mensaje informativo sobre Actividades de Desarrollo Integral.
+        
+        Categorías:
+        - Deportes (selecciones, gimnasio, recreación)
+        - Cultura (teatro, danza, música, artes plásticas)
+        - Intercambio académico (movilidad nacional e internacional)
+        - Idiomas (Centro de Lenguas CLE)
+        - Vinculación (ferias de empleo, bolsa de trabajo)
+        
+        Returns:
+            str: Menú de actividades formateado
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🎭 ACTIVIDADES Y DESARROLLO INTEGRAL                ║
@@ -224,7 +416,18 @@ class MenuSystem:
 
     @staticmethod
     def get_botones_actividades():
-        """Botones del menú de Actividades."""
+        """
+        Botones del menú de Actividades.
+        
+        Opciones:
+        - Deportes y Recreación (submenú con todas las disciplinas)
+        - Talleres Culturales y Artísticos
+        - Intercambio y Movilidad
+        - Centro de Lenguas (CLE)
+        
+        Returns:
+            list[tuple[str, str]]: Botones del menú de actividades
+        """
         return [
             ("⚽ Deportes y Recreación", "actividades_deportes"),
             ("🎨 Talleres Culturales y Artísticos", "actividades_culturales"),
@@ -232,9 +435,21 @@ class MenuSystem:
             ("🌐 Centro de Lenguas (CLE)", "actividades_idiomas")
         ]
 
-    # ========== ACTIVIDADES DEPORTIVAS COMPLETAS ==========
+    # ================================================================
+    # SECCIÓN 6: ACTIVIDADES DEPORTIVAS COMPLETAS
+    # ================================================================
+    
     @staticmethod
     def mensaje_deportes_principal():
+        """
+        Mensaje principal del módulo de deportes.
+        
+        Explica que la Coordinación de Actividades Deportivas
+        ofrece múltiples disciplinas para toda la comunidad.
+        
+        Returns:
+            str: Encabezado de deportes formateado
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                 ⚽ ACTIVIDADES DEPORTIVAS FES ARAGÓN             ║
@@ -248,7 +463,18 @@ class MenuSystem:
 
     @staticmethod
     def get_botones_deportes():
-        """Botones específicos de actividades deportivas."""
+        """
+        Botones específicos de actividades deportivas (17 opciones).
+        
+        Incluye:
+        - Deportes específicos (fútbol, basquetbol, taekwondo, etc.)
+        - Ver todos los deportes (lista completa)
+        - Costos y requisitos
+        - Contacto deportivo
+        
+        Returns:
+            list[tuple[str, str]]: Botones del menú de deportes
+        """
         return [
             ("⚽ Fútbol Asociación", "deporte_futbol_asociacion"),
             ("⚡ Fútbol Rápido", "deporte_futbol_rapido"),
@@ -269,8 +495,11 @@ class MenuSystem:
             ("📞 Contacto Deportivo", "deporte_contacto")
         ]
 
+    # ---------- Información detallada de cada deporte ----------
+    
     @staticmethod
     def deporte_futbol_asociacion_texto():
+        """Información detallada del equipo de Fútbol Asociación (Cancha 11)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    ⚽ FÚTBOL ASOCIACIÓN                          ║
@@ -287,6 +516,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_futbol_rapido_texto():
+        """Información detallada de Fútbol Rápido (cancha junto al gimnasio)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    ⚡ FÚTBOL RÁPIDO                              ║
@@ -300,6 +530,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_basquetbol_texto():
+        """Información detallada de Basquetbol (gimnasio de parquet)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏀 BASQUETBOL                                ║
@@ -314,6 +545,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_voleibol_texto():
+        """Información detallada de Voleibol (sala y playa)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏐 VOLEIBOL                                  ║
@@ -328,6 +560,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_taekwondo_texto():
+        """Información detallada de Taekwondo (gimnasio multidisciplinario)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🥋 TAEKWONDO                                 ║
@@ -342,6 +575,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_karate_texto():
+        """Información detallada de Karate Do (gimnasio multidisciplinario)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🥊 KARATE DO                                 ║
@@ -356,6 +590,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_gimnasio_texto():
+        """Información detallada del Gimnasio de Pesas (incluye costos)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏋️ GIMNASIO DE PESAS                         ║
@@ -372,6 +607,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_luchas_texto():
+        """Información detallada de Luchas Asociadas (estilo olímpico)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🤼 LUCHAS ASOCIADAS                          ║
@@ -385,6 +621,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_ajedrez_texto():
+        """Información detallada de Ajedrez (presencial y en línea)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    ♟️ AJEDREZ                                   ║
@@ -399,6 +636,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_atletismo_texto():
+        """Información detallada de Atletismo (pista)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏃 ATLETISMO                                 ║
@@ -414,6 +652,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_beisbol_texto():
+        """Información detallada de Béisbol (Los Pumas FES Aragón)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏏 BÉISBOL                                   ║
@@ -428,6 +667,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_rugby_texto():
+        """Información detallada de Rugby 7s"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🏉 RUGBY                                     ║
@@ -442,6 +682,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_tenis_mesa_texto():
+        """Información detallada de Tenis de Mesa"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🎾 TENIS DE MESA                             ║
@@ -456,6 +697,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_gimnasia_texto():
+        """Información detallada de Gimnasia (artística y rítmica)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    🤸 GIMNASIA                                  ║
@@ -470,6 +712,7 @@ class MenuSystem:
 
     @staticmethod
     def deporte_todos_texto():
+        """Lista completa de todos los deportes disponibles"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              📋 LISTA COMPLETA DE DEPORTES FES ARAGÓN           ║
@@ -492,6 +735,15 @@ class MenuSystem:
 
     @staticmethod
     def deporte_costos_texto():
+        """
+        Información detallada de costos y requisitos para actividades deportivas.
+        
+        Incluye:
+        - Costos semestrales (comunidad UNAM, exalumnos, externos)
+        - Requisitos generales (documentación)
+        - Proceso de inscripción en SIEFC
+        - Horario de cajas
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              💰 COSTOS Y REQUISITOS DEPORTIVOS                  ║
@@ -522,6 +774,17 @@ class MenuSystem:
 
     @staticmethod
     def deporte_contacto_texto():
+        """
+        Información de contacto de la Coordinación Deportiva.
+        
+        Incluye:
+        - Responsable
+        - Teléfono con extensión
+        - Correos electrónicos
+        - WhatsApp
+        - Horarios de atención
+        - Ubicación
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              📞 CONTACTO DEPORTIVO FES ARAGÓN                   ║
@@ -553,14 +816,29 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
+    # ================================================================
+    # SECCIÓN 7: MENSAJE POR DEFECTO (NO ENTENDIDO)
+    # ================================================================
+    
     @staticmethod
     def mensaje_no_entendido():
-        """Mensaje de excepción por defecto ante fallas del motor de parseo semántico."""
+        """
+        Mensaje de respuesta cuando el bot no entiende la consulta.
+        
+        Invita al usuario a escribir 'menú' o reformular su pregunta.
+        
+        Returns:
+            str: Mensaje de error/ayuda formateado
+        """
         return "❓ No entendí tu pregunta. Puedes escribir 'menú' para ver las opciones disponibles o reformular tu duda."
 
-    # ========== TRÁMITES DE TITULACIÓN ==========
+    # ================================================================
+    # SECCIÓN 8: TRÁMITES DE TITULACIÓN
+    # ================================================================
+    
     @staticmethod
     def tramite_normatividad_texto():
+        """Información sobre la normatividad de titulación (reglamentos)"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    ⚖️ NORMATIVIDAD DE TITULACIÓN                 ║
@@ -572,6 +850,7 @@ class MenuSystem:
 
     @staticmethod
     def tramite_registro_titulacion_texto():
+        """Pasos para registrar la modalidad de titulación elegida"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📝 REGISTRO DE MODALIDAD                      ║
@@ -586,6 +865,12 @@ class MenuSystem:
 
     @staticmethod
     def tramite_protesta_diplomados_texto():
+        """
+        Requisitos generales y especificaciones fotográficas para titulación.
+        
+        Incluye requisitos diferenciados para mujeres y hombres,
+        especificaciones para fotos de pergamino y papel bond.
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║               📋 REQUISITOS GENERALES Y FOTOS                    ║
@@ -612,6 +897,11 @@ class MenuSystem:
 
     @staticmethod
     def tramite_seguimiento_dgae_texto():
+        """
+        Información sobre el sistema de seguimiento de titulación de la DGAE.
+        
+        Explica el flujo de registro, aprobación y entrega de documentos.
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║               💻 SEGUIMIENTO DE TITULACIÓN UNIVERSITARIA         ║
@@ -629,6 +919,7 @@ class MenuSystem:
 
     @staticmethod
     def tramite_faqs_titulacion_texto():
+        """Preguntas frecuentes específicas sobre titulación"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║               ❓ PREGUNTAS FRECUENTES DE TITULACIÓN               ║
@@ -644,9 +935,22 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== CONSTANCIAS ==========
+    # ================================================================
+    # SECCIÓN 9: CONSTANCIAS ESCOLARES
+    # ================================================================
+    
     @staticmethod
     def tramite_constancias_texto():
+        """
+        Información sobre obtención de constancias vía TramiFES.
+        
+        Tipos de constancias disponibles:
+        - Tira de materias
+        - Constancia de estudios
+        - Constancia de créditos y promedio
+        - Historial académico
+        - Carta de pasante
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📄 CONSTANCIAS ESCOLARES                     ║
@@ -664,9 +968,23 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== SERVICIO SOCIAL ==========
+    # ================================================================
+    # SECCIÓN 10: SERVICIO SOCIAL
+    # ================================================================
+    
     @staticmethod
     def tramite_servicio_social_texto():
+        """
+        Información completa sobre el Servicio Social obligatorio.
+        
+        Incluye:
+        - Qué es el servicio social
+        - Duración mínima (480 horas)
+        - Requisitos para iniciar
+        - Proceso de liberación
+        - Contacto y horarios
+        - Sistema SASS
+        """
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🤝 SERVICIO SOCIAL - FES ARAGÓN 🤝                  ║
@@ -719,9 +1037,13 @@ class MenuSystem:
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-    # ========== TODAS LAS FAQS (RESTO DEL CÓDIGO IGUAL) ==========
+    # ================================================================
+    # SECCIÓN 11: PREGUNTAS FRECUENTES (FAQs) GENERALES
+    # ================================================================
+    
     @staticmethod
     def faq_reinscripcion_texto():
+        """Información sobre reinscripción semestral, pagos y cuentas bancarias"""
         return """
 🔄 PROCESO DE REINSCRIPCIÓN SEMESTRAL Y PAGOS
 
@@ -746,6 +1068,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_constancias_texto():
+        """Guía completa para obtener constancias, tiras y documentos oficiales"""
         return """
 📄 GUÍA DE TRÁMITE DE CONSTANCIAS Y TIRAS
 
@@ -765,6 +1088,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_credencial_texto():
+        """Trámites de credencial UNAM: reposición y resello anual"""
         return """
 🪪 TRÁMITES DE CREDENCIAL UNAM Y RESELLO
 
@@ -780,6 +1104,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_certificados_texto():
+        """Certificados parciales y carta pasante para egresados"""
         return """
 📜 CERTIFICADOS PARCIALES Y CARTA PASANTE
 
@@ -795,6 +1120,7 @@ Antes de iniciar el semestre, debes inscribir tus materias ordinarias en TRAMIFE
 
     @staticmethod
     def faq_deportes_presentacion_texto():
+        """Presentación general de la Coordinación de Actividades Deportivas"""
         return """
 ⚽ COORDINACIÓN DE ACTIVIDADES DEPORTIVAS Y RECREATIVAS
 
@@ -819,6 +1145,7 @@ El objetivo es ofrecer y promover una cultura deportiva y de buenos hábitos en 
 
     @staticmethod
     def faq_deportes_costos_texto():
+        """Costos, requisitos y proceso de inscripción deportiva"""
         return """
 💰 REQUISITOS, COSTOS E INSCRIPCIÓN DEPORTIVA
 
@@ -841,6 +1168,7 @@ Para la práctica de cualquier disciplina o uso del gimnasio de pesas es obligat
 
     @staticmethod
     def faq_deportes_instalaciones_texto():
+        """Infraestructura deportiva y contacto de la coordinación"""
         return """
 🏛️ INFRAESTRUCTURA Y CONTACTO DE COORDINACIÓN DEPORTIVA
 
@@ -859,6 +1187,7 @@ La FES Aragón cuenta con las siguientes instalaciones de primer nivel:
 
     @staticmethod
     def faq_intercambio_alumnos_texto():
+        """Programas de movilidad para alumnos inscritos en la FES Aragón"""
         return """
 ✈️ PROGRAMAS DE MOVILIDAD PARA ALUMNOS INSCRITOS (FES ARAGÓN)
 
@@ -878,6 +1207,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_intercambio_externos_texto():
+        """Estudia en la FES Aragón como estudiante externo"""
         return """
 🏛️ ESTUDIA EN LA FES ARAGÓN (ESTUDIANTES EXTERNOS / PRIMER INGRESO)
 
@@ -893,6 +1223,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_intercambio_contacto_texto():
+        """Contacto, horarios y ubicación de la oficina de Intercambio Académico"""
         return """
 📞 HORARIOS, UBICACIÓN Y CONTACTO DE INTERCAMBIO ACADÉMICO
 
@@ -910,6 +1241,7 @@ El Departamento de Intercambio Académico y Vinculación (CISE, Edificio A1, Pla
 
     @staticmethod
     def faq_calificaciones_texto():
+        """Consulta de calificaciones e historial académico vía SIAE"""
         return """
 📊 CONSULTA DE CALIFICACIONES E HISTORIAL ACADÉMICO (SIAE)
 
@@ -923,6 +1255,7 @@ Para revisar tus notas parciales, actas finales asentadas, promedio general acum
 
     @staticmethod
     def faq_horarios_detallado_texto():
+        """Guía para consultar horarios de clases ordinarios"""
         return """
 🕒 1. CONSULTA DE HORARIOS DE CLASES ORDINARIOS
 
@@ -941,6 +1274,7 @@ Para revisar las asignaturas activas del semestre en curso, los salones asignado
 
     @staticmethod
     def faq_horarios_extraordinarios_texto():
+        """Consulta de exámenes extraordinarios"""
         return """
 📝 2. CONSULTA DE EXÁMENES EXTRAORDINARIOS
 
@@ -955,6 +1289,7 @@ Módulo dedicado a revisar las fechas, horarios y sinodales asignados para la ev
 
     @staticmethod
     def faq_horarios_finales_texto():
+        """Consulta de exámenes finales ordinarios"""
         return """
 📜 3. CONSULTA DE EXÁMENES FINALES (ORDINARIOS)
 
@@ -970,6 +1305,7 @@ Consulta el calendario de aplicaciones para las evaluaciones de fin de curso reg
 
     @staticmethod
     def faq_concepto_altas_bajas_texto():
+        """Explicación del periodo de altas y bajas"""
         return """
 🔄 ¿QUÉ ES EL PERIODO DE ALTAS Y BAJAS EN LA FES ARAGÓN?
 
@@ -985,6 +1321,7 @@ Este movimiento se realiza estrictamente en las fechas marcadas en el Calendario
 
     @staticmethod
     def tram_suspension_texto():
+        """Solicitud de suspensión temporal de estudios (periodo de gracia)"""
         return """
 🛑 SOLICITUD DE SUSPENSIÓN TEMPORAL DE ESTUDIOS (PERIODO DE GRACIA)
 
@@ -998,6 +1335,7 @@ Trámite oficial para pausar tus estudios de forma reglamentaria sin perder tu l
 
     @staticmethod
     def tram_rectificacion_texto():
+        """Rectificación de actas y aclaración de calificaciones"""
         return """
 🔄 RECTIFICACIÓN DE ACTAS Y ACLARACIÓN DE CALIFICACIONES
 
@@ -1010,6 +1348,7 @@ Módulo diseñado para solicitar la corrección de una nota mal asentada en el h
 
     @staticmethod
     def tram_cambio_carrera_sistema_texto():
+        """Cambios internos de carrera y de sistema (SUAyED)"""
         return """
 🔀 CAMBIOS INTERNOS DE CARRERA Y DE SISTEMA (SUAyED)
 
@@ -1024,6 +1363,7 @@ Especificaciones para modificar tu estatus académico dentro de los planteles de
 
     @staticmethod
     def tram_permutas_texto():
+        """Trámite de permutas entre facultades"""
         return """
 🤝 TRÁMITE DE PERMUTAS ENTRE FACULTADES
 
@@ -1037,6 +1377,7 @@ Proceso para intercambiar tu lugar de inscripción con otro estudiante de la mis
 
     @staticmethod
     def tram_seguro_texto():
+        """Seguro facultativo médico IMSS UNAM"""
         return """
 🏥 SEGURO FACULTATIVO MÉDICO (IMSS UNAM)
 
@@ -1050,6 +1391,7 @@ Derecho de acceso gratuito a los servicios de salud clínica y hospitalaria por 
 
     @staticmethod
     def tram_anos_posteriores_texto():
+        """Ingreso a años posteriores (acreditación y revalidación)"""
         return """
 🎓 INGRESO A AÑOS POSTERIORES (ACREDITACIÓN Y REVALIDACIÓN)
 
@@ -1064,6 +1406,7 @@ Módulo informativo para alumnos externos o de sistemas incorporados que desean 
 
     @staticmethod
     def faq_egresados_texto():
+        """Trámites académicos formales para egresados"""
         return """
 🎓 TRÁMITES ACADÉMICOS FORMALES PARA EGRESADOS
 
@@ -1078,6 +1421,7 @@ Información sobre constancias de cierre de ciclo y la obtención de identificac
 
     @staticmethod
     def faq_egresados_documentos_pesados_texto():
+        """Expedición de certificados oficiales y carta pasante"""
         return """
 📜 EXPEDICIÓN DE CERTIFICADOS OFICIALES Y CARTA PASANTE
 
@@ -1092,6 +1436,7 @@ Módulo definitivo para la obtención de documentos de término de carrera con v
 
     @staticmethod
     def faq_inscripcion_regulares_texto():
+        """Reinscripción para alumnos regulares"""
         return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                🔄 REINSCRIPCIÓN ALUMNOS REGULARES                ║
@@ -1118,6 +1463,7 @@ Módulo definitivo para la obtención de documentos de término de carrera con v
 
     @staticmethod
     def faq_olvido_contrasena_texto():
+        """Recuperación de contraseña para portales UNAM"""
         return """
 🔐 ¿QUÉ HACER SI OLVIDASTE TU CONTRASEÑA DE ACCESO? (TRAMIFES / SIAE)
 
@@ -1136,6 +1482,7 @@ Si perdiste, bloqueaste o no recuerdas tu clave para ingresar a los portales de 
 
     @staticmethod
     def tramite_web_titulacion_texto():
+        """Enlaces web para titulación y formulario de registro"""
         return """
 🌐 Portal de Titulación - Comunidad Egresada FES Aragón:
 https://aragon.unam.mx/comunidad-egresada/content/titulacion/
@@ -1143,28 +1490,19 @@ https://aragon.unam.mx/comunidad-egresada/content/titulacion/
 📋 Enlace al Formulario de Registro Solicitado (Microsoft Forms):
 https://forms.office.com/pages/responsepage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAN__mF8m8FUQzZJTjdUTVdMUFA5VDQyVTZLWVRDVTRCNS4u
         """
-    # ========== FORMAS DE TITULACIÓN OFICIALES UNAM ==========
-@staticmethod
-def get_botones_formas_titulacion():
-    """
-    Botones con las diferentes modalidades de titulación oficiales de la UNAM.
-    """
-    return [
-        ("📖 1. Tesis", "forma_tesis"),
-        ("🎓 2. Examen General de Conocimientos (EGEL)", "forma_examen_general"),
-        ("📚 3. Totalidad de Créditos y Alto Promedio", "forma_alto_promedio"),
-        ("🏆 4. Actividades de Investigación", "forma_investigacion"),
-        ("📝 5. Ampliación y Profundización (Diplomado)", "forma_diplomado"),
-        ("🌍 6. Experiencia Profesional", "forma_experiencia"),
-        ("📊 7. Apoyo a la Titulación por Proyecto (PAPIT)", "forma_papit"),
-        ("🤝 8. Servicio Social", "forma_servicio_social_titulacion"),
-        ("✈️ 9. Movilidad y Estudios en el Extranjero", "forma_movilidad"),
-        ("🎯 10. Exámenes Internacionales", "forma_examenes_internacionales")
-    ]
 
-@staticmethod
-def forma_tesis_texto():
-    return """
+    # ================================================================
+    # SECCIÓN 12: FORMAS DE TITULACIÓN OFICIALES UNAM (10 MODALIDADES)
+    # ================================================================
+    
+    @staticmethod
+    def forma_tesis_texto():
+        """
+        Modalidad 1: Tesis y Trabajo Profesional.
+        
+        Desarrollo de investigación original con asesoría de un tutor.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║                    📖 TESIS Y TRABAJO PROFESIONAL                ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1190,9 +1528,14 @@ def forma_tesis_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_examen_general_texto():
-    return """
+    @staticmethod
+    def forma_examen_general_texto():
+        """
+        Modalidad 2: Examen General de Conocimientos (EGEL) del CENEVAL.
+        
+        Acreditación del EGEL para obtener título sin trabajo escrito.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🎓 EXAMEN GENERAL DE CONOCIMIENTOS (EGEL)           ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1219,9 +1562,14 @@ def forma_examen_general_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_alto_promedio_texto():
-    return """
+    @staticmethod
+    def forma_alto_promedio_texto():
+        """
+        Modalidad 3: Totalidad de Créditos y Alto Promedio.
+        
+        Titulación automática por cumplimiento de créditos y mención honorífica.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              📚 TOTALIDAD DE CRÉDITOS Y ALTO PROMEDIO            ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1246,9 +1594,14 @@ def forma_alto_promedio_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_investigacion_texto():
-    return """
+    @staticmethod
+    def forma_investigacion_texto():
+        """
+        Modalidad 4: Actividades de Investigación.
+        
+        Participación destacada en proyectos PAPIT, PAPIME o publicaciones.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🏆 ACTIVIDADES DE INVESTIGACIÓN                     ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1276,9 +1629,14 @@ def forma_investigacion_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_diplomado_texto():
-    return """
+    @staticmethod
+    def forma_diplomado_texto():
+        """
+        Modalidad 5: Ampliación y Profundización (Diplomado).
+        
+        Acreditación de diplomado UNAM de mínimo 120 horas en área afín.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║           📝 AMPLIACIÓN Y PROFUNDIZACIÓN (DIPLOMADO)             ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1303,9 +1661,14 @@ def forma_diplomado_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_experiencia_texto():
-    return """
+    @staticmethod
+    def forma_experiencia_texto():
+        """
+        Modalidad 6: Experiencia Profesional.
+        
+        Acreditación de 2 años de experiencia comprobable en el área.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              📊 EXPERIENCIA PROFESIONAL                          ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1332,9 +1695,14 @@ def forma_experiencia_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_papit_texto():
-    return """
+    @staticmethod
+    def forma_papit_texto():
+        """
+        Modalidad 7: Apoyo a la Titulación por Proyecto (PAPIT).
+        
+        Realización de proyecto de investigación bajo dirección de investigador.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║           📊 APOYO A LA TITULACIÓN POR PROYECTO (PAPIT)         ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1363,9 +1731,14 @@ def forma_papit_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_servicio_social_titulacion_texto():
-    return """
+    @staticmethod
+    def forma_servicio_social_titulacion_texto():
+        """
+        Modalidad 8: Titulación por Servicio Social.
+        
+        Elaboración de memoria o informe técnico del Servicio Social realizado.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🤝 TITULACIÓN POR SERVICIO SOCIAL                   ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1392,9 +1765,14 @@ def forma_servicio_social_titulacion_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_movilidad_texto():
-    return """
+    @staticmethod
+    def forma_movilidad_texto():
+        """
+        Modalidad 9: Movilidad y Estudios en el Extranjero.
+        
+        Acreditación de estudios en el extranjero de al menos un semestre.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║            ✈️ MOVILIDAD Y ESTUDIOS EN EL EXTRANJERO              ║
 ╠══════════════════════════════════════════════════════════════════╣
@@ -1420,9 +1798,14 @@ def forma_movilidad_texto():
 ╚══════════════════════════════════════════════════════════════════╝
         """
 
-@staticmethod
-def forma_examenes_internacionales_texto():
-    return """
+    @staticmethod
+    def forma_examenes_internacionales_texto():
+        """
+        Modalidad 10: Exámenes Internacionales.
+        
+        Acreditación de exámenes como GRE, certificaciones profesionales, etc.
+        """
+        return """
 ╔══════════════════════════════════════════════════════════════════╗
 ║              🎯 EXÁMENES INTERNACIONALES                         ║
 ╠══════════════════════════════════════════════════════════════════╣
